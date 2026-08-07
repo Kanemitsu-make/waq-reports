@@ -250,7 +250,9 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--border);
 <h3 id="m2-1" class="subsection">2-1. カテゴリ市場サイズ推移（Top100合計）</h3>
 
 <div class="callout" style="background:#fee2e2; border-left:5px solid var(--danger);">
-  <strong>⚠️ 【重要】カテゴリ市場は前年比-52%規模で大幅縮小:</strong>SellerSprite市場調査データ（Top100商品合計）で、2026-06 前年比 -55.9% / 2026-07 前年比 -52.1% の急激な縮小が確認された。Google Trends（-14%）で見えていた「検索需要」とは大きく乖離。実売レベルでカテゴリ全体が縮小している。
+  <strong>⚠️ 【重要】アウトドアチェア市場全体が前年比-52%規模で縮小:</strong>SellerSprite市場調査データ（Top100商品合計）で、2026-06 前年比 -55.9% / 2026-07 前年比 -52.1% の急激な縮小が確認された。<br>
+  <strong>カテゴリ範囲:</strong> 「スポーツ＆アウトドア > アウトドア > テーブル・チェア・ハンモック > チェア」で、アウトドア用チェアに絞られている（オフィスチェア等は含まない）。<br>
+  <strong>スコープ注記:</strong> Google Trends「リクライニングローチェア」-14% は特定KWでの検索需要、この -52% はアウトドアチェア市場全体の実売。両者はまだスコープが違うため直接比較不可だが、<strong>「アウトドアチェア市場そのものが急縮小」</strong>という事実は重い。リクライニング特化セグメントのみの月次推移は Phase 1追加DL後に精査予定。
 </div>
 
 <h4>カテゴリ「チェア」実売月次推移（Top100商品合計）</h4>
@@ -278,8 +280,8 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--border);
   <h4>市場縮小の要因</h4>
   <p>2025年後半までは市場が急拡大（前年比+257%等）。<strong>2026年前半から急速に縮小フェーズ</strong>に入っている。「キャンプブームのピークアウト」が実売レベルで顕在化している可能性。</p>
   <div class="reasoning">
-    <strong>推論根拠:</strong> ①メモリ`outdoor_market_trend_2026.md`で「キャンプ用品ピークアウト」が示されていた、②Google Trends（-14%）よりも実売（-52%）の下げ幅が大きい＝購買行動の減退が検索減退より急激。<br>
-    <strong>別解釈の可能性:</strong> カテゴリ「チェア」はオフィスチェアや家具まで含む広範なカテゴリの可能性。より絞ったカテゴリで再検証必要。
+    <strong>推論根拠:</strong> ①メモリ`outdoor_market_trend_2026.md`で「キャンプ用品ピークアウト」が示されていた、②SellerSpriteカテゴリは「アウトドア > テーブル・チェア・ハンモック > チェア」で絞られており、オフィスチェア等の混入はない、③実売-52%は「アウトドアチェア全般」の実データ。<br>
+    <strong>ただし別スコープの可能性:</strong> リクライニング特化セグメントに絞れば数値は違う可能性。Phase 1追加DL後に月次リクライニングセグメント推移で検証必要。
   </div>
 </div>
 
@@ -415,9 +417,14 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--border);
 </table>
 
 <div class="hypothesis">
-  <span class="hypothesis-label">🧠 Claude解釈・仮説</span>
-  <h4>検索と実売の乖離</h4>
-  <p>「検索需要は-14%」でも「実売は-52%」という乖離は、<strong>「検索したが購入に至らない」ユーザーが増加</strong>している可能性を示唆。理由候補: 価格が上がった、選択肢が増えて比較検討長期化、購買意欲そのものが低下。</p>
+  <span class="hypothesis-label">🧠 Claude解釈・仮説（要修正）</span>
+  <h4>検索と実売の「乖離」は比較スコープの違いだった可能性</h4>
+  <p><strong>【重要な訂正】</strong>Google Trends「リクライニングローチェア」検索需要-14% と SellerSprite市場「チェア全体」実売-52% は<strong>スコープが違う（狭い特定KW vs 広いカテゴリ全体）</strong>ため、直接の乖離として扱うのは誤り。</p>
+  <p>正しい比較には <strong>「リクライニング/ローチェア」セグメントに絞った月次実売</strong>データが必要。カテゴリ「チェア」の月次Top100から同セグメントをフィルタして集計する必要がある（Phase 1 追加DLで実行予定）。</p>
+  <div class="reasoning">
+    <strong>現時点で分かること:</strong> カテゴリ「チェア」全体は-52%減。ただし本カテゴリはオフィスチェア・折りたたみチェア等の広い商品を含むため、リクライニング特化セグメントの動向とは別物の可能性。<br>
+    <strong>次に検証すべき:</strong> 各月のTop100からリクライニング/ローチェアのみ抽出した月次売上推移（Phase 1追加DLで実行予定）。これで真の同セグメント前年比が出せる。
+  </div>
 </div>
 </section>
 
