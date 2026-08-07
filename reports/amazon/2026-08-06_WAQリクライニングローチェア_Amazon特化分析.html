@@ -562,14 +562,42 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--border);
   <strong>データ事実:</strong> Playwright取得した掲載レビュー本文で、WAQには「化学物質臭」「ナットが取れる」「持ち手縫製不良」の★1-2記述が存在。Hilanderの掲載範囲には品質関連の★1-2は見当たらず。
 </div>
 
+<h3>【2026-08-07 追加調査】表示レビュー★分布の直接比較（各ASIN 8件表示）</h3>
+<p style="font-size:13px; color:var(--sub);">Playwrightで各商品ページ表示の8レビューの★を集計。「代表レビュー」として購買検討者の目に入るレビュー品質の比較。</p>
+<table>
+  <thead><tr>
+    <th>ブランド</th>
+    <th class="num">★1</th>
+    <th class="num">★2</th>
+    <th class="num">★3</th>
+    <th class="num">★4</th>
+    <th class="num">★5</th>
+    <th class="num">★1-2 合計</th>
+  </tr></thead>
+  <tbody>
+    <tr><td>WAQ TAN</td><td class="num">0</td><td class="num">0</td><td class="num">1</td><td class="num">2</td><td class="num">5</td><td class="num">0</td></tr>
+    <tr class="highlight-row"><td>WAQ CHARCOAL</td><td class="num">0</td><td class="num"><strong>1</strong></td><td class="num">1</td><td class="num">3</td><td class="num">3</td><td class="num trend-down"><strong>1</strong></td></tr>
+    <tr class="highlight-row"><td>WAQ COYOTE</td><td class="num"><strong>1</strong></td><td class="num"><strong>1</strong></td><td class="num">1</td><td class="num">0</td><td class="num">5</td><td class="num trend-down"><strong>2</strong></td></tr>
+    <tr><td>Hilander-ST</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">2</td><td class="num">6</td><td class="num">0</td></tr>
+    <tr><td>Hilander-AL</td><td class="num">0</td><td class="num">0</td><td class="num">1</td><td class="num">2</td><td class="num">5</td><td class="num">0</td></tr>
+    <tr><td>Hilander-Hi</td><td class="num">0</td><td class="num">0</td><td class="num">0</td><td class="num">1</td><td class="num">7</td><td class="num">0</td></tr>
+    <tr class="total-row"><td>WAQ 3バリ合計</td><td class="num"><strong>1</strong></td><td class="num"><strong>2</strong></td><td class="num">3</td><td class="num">5</td><td class="num">13</td><td class="num trend-down"><strong>3</strong></td></tr>
+    <tr class="total-row" style="background:#f0fdf4;"><td>Hilander 3ASIN合計</td><td class="num">0</td><td class="num">0</td><td class="num">1</td><td class="num">5</td><td class="num">18</td><td class="num trend-up"><strong>0</strong></td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <strong>決定的事実（2026-08-07確定）:</strong>購買検討ユーザーが目にする「代表レビュー」表示範囲で、<strong>WAQ 3バリには★1-2が合計3件（COYOTE ★1化学物質臭・★2ナット、CHARCOAL ★2縫製）</strong>、一方 <strong>Hilander 3ASINには★1-2が0件</strong>。この差は Hilander が「代表レビュー」品質が高い（★1-2が下位に埋もれる）状態を意味する。
+</div>
+
 <div class="hypothesis">
   <span class="hypothesis-label">🧠 Claude解釈・仮説</span>
   <h4>低評価レビューの購買行動への影響についての仮説</h4>
-  <p>低評価レビューが表示されることで、<strong>「購買検討時に離脱するユーザーが増え、CVR低下＝売上減の一因になっている」</strong> と推測。</p>
+  <p>「代表レビュー」表示範囲での★1-2の有無の差（WAQ 3件 vs Hilander 0件）から、<strong>「Hilander の方が購買検討時のCVRが有利、WAQは品質不良指摘が離脱要因になっている」</strong> と推測。</p>
   <div class="reasoning">
-    <strong>推論根拠:</strong> ①Amazon商品ページの「代表レビュー」表示に★1-2が混在すると購買前ユーザーの目に入る（Amazon仕様）、②「化学物質臭」等はブランド信頼を損ないやすい種類の指摘（一般的なEC知見）。<br>
-    <strong>ただし未検証:</strong> WAQバリのCVRを実測したデータは本レポート内にない。★1-2レビューの離脱への影響度を検証するにはAmazon Business Reports のセッション/CVRデータが必要。<br>
-    <strong>取得可能性:</strong> Playwrightで確認できるのは掲載範囲のレビューのみ。★1-2に絞った全レビューの取得はAmazonログインが必要（現時点で未実施）。
+    <strong>推論根拠:</strong> ①Amazon商品ページの「代表レビュー」表示に★1-2が混在すると購買前ユーザーの目に入る（Amazon仕様）、②WAQ COYOTEの★1「化学物質臭」等はブランド信頼を損ないやすい種類の指摘（一般的なEC知見）、③複数バリで★3にも「腰痛」の共通指摘あり（座面設計課題の可能性）。<br>
+    <strong>ただし別解釈の可能性:</strong> ①レビュー数の多い WAQ BLACK (295件) や OLIVE (240件) は今回未調査、そこでも★1-2が下位に埋もれている可能性、②★1-2の割合は WAQ全レビュー数に対する比率としては小さいかもしれない、③Amazonの「代表レビュー」表示アルゴリズムはブラックボックスで、時間帯やユーザーによって表示内容が変わる可能性。<br>
+    <strong>次の検証手段:</strong> ①Amazon にログインして★1-2フィルタで全レビュー取得（現状Playwright login未実施）、②CVR実測データ（Amazon Business Reports）で仮説裏取り（U5データ取得依頼中）。
   </div>
 </div>
 </section>
