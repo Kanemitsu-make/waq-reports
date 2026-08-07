@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>WAQ リクライニングローチェア 売上減少要因分析 | 2026-08-06</title>
+<style>
+:root{
+  --bg:#f5f7fa; --card:#fff; --ink:#1e293b; --sub:#64748b;
+  --primary:#0f766e; --primary-l:#14b8a6; --danger:#dc2626; --warn:#f59e0b;
+  --success:#16a34a; --info:#2563eb; --purple:#7c3aed;
+  --border:#e2e8f0;
+}
+*{box-sizing:border-box;}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;
+     background:var(--bg); color:var(--ink); margin:0; padding:0; line-height:1.7;}
+.container{max-width:1080px; margin:0 auto; padding:32px 24px;}
+header{background:linear-gradient(135deg,#0f766e 0%,#14b8a6 100%);
+       color:#fff; padding:40px 32px; border-radius:16px; margin-bottom:32px;
+       box-shadow:0 10px 30px rgba(15,118,110,0.2);}
+header h1{margin:0 0 8px; font-size:26px; letter-spacing:.02em;}
+header p{margin:4px 0; opacity:.95; font-size:14px;}
+header .meta{display:flex; gap:16px; margin-top:12px; font-size:13px; opacity:.9; flex-wrap:wrap;}
+
+.toc{background:var(--card); border:1px solid var(--border); border-radius:12px;
+     padding:20px 24px; margin-bottom:28px;}
+.toc h2{margin:0 0 12px; font-size:15px; color:var(--sub);}
+.toc ol{margin:0; padding-left:20px;}
+.toc li{margin:6px 0;}
+.toc a{color:var(--primary); text-decoration:none;}
+.toc a:hover{text-decoration:underline;}
+
+section{margin-bottom:36px;}
+h2.section-title{font-size:20px; border-left:5px solid var(--primary);
+                 padding-left:12px; margin:0 0 20px;}
+h3{font-size:16px; margin:24px 0 12px; color:var(--ink);}
+
+.card{background:var(--card); border-radius:12px; padding:20px 24px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.04); margin-bottom:16px;
+      border:1px solid var(--border);}
+.card.danger{border-left:5px solid var(--danger); background:#fef2f2;}
+.card.warn{border-left:5px solid var(--warn); background:#fffbeb;}
+.card.success{border-left:5px solid var(--success); background:#f0fdf4;}
+.card.info{border-left:5px solid var(--info); background:#eff6ff;}
+.card.primary{border-left:5px solid var(--primary); background:#f0fdfa;}
+.card.purple{border-left:5px solid var(--purple); background:#faf5ff;}
+
+.badge{display:inline-block; padding:3px 10px; border-radius:999px;
+       font-size:11px; font-weight:600; margin-right:6px; letter-spacing:.03em;}
+.badge.danger{background:#fee2e2; color:var(--danger);}
+.badge.warn{background:#fef3c7; color:#b45309;}
+.badge.success{background:#dcfce7; color:#166534;}
+.badge.info{background:#dbeafe; color:#1d4ed8;}
+.badge.primary{background:#ccfbf1; color:#115e59;}
+.badge.gray{background:#e2e8f0; color:#475569;}
+
+.grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin:16px 0;}
+.stat{background:var(--card); border:1px solid var(--border); border-radius:12px;
+      padding:16px 20px; text-align:center;}
+.stat .label{font-size:12px; color:var(--sub); margin-bottom:6px;}
+.stat .value{font-size:26px; font-weight:700; color:var(--ink);}
+.stat .value.danger{color:var(--danger);}
+.stat .value.success{color:var(--success);}
+.stat .sub{font-size:11px; color:var(--sub); margin-top:4px;}
+
+table{width:100%; border-collapse:collapse; background:#fff; border-radius:8px; overflow:hidden;
+      box-shadow:0 1px 3px rgba(0,0,0,0.05); margin:12px 0; font-size:12.5px;}
+th,td{padding:9px 10px; text-align:left; border-bottom:1px solid var(--border);}
+th{background:#f1f5f9; font-weight:600; color:var(--sub); font-size:11.5px;}
+td.num{text-align:right; font-variant-numeric:tabular-nums;}
+tr.highlight-row{background:#fef2f2;}
+tr.peak-row{background:#f0fdf4;}
+.trend-down{color:var(--danger); font-weight:600;}
+.trend-up{color:var(--success); font-weight:600;}
+.trend-flat{color:var(--sub);}
+
+.callout{background:#fef3c7; border-left:4px solid var(--warn);
+         padding:14px 18px; border-radius:6px; margin:14px 0;}
+.callout strong{color:#b45309;}
+
+ul.check{list-style:none; padding-left:0;}
+ul.check li{padding:6px 0 6px 28px; position:relative;}
+ul.check li:before{content:"☐"; position:absolute; left:6px; color:var(--primary); font-weight:700;}
+
+footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--border);
+       color:var(--sub); font-size:12px; text-align:center;}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>WAQ リクライニングローチェア 売上減少要因分析</h1>
+  <p>データソース：SellerSprite 月次売上推定（親ASIN単位）</p>
+  <div class="meta">
+    <span>📅 分析日：2026-08-06</span>
+    <span>🎯 対象：WAQ-RLC1（B0CGVN1DVG）</span>
+    <span>🥊 競合：DesertFox / Hilander×3製品</span>
+  </div>
+</header>
+
+<div class="toc">
+  <h2>📑 目次</h2>
+  <ol>
+    <li><a href="#summary">エグゼクティブサマリー</a></li>
+    <li><a href="#status">売上減少の実態と時系列</a></li>
+    <li><a href="#market">市場全体は成長中：シェア奪取の構図</a></li>
+    <li><a href="#competitors">競合分析：Hilander 3製品体制の脅威</a></li>
+    <li><a href="#asin-structure">ASIN構造の含意（WAQの構造的ハンデ）</a></li>
+    <li><a href="#factors">要因分解（内部×外部）</a></li>
+    <li><a href="#actions">推奨アクションと追加検証</a></li>
+    <li><a href="#appendix">付録：月次データ全量</a></li>
+  </ol>
+</div>
+
+<!-- ========== 1. サマリー ========== -->
+<section id="summary">
+<h2 class="section-title">1. エグゼクティブサマリー</h2>
+
+<div class="card danger">
+  <span class="badge danger">結論</span>
+  <span class="badge gray">高確度</span>
+  <h3 style="margin-top:10px;">主要因は「Hilander（ハイランダー）」の多品種攻勢によるシェア奪取＋WAQのASIN構造上のハンデ</h3>
+  <p>WAQ単独の問題ではなく、<strong>カテゴリ内の勢力図が2025年後半に激変</strong>。Hilander が 3製品体制（ST/AL/Hi）で棚を占拠し、市場は約2倍に成長しているにもかかわらず、WAQは市場成長を取り込めずシェアを奪われている構図です。加えて、<strong>WAQは「ノーマル+ハイバック」を1ASINに統合しているため、Amazon検索結果への露出枠でも Hilander に劣後</strong>している構造的なハンデがあります。</p>
+</div>
+
+<div class="callout">
+  <strong>⚠️ データ解釈上の重要な前提：</strong>本レポートの WAQ 数値（SellerSprite取得）は <strong>WAQ-RLC1 ノーマル版とハイバック版の合算</strong>です。両者は同一ASIN（B0CGVN1DVG）内のバリエーションとして管理されているため、SellerSpriteでは個別に分離できません。Hilander 3製品は各々独立ASINで計上されています。<br>
+  <strong>ただし、シェア低下・前年割れの傾向自体はこの前提でも変わりません</strong>（合算後の数字でも敗色濃厚）。詳細は「4. ASIN構造の含意」を参照。
+</div>
+
+<div class="grid">
+  <div class="stat">
+    <div class="label">2026年 vs 2025年（1-7月累計）</div>
+    <div class="value danger">-35.5%</div>
+    <div class="sub">WAQ販売数 前年同期比</div>
+  </div>
+  <div class="stat">
+    <div class="label">2026年6月 vs 前年同月</div>
+    <div class="value danger">-47.8%</div>
+    <div class="sub">最大落ち込み月</div>
+  </div>
+  <div class="stat">
+    <div class="label">5社内シェア推移</div>
+    <div class="value danger">62% → 30%</div>
+    <div class="sub">2024年後半 → 2026年</div>
+  </div>
+  <div class="stat">
+    <div class="label">Hilander合計シェア</div>
+    <div class="value danger">1% → 55%</div>
+    <div class="sub">2024年後半 → 2026年</div>
+  </div>
+  <div class="stat">
+    <div class="label">カテゴリ市場成長</div>
+    <div class="value success">+77%</div>
+    <div class="sub">2024後半→2025後半（5社合計）</div>
+  </div>
+</div>
+</section>
+
+<!-- ========== 2. 売上減少の実態 ========== -->
+<section id="status">
+<h2 class="section-title">2. 売上減少の実態と時系列</h2>
+
+<div class="card">
+  <p><strong>2026年1月から前年割れが継続。6-7月は前年比40%以上減の深刻な状況。</strong>8月は月途中で+24%とやや持ち直しの兆しはあるが、傾向転換とは言い切れない。</p>
+</div>
+
+<h3>WAQ 月次販売数 vs 前年同月</h3>
+<table>
+  <thead><tr><th>月</th><th class="num">2026年販売数</th><th class="num">2025年同月</th><th class="num">前年同月比</th><th>備考</th></tr></thead>
+  <tbody>
+    <tr><td>1月</td><td class="num">325</td><td class="num">427</td><td class="num trend-down">-23.9%</td><td>前年割れスタート</td></tr>
+    <tr><td>2月</td><td class="num">287</td><td class="num">454</td><td class="num trend-down">-36.8%</td><td></td></tr>
+    <tr><td>3月</td><td class="num">364</td><td class="num">545</td><td class="num trend-down">-33.2%</td><td></td></tr>
+    <tr class="highlight-row"><td>4月</td><td class="num">496</td><td class="num">850</td><td class="num trend-down">-41.6%</td><td>春商戦での失速</td></tr>
+    <tr><td>5月</td><td class="num">573</td><td class="num">707</td><td class="num trend-down">-19.0%</td><td>やや復調</td></tr>
+    <tr class="highlight-row"><td>6月</td><td class="num">348</td><td class="num">667</td><td class="num trend-down">-47.8%</td><td>最悪の月</td></tr>
+    <tr class="highlight-row"><td>7月</td><td class="num">785</td><td class="num">1,325</td><td class="num trend-down">-40.8%</td><td>ピーク月で大差</td></tr>
+    <tr><td>8月（途中）</td><td class="num">682</td><td class="num">552</td><td class="num trend-up">+23.6%</td><td>要継続観察</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <strong>ポイント：</strong>2025年12月まではプラス成長を続けていた（12月は+35%）。<strong>2026年1月を境に潮目が変わっている</strong>。この時期に外部環境（＝競合の勢力拡大）が閾値を超えた可能性が高い。
+</div>
+</section>
+
+<!-- ========== 3. 市場全体 ========== -->
+<section id="market">
+<h2 class="section-title">3. 市場全体は成長中：シェア奪取の構図</h2>
+
+<div class="card primary">
+  <span class="badge primary">最重要インサイト</span>
+  <p style="margin-top:10px;">この5社合計の販売数を「カテゴリ市場規模」の近似指標として見ると、<strong>市場は2024年比で大幅に拡大</strong>している。<strong>WAQは市場停滞で沈んでいるのではなく、拡大市場から取り残されている</strong>。</p>
+</div>
+
+<h3>5社合計販売数 = カテゴリ市場サイズ推移</h3>
+<table>
+  <thead><tr><th>期間</th><th class="num">月平均販売数</th><th class="num">前年比</th><th>WAQ絶対数</th><th class="num">WAQシェア</th></tr></thead>
+  <tbody>
+    <tr><td>2024年 6-10月</td><td class="num">1,103</td><td class="num">-</td><td class="num">647</td><td class="num">58.6%</td></tr>
+    <tr><td>2025年 6-10月</td><td class="num">1,952</td><td class="num trend-up">+77.0%</td><td class="num">824</td><td class="num">42.2%</td></tr>
+    <tr class="highlight-row"><td>2026年 6-8月</td><td class="num">2,120</td><td class="num trend-up">+8.6%</td><td class="num">605</td><td class="num trend-down">28.5%</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <strong>読み取り：</strong>市場は2024→2025で+77%成長。2026年も継続して微増。しかしWAQの月販は 824→605 と<strong>拡大市場の中で絶対数を減らしている</strong>状態。シェアも 58.6%→42.2%→28.5% と段階的に低下。
+</div>
+
+<h3>5社内シェア推移（販売数ベース・期間平均）</h3>
+<table>
+  <thead><tr><th>期間</th><th class="num">WAQ</th><th class="num">DesertFox</th><th class="num">Hilander-ST</th><th class="num">Hilander-AL</th><th class="num">Hilander-Hi</th><th class="num" style="background:#fef3c7;">Hilander合計</th></tr></thead>
+  <tbody>
+    <tr class="peak-row"><td>2024年 6-10月</td><td class="num"><strong>58.6%</strong></td><td class="num">41.4%</td><td class="num">0%</td><td class="num">0.6%</td><td class="num">0%</td><td class="num" style="background:#fef3c7;">0.6%</td></tr>
+    <tr><td>2025年 1-6月</td><td class="num">52.3%</td><td class="num">28.2%</td><td class="num">5.2%</td><td class="num">10.6%</td><td class="num">0%</td><td class="num" style="background:#fef3c7;">15.8%</td></tr>
+    <tr><td>2025年 7-12月</td><td class="num">37.7%</td><td class="num">13.0%</td><td class="num">32.1%</td><td class="num">17.2%</td><td class="num">1.2%</td><td class="num" style="background:#fef3c7;">50.5%</td></tr>
+    <tr class="highlight-row"><td>2026年 1-8月</td><td class="num trend-down">28.5%</td><td class="num">15.7%</td><td class="num trend-up">29.5%</td><td class="num trend-up">22.0%</td><td class="num trend-up">4.3%</td><td class="num trend-up" style="background:#fef3c7;"><strong>55.9%</strong></td></tr>
+  </tbody>
+</table>
+
+<p style="font-size:13px; color:var(--sub);">※Hilander 3製品合計で2026年に <strong>55.9%</strong> を占め、事実上のカテゴリリーダーに。WAQは首位から2位に転落し、Hilander の1/2以下のシェアに。</p>
+</section>
+
+<!-- ========== 4. 競合分析 ========== -->
+<section id="competitors">
+<h2 class="section-title">4. 競合分析：Hilander 3製品体制の脅威</h2>
+
+<div class="card warn">
+  <span class="badge warn">主犯</span>
+  <p style="margin-top:8px;"><strong>Hilanderは3製品で棚を占拠する「多品種戦略」</strong>を取っている。単一製品ではなく、価格帯・素材・座面高さを変えたバリエーションで<strong>あらゆる購買層をカバー</strong>している。WAQは1製品での勝負を強いられている。</p>
+</div>
+
+<div class="grid">
+  <div class="card warn" style="margin:0;">
+    <span class="badge warn">主力①</span>
+    <h3 style="margin:8px 0;">Hilander クライマックスローチェア2 ST（スチール）</h3>
+    <p style="font-size:12px; margin:6px 0; color:var(--sub);">ASIN: B0F49JWG7P</p>
+    <ul style="font-size:13px; margin:8px 0;">
+      <li>2025年4月 発売（初月102個）</li>
+      <li>2025年7月に <strong>1,061個/月</strong>（発売4ヶ月で大ヒット）</li>
+      <li>2026年は 500-682個/月で安定</li>
+      <li>価格帯：<strong>¥8,000-8,700（WAQと同帯）</strong></li>
+    </ul>
+  </div>
+  <div class="card warn" style="margin:0;">
+    <span class="badge warn">主力②</span>
+    <h3 style="margin:8px 0;">Hilander クライマックスローチェア2 AL（アルミ）</h3>
+    <p style="font-size:12px; margin:6px 0; color:var(--sub);">ASIN: B0CLMFWVDM</p>
+    <ul style="font-size:13px; margin:8px 0;">
+      <li>2024年発売だが2025年前半までは小規模</li>
+      <li>2025年後半にブレイク（370-461個/月）</li>
+      <li>2026年は 421-592個/月で安定</li>
+      <li>価格帯：¥8,700-9,500（WAQよりやや上）</li>
+    </ul>
+  </div>
+  <div class="card info" style="margin:0;">
+    <span class="badge info">新規参入</span>
+    <h3 style="margin:8px 0;">Hilander クライマックスハイチェア</h3>
+    <p style="font-size:12px; margin:6px 0; color:var(--sub);">ASIN: B0FVHZXVB2</p>
+    <ul style="font-size:13px; margin:8px 0;">
+      <li>2025年10月 発売（初月5個）</li>
+      <li>2026年8月は124個/月まで成長</li>
+      <li>価格帯：<strong>¥11,000-11,900（プレミアム帯）</strong></li>
+      <li>座面高さ違いでカバー範囲を拡張中</li>
+    </ul>
+  </div>
+  <div class="card" style="margin:0;">
+    <span class="badge gray">影響：中</span>
+    <h3 style="margin:8px 0;">DesertFox（低価格帯）</h3>
+    <p style="font-size:12px; margin:6px 0; color:var(--sub);">ASIN: B0C99DST35</p>
+    <ul style="font-size:13px; margin:8px 0;">
+      <li>価格帯：<strong>¥4,500-5,100（WAQの約半額）</strong></li>
+      <li>WAQ同様に前年比マイナス基調</li>
+      <li>Hilander台頭の被害を共に受けている構図</li>
+      <li>直接競合というよりセグメント違い</li>
+    </ul>
+  </div>
+</div>
+
+<h3>Hilander躍進のタイムライン</h3>
+<table>
+  <thead><tr><th>時期</th><th>出来事</th><th>Hilander合計シェア</th><th>WAQへの影響</th></tr></thead>
+  <tbody>
+    <tr><td>2025-04</td><td>Hilander-ST 発売（102個）</td><td class="num">22.8%</td><td>まだ影響軽微</td></tr>
+    <tr><td>2025-07</td><td>Hilander-ST が1,061個到達（発売4ヶ月）</td><td class="num">47.4%</td><td>WAQピーク月1,325個で逃げ切り</td></tr>
+    <tr class="peak-row"><td>2025-08〜09</td><td>ST + AL の2製品体制が定着</td><td class="num">49-51%</td><td>WAQシェア36%へ後退</td></tr>
+    <tr><td>2025-10</td><td>Hilander-Hi 発売（3製品体制へ）</td><td class="num">52.8%</td><td>プレミアム帯にも展開</td></tr>
+    <tr class="highlight-row"><td>2026-01以降</td><td>Hilander 3製品合計が月1,000個超で常態化</td><td class="num"><strong>48-64%</strong></td><td><strong>WAQ 前年割れ突入</strong></td></tr>
+  </tbody>
+</table>
+</section>
+
+<!-- ========== 4.5 ASIN構造の含意 ========== -->
+<section id="asin-structure">
+<h2 class="section-title">5. ASIN構造の含意（WAQの構造的ハンデ）</h2>
+
+<div class="card danger">
+  <span class="badge danger">新たな発見</span>
+  <h3 style="margin-top:8px;">WAQは「1ASIN内に2バリエーション」、Hilanderは「独立3ASIN」</h3>
+  <p>WAQリクライニングローチェアは <strong>ノーマル版とハイバック版</strong> の2バリエーションを1つの商品ページ（B0CGVN1DVG）に統合。一方Hilanderは ST／AL／Hi をそれぞれ独立ASINで展開。この違いが Amazon 上での <strong>「検索露出枠」「KW最適化粒度」「レビュー蓄積単位」「広告出稿単位」</strong> に構造的な差を生んでいる。</p>
+</div>
+
+<h3>ASIN構造比較：WAQ vs Hilander</h3>
+<table>
+  <thead><tr><th>観点</th><th>WAQ（1ASIN）</th><th>Hilander（独立3ASIN）</th><th>影響</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>検索結果表示枠</strong></td>
+      <td class="num">1枠</td>
+      <td class="num" style="background:#fee2e2;">3枠（トリプル露出）</td>
+      <td>KW検索時にHilanderが検索結果を占拠</td>
+    </tr>
+    <tr>
+      <td><strong>タイトル・BEKW最適化</strong></td>
+      <td>1商品ページで両バリエーションをカバー</td>
+      <td style="background:#fee2e2;">各ASINで専用最適化可能</td>
+      <td>KWターゲティングの精度で劣後</td>
+    </tr>
+    <tr>
+      <td><strong>レビュー蓄積</strong></td>
+      <td>合算（バリエーション不明瞭）</td>
+      <td style="background:#fee2e2;">各ASINで独立蓄積</td>
+      <td>用途別購買判断がしにくい</td>
+    </tr>
+    <tr>
+      <td><strong>SP広告出稿</strong></td>
+      <td>1ASIN分の予算・KW枠</td>
+      <td style="background:#fee2e2;">3ASIN × 独立予算・KW枠</td>
+      <td>広告面積で3倍差</td>
+    </tr>
+    <tr>
+      <td><strong>ブランドストア棚</strong></td>
+      <td>1商品分</td>
+      <td style="background:#fee2e2;">3商品分</td>
+      <td>ブランド訪問時の選択肢演出</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <strong>読み取り：</strong>Hilanderは「棚を占拠する」だけでなく「<strong>検索結果にも3枠露出</strong>」している。WAQは合算売上ではまだ健闘しているが、Amazonの評価ロジック（BSR・検索順位）は<strong>ASIN単位</strong>のため、単一ASINで戦うWAQは構造的に不利。
+</div>
+
+<h3>戦略オプション：ASIN構造の見直し</h3>
+<table>
+  <thead><tr><th>オプション</th><th>メリット</th><th>デメリット / リスク</th><th>推奨度</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>A) ASIN完全分離</strong><br><span style="font-size:12px; color:var(--sub);">ノーマル/ハイバックを別ASIN化</span></td>
+      <td>検索露出2枠化・KW独立最適化・独立レビュー蓄積・広告予算2倍化</td>
+      <td>既存レビュー資産の分散・在庫管理複雑化・SEO再構築期間必要</td>
+      <td><span class="badge warn">要検討</span></td>
+    </tr>
+    <tr>
+      <td><strong>B) 現状維持＋バリエーション訴求強化</strong><br><span style="font-size:12px; color:var(--sub);">同一ASIN内で差別化明確化</span></td>
+      <td>レビュー統合資産維持・リスクなし・即時実行可</td>
+      <td>検索露出は1枠のまま・SEO構造的ハンデは解消せず</td>
+      <td><span class="badge success">短期実行</span></td>
+    </tr>
+    <tr>
+      <td><strong>C) 別カラーバリでASIN追加</strong><br><span style="font-size:12px; color:var(--sub);">新色投入で新規ASIN化</span></td>
+      <td>リスク低くASIN増やせる・新規需要取り込み</td>
+      <td>準備期間必要・商品開発コスト</td>
+      <td><span class="badge info">中期検討</span></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="card warn" style="margin-top:16px;">
+  <span class="badge warn">重要な留意点</span>
+  <p style="margin-top:8px;">ASIN分離（オプションA）は <strong>Amazon SEO・レビュー資産・広告運用の全てに影響する重要な意思決定</strong>。実行前に：</p>
+  <ul style="font-size:13px;">
+    <li>既存レビュー分散のシミュレーション（何件が各ASINに引き継がれるか）</li>
+    <li>Hilander 3ASINの子バリエーション有無の確認（Hilanderも同様の構造なら差はゼロ）</li>
+    <li>ノーマル/ハイバックの SKU 別販売比率の把握（社内データ）</li>
+    <li>Amazon サポートへの技術的可否確認</li>
+  </ul>
+  <p style="font-size:13px;">上記が揃った段階で、経営判断で実行是非を決定するのが望ましい。</p>
+</div>
+</section>
+
+<!-- ========== 6. 要因分解 ========== -->
+<section id="factors">
+<h2 class="section-title">6. 要因分解（内部×外部）</h2>
+
+<div class="grid">
+  <div class="card danger" style="margin:0;">
+    <span class="badge danger">外部要因（確度高）</span>
+    <h3 style="margin:8px 0;">🔥 Hilanderによる直接的シェア奪取</h3>
+    <ul style="font-size:13px;">
+      <li>同カテゴリで<strong>3製品体制</strong>の面攻撃</li>
+      <li>ナチュラム系ブランドで知名度が高い</li>
+      <li>価格帯・素材・座面高さでフルラインナップ化</li>
+    </ul>
+  </div>
+  <div class="card warn" style="margin:0;">
+    <span class="badge warn">外部要因（確度中）</span>
+    <h3 style="margin:8px 0;">📈 カテゴリ市場成長への追従不足</h3>
+    <ul style="font-size:13px;">
+      <li>市場+77%の中で自社は横ばい〜微減</li>
+      <li>新規需要（新規参入層）を Hilander に取られている可能性</li>
+      <li>タイトル・KW・広告出稿の見直し余地あり</li>
+    </ul>
+  </div>
+  <div class="card info" style="margin:0;">
+    <span class="badge info">内部要因（要検証）</span>
+    <h3 style="margin:8px 0;">💰 価格戦略の硬直</h3>
+    <ul style="font-size:13px;">
+      <li>WAQ平均価格は¥8,600-8,900で高止まり</li>
+      <li>セール月と非セール月の変動が競合より小さい</li>
+      <li>値引き・クーポン戦術の余地あり</li>
+    </ul>
+  </div>
+  <div class="card purple" style="margin:0;">
+    <span class="badge purple">内部要因（要検証）</span>
+    <h3 style="margin:8px 0;">🔍 SEO/KW競争力の変化</h3>
+    <ul style="font-size:13px;">
+      <li>「リクライニングローチェア」等のKW順位が下がっている可能性</li>
+      <li>Hilanderのタイトル・BEKW最適化が奏功している可能性</li>
+      <li>BAデータでの確認が必要</li>
+    </ul>
+  </div>
+  <div class="card" style="margin:0;">
+    <span class="badge gray">内部要因（要検証）</span>
+    <h3 style="margin:8px 0;">📷 商品ページ訴求力</h3>
+    <ul style="font-size:13px;">
+      <li>画像・A+コンテンツ・レビュー数の差</li>
+      <li>Hilander-STは発売4ヶ月で1,061個 → 訴求力が高い証左</li>
+      <li>比較調査が必要</li>
+    </ul>
+  </div>
+  <div class="card" style="margin:0;">
+    <span class="badge gray">内部要因（要検証）</span>
+    <h3 style="margin:8px 0;">📦 在庫・広告運用</h3>
+    <ul style="font-size:13px;">
+      <li>欠品による機会損失の可能性</li>
+      <li>SP広告の防衛出稿の有無</li>
+      <li>Hilander ASINへの指名広告出稿検討</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card danger" style="margin-top:20px;">
+  <span class="badge danger">戦略ギャップ</span>
+  <h3 style="margin:8px 0;">🎯 WAQは「1ASIN×2バリエーション vs 独立3ASIN」の劣勢構造</h3>
+  <p>Hilanderは <strong>ST（スチール標準）／AL（アルミ軽量）／Hi（ハイチェア）</strong> の3独立ASINで購買層の複数ニーズを同時に取り込む。一方 WAQ は ノーマル/ハイバックの2バリエーションを1つの商品ページに統合しているため、<strong>Amazon の検索露出・SEO評価・レビュー蓄積が実質「1製品扱い」</strong>となり構造的に不利。既に商品バリエーション自体は存在するため、<strong>新製品開発ではなく「ASIN構造の見直し」が短中期の打ち手</strong>となる（詳細は §5 参照）。</p>
+</div>
+</section>
+
+<!-- ========== 7. 推奨アクション ========== -->
+<section id="actions">
+<h2 class="section-title">7. 推奨アクションと追加検証</h2>
+
+<div class="card success">
+  <span class="badge success">短期（1ヶ月以内）</span>
+  <h3 style="margin:8px 0;">攻めの防衛戦</h3>
+  <ul>
+    <li><strong>Hilander ASIN指名SP広告</strong>：Hilander-ST/AL/Hi の商品ページに WAQ を出稿し比較検討ユーザーを奪還</li>
+    <li><strong>タイトル・BEKW最適化</strong>：「Hilander代替」「クライマックス代替」系 KWをバックエンド追加検討</li>
+    <li><strong>価格戦術強化</strong>：クーポン・タイムセール活用でHilander比の割安感演出</li>
+    <li><strong>レビュー獲得施策</strong>：フォロー施策・同梱物でレビュー数を積み上げ</li>
+  </ul>
+</div>
+
+<div class="card info">
+  <span class="badge info">中期（3ヶ月以内）</span>
+  <h3 style="margin:8px 0;">差別化戦略＋ASIN構造の見直し</h3>
+  <ul>
+    <li><strong>ASIN分離の検討</strong>：ノーマル版とハイバック版の別ASIN化（§5 オプションA）→ 検索露出2倍化・SEO独立最適化</li>
+    <li><strong>WAQ独自機能の訴求強化</strong>：4段階リクライニング・ドリンクホルダー・アイアン等の差別化要素をメイン画像で前面化</li>
+    <li><strong>A+コンテンツ刷新</strong>：Hilander 3製品との機能比較表を掲載</li>
+    <li><strong>新色バリの追加検討</strong>：ASIN増による棚占拠（§5 オプションC）</li>
+  </ul>
+</div>
+
+<div class="card purple">
+  <span class="badge purple">追加データ要求</span>
+  <h3 style="margin:8px 0;">要因確定のために取得したいデータ</h3>
+  <ul class="check">
+    <li>BA 検索クエリパフォーマンス（「リクライニングローチェア」「ローチェア キャンプ」等の WAQ 順位推移）</li>
+    <li>Hilander 3製品のレビュー数・評点推移（SellerSprite 商品トラッキング）</li>
+    <li>WAQ の SP広告 ROAS・出稿KW（2025年後半以降）</li>
+    <li>Hilander 3製品の商品画像・タイトル・A+コンテンツ（訴求力比較用）</li>
+    <li>WAQ の在庫欠品履歴（機会損失の有無）</li>
+    <li>WAQ のセッション数・CVR（Amazon Business Reports）</li>
+    <li>Amazon以外のチャネル（楽天・Yahoo・自社EC）の同商品売上（問題範囲切り分け用）</li>
+  </ul>
+</div>
+</section>
+
+<!-- ========== 8. 付録 ========== -->
+<section id="appendix">
+<h2 class="section-title">8. 付録：月次データ全量</h2>
+<p style="font-size:13px; color:var(--sub);">※WAQ数値はノーマル版+ハイバック版の合算（同一ASIN内バリエーション統合のため）</p>
+
+<h3>5社月次販売数（個）</h3>
+<table>
+  <thead><tr><th>月</th><th class="num">WAQ</th><th class="num">DesertFox</th><th class="num">Hilander-ST</th><th class="num">Hilander-AL</th><th class="num">Hilander-Hi</th><th class="num">合計</th></tr></thead>
+  <tbody>
+    <tr><td>2026-08*</td><td class="num">682</td><td class="num">341</td><td class="num">682</td><td class="num">465</td><td class="num">124</td><td class="num">2,294</td></tr>
+    <tr><td>2026-07</td><td class="num">785</td><td class="num">347</td><td class="num">559</td><td class="num">592</td><td class="num">116</td><td class="num">2,399</td></tr>
+    <tr><td>2026-06</td><td class="num">348</td><td class="num">243</td><td class="num">576</td><td class="num">421</td><td class="num">78</td><td class="num">1,666</td></tr>
+    <tr><td>2026-05</td><td class="num">573</td><td class="num">288</td><td class="num">487</td><td class="num">465</td><td class="num">77</td><td class="num">1,890</td></tr>
+    <tr><td>2026-04</td><td class="num">496</td><td class="num">320</td><td class="num">522</td><td class="num">448</td><td class="num">65</td><td class="num">1,851</td></tr>
+    <tr><td>2026-03</td><td class="num">364</td><td class="num">202</td><td class="num">369</td><td class="num">242</td><td class="num">38</td><td class="num">1,215</td></tr>
+    <tr><td>2026-02</td><td class="num">287</td><td class="num">199</td><td class="num">273</td><td class="num">158</td><td class="num">30</td><td class="num">947</td></tr>
+    <tr><td>2026-01</td><td class="num">325</td><td class="num">142</td><td class="num">422</td><td class="num">250</td><td class="num">67</td><td class="num">1,206</td></tr>
+    <tr><td>2025-12</td><td class="num">738</td><td class="num">172</td><td class="num">461</td><td class="num">258</td><td class="num">78</td><td class="num">1,707</td></tr>
+    <tr><td>2025-11</td><td class="num">617</td><td class="num">335</td><td class="num">590</td><td class="num">414</td><td class="num">48</td><td class="num">2,004</td></tr>
+    <tr><td>2025-10</td><td class="num">833</td><td class="num">279</td><td class="num">799</td><td class="num">438</td><td class="num">5</td><td class="num">2,354</td></tr>
+    <tr><td>2025-09</td><td class="num">744</td><td class="num">299</td><td class="num">653</td><td class="num">370</td><td class="num">-</td><td class="num">2,066</td></tr>
+    <tr><td>2025-08</td><td class="num">552</td><td class="num">199</td><td class="num">538</td><td class="num">242</td><td class="num">-</td><td class="num">1,531</td></tr>
+    <tr class="peak-row"><td>2025-07</td><td class="num">1,325</td><td class="num">346</td><td class="num">1,061</td><td class="num">447</td><td class="num">-</td><td class="num">3,179</td></tr>
+    <tr><td>2025-06</td><td class="num">667</td><td class="num">423</td><td class="num">408</td><td class="num">135</td><td class="num">-</td><td class="num">1,633</td></tr>
+    <tr><td>2025-05</td><td class="num">707</td><td class="num">446</td><td class="num">339</td><td class="num">147</td><td class="num">-</td><td class="num">1,639</td></tr>
+    <tr><td>2025-04</td><td class="num">850</td><td class="num">559</td><td class="num">102</td><td class="num">313</td><td class="num">-</td><td class="num">1,824</td></tr>
+    <tr><td>2025-03</td><td class="num">545</td><td class="num">316</td><td class="num">-</td><td class="num">232</td><td class="num">-</td><td class="num">1,093</td></tr>
+    <tr><td>2025-02</td><td class="num">454</td><td class="num">172</td><td class="num">-</td><td class="num">18</td><td class="num">-</td><td class="num">644</td></tr>
+    <tr><td>2025-01</td><td class="num">427</td><td class="num">201</td><td class="num">-</td><td class="num">38</td><td class="num">-</td><td class="num">666</td></tr>
+    <tr><td>2024-12</td><td class="num">545</td><td class="num">168</td><td class="num">-</td><td class="num">11</td><td class="num">-</td><td class="num">724</td></tr>
+    <tr><td>2024-11</td><td class="num">527</td><td class="num">-</td><td class="num">-</td><td class="num">36</td><td class="num">-</td><td class="num">563</td></tr>
+    <tr><td>2024-10</td><td class="num">1,074</td><td class="num">646</td><td class="num">-</td><td class="num">16</td><td class="num">-</td><td class="num">1,736</td></tr>
+    <tr><td>2024-09</td><td class="num">594</td><td class="num">357</td><td class="num">-</td><td class="num">3</td><td class="num">-</td><td class="num">954</td></tr>
+    <tr><td>2024-08</td><td class="num">414</td><td class="num">290</td><td class="num">-</td><td class="num">4</td><td class="num">-</td><td class="num">708</td></tr>
+    <tr><td>2024-07</td><td class="num">601</td><td class="num">545</td><td class="num">-</td><td class="num">0</td><td class="num">-</td><td class="num">1,146</td></tr>
+    <tr><td>2024-06</td><td class="num">551</td><td class="num">422</td><td class="num">-</td><td class="num">0</td><td class="num">-</td><td class="num">973</td></tr>
+  </tbody>
+</table>
+<p style="font-size:12px; color:var(--sub);">※2026-08 は月途中データ（8/6時点）</p>
+
+<h3>5社年間販売数サマリ</h3>
+<table>
+  <thead><tr><th>ブランド</th><th class="num">2024年</th><th class="num">2025年</th><th class="num">2026年（8/6時点）</th></tr></thead>
+  <tbody>
+    <tr><td>WAQ</td><td class="num">4,306</td><td class="num">8,459</td><td class="num">3,860</td></tr>
+    <tr><td>DesertFox</td><td class="num">2,428</td><td class="num">3,747</td><td class="num">2,082</td></tr>
+    <tr><td>Hilander-ST</td><td class="num">-</td><td class="num">4,951</td><td class="num">3,890</td></tr>
+    <tr><td>Hilander-AL</td><td class="num">70</td><td class="num">3,052</td><td class="num">3,041</td></tr>
+    <tr><td>Hilander-Hi</td><td class="num">-</td><td class="num">131</td><td class="num">595</td></tr>
+    <tr style="font-weight:600; background:#fef3c7;"><td>Hilander合計</td><td class="num">70</td><td class="num">8,134</td><td class="num">7,526</td></tr>
+    <tr style="font-weight:600;"><td>5社合計</td><td class="num">6,804</td><td class="num">20,340</td><td class="num">13,468</td></tr>
+  </tbody>
+</table>
+</section>
+
+<footer>
+  <p>Generated by Claude Code | データソース: SellerSprite | 分析日: 2026-08-06</p>
+  <p>格納場所: /Users/Kouta/Desktop/開発/amazon/sellersprite/docs/</p>
+</footer>
+
+</div>
+</body>
+</html>
