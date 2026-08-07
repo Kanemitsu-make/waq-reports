@@ -238,24 +238,24 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--border);
     <div class="sub">Reg+HB Amazon 1-8月累計</div>
   </div>
   <div class="stat">
-    <div class="label">🎯 WAQセグメント内シェア</div>
-    <div class="value warn">26.3%</div>
-    <div class="sub">2026-07・セグ1位商品（BLACK 785個）</div>
-  </div>
-  <div class="stat">
-    <div class="label">🎯 Hilander セグメント内</div>
-    <div class="value warn">38.6%</div>
-    <div class="sub">2026-07（AL+ST合計 1,151個）</div>
-  </div>
-  <div class="stat">
-    <div class="label">🎯 DesertFox セグメント内</div>
-    <div class="value warn">35.1%</div>
-    <div class="sub">2026-07（2ASIN合計 1,046個）</div>
+    <div class="label">🎯 WAQ 市場縮小分</div>
+    <div class="value warn">約 -13%</div>
+    <div class="sub">セグメント全体の落ち込み（不可避）</div>
   </div>
   <div class="stat">
     <div class="label">🎯 WAQ 固有失速分</div>
-    <div class="value danger">-30%</div>
-    <div class="sub">WAQ-42.7% ー 市場-13%（推定）</div>
+    <div class="value danger">約 -30%</div>
+    <div class="sub">WAQ-42.7% ー 市場-13%（打ち手の本丸）</div>
+  </div>
+  <div class="stat">
+    <div class="label">🎯 セグメント競合</div>
+    <div class="value trend-flat">3社寡占</div>
+    <div class="sub">WAQ・Hilander・DesertFox のみ</div>
+  </div>
+  <div class="stat">
+    <div class="label">🎯 WAQセグ内 最強単一商品</div>
+    <div class="value success">B0CPSFTDDB</div>
+    <div class="sub">785個（BLACK）セグ商品1位</div>
   </div>
 </div>
 </section>
@@ -522,60 +522,72 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--border);
   </div>
 </div>
 
-<h3 id="s3-2-new" class="subsection">3-2. セグメント内ブランドシェア推移（6ヶ月・厳格版）</h3>
+<h3 id="s3-2-new" class="subsection">3-2. セグメント競合構造（3社寡占）</h3>
 
 <div class="callout-fact">
-  <strong>✅ 事実（検証済み）:</strong>厳格な「リクライニング機能付き×低座面」条件では、セグメント内は Hilander・DesertFox・WAQ の <strong>3社寡占（100%）</strong>。他ブランド（Coleman・MOON LENCE・OUTBEAR等）は本セグメント該当なし。
+  <strong>✅ 事実（検証済み）:</strong>厳格な「リクライニング機能付き×低座面」条件では、セグメント内に登場するブランドは <strong>Hilander・DesertFox・WAQ の3社のみ</strong>。他ブランド（Coleman・MOON LENCE・OUTBEAR等）は本セグメント該当なし。
 </div>
 
+<div class="callout" style="background:#fef3c7; border-left:5px solid var(--warn);">
+  <strong>⚠️ シェア詳細比較は実施せず:</strong>Amazon仕様過渡期の影響で SellerSprite データ粒度が不整合。Hilander/DesertFox は複数ASINが「親合算表示」の可能性、WAQ は主力BLACK子ASIN（785個）のみ Top100 内で他色は圏外。<strong>各社の「セグメント内シェア%」を並べても意味ある比較にならない</strong>ため、本レポートでは詳細シェア数字を提示しない。
+</div>
+
+<h4>セグメント登場ブランド・主要商品（2026-07 該当5商品全て）</h4>
 <table>
-  <thead><tr>
-    <th>ブランド</th>
-    <th class="num">2025-04</th>
-    <th class="num">2025-07</th>
-    <th class="num">2025-10</th>
-    <th class="num">2026-01</th>
-    <th class="num">2026-06</th>
-    <th class="num">2026-07</th>
-    <th>変化傾向</th>
-  </tr></thead>
+  <thead><tr><th>ASIN</th><th>ブランド</th><th class="num">月販</th><th class="num">価格</th><th>商品タイトル抜粋</th></tr></thead>
   <tbody>
-    <tr class="peak-row"><td><strong>Hilander</strong></td><td class="num">22.1%</td><td class="num">44.1%</td><td class="num">47.1%</td><td class="num">49.5%</td><td class="num">60.3%</td><td class="num"><strong>38.6%</strong></td><td class="trend-flat">📊 高水準維持</td></tr>
-    <tr><td><strong>DesertFox</strong></td><td class="num">39.9%</td><td class="num">17.1%</td><td class="num">21.1%</td><td class="num">16.1%</td><td class="num">39.7%</td><td class="num"><strong>35.1%</strong></td><td class="trend-up">📈 復調</td></tr>
-    <tr class="highlight-row"><td><strong>WAQ</strong></td><td class="num">30.4%</td><td class="num"><strong>38.8%</strong></td><td class="num">31.7%</td><td class="num">23.9%</td><td class="num">0%</td><td class="num">26.3%</td><td class="trend-down">📉 -12.5pt（Peak後）</td></tr>
+    <tr class="peak-row"><td>B0CPSFTDDB</td><td><strong>WAQ</strong></td><td class="num">785</td><td class="num">¥8,082</td><td>WAQ Reclining Low Chair BLACK</td></tr>
+    <tr><td>B0DJ6J9YQ7</td><td>DesertFox</td><td class="num">699</td><td class="num">¥3,799</td><td>DesertFox リクライニングチェア 四季適用</td></tr>
+    <tr><td>B0CP4K1BZ1</td><td><strong>Hilander</strong></td><td class="num">592</td><td class="num">¥9,800</td><td>Hilander クライマックスローチェア2 AL ブラック</td></tr>
+    <tr><td>B0F49JWG7P</td><td><strong>Hilander</strong></td><td class="num">559</td><td class="num">¥8,980</td><td>Hilander クライマックスローチェア2 ST</td></tr>
+    <tr><td>B0C9C8RQ9S</td><td>DesertFox</td><td class="num">347</td><td class="num">¥4,749</td><td>キャンプチェア リクライニングローチェア</td></tr>
+    <tr class="total-row"><td colspan="2">セグメント合計</td><td class="num"><strong>2,982</strong></td><td class="num">-</td><td>5商品</td></tr>
   </tbody>
 </table>
 
 <div class="grid">
+  <div class="card primary" style="margin:0;">
+    <span class="badge primary">Top100内 商品1位</span>
+    <h4>🎯 WAQ（1商品）</h4>
+    <ul style="font-size:13px;">
+      <li>B0CPSFTDDB BLACK: <strong>785個</strong>（セグ最強単一商品）</li>
+      <li>価格 ¥8,082（Hilander同帯）</li>
+      <li>他色（TAN/CHARCOAL/COYOTE/OLIVE/ハイバック3色）は各月100個未満で Top100圏外</li>
+      <li>内部データ全バリ合計 2026-07 = 995個</li>
+    </ul>
+  </div>
   <div class="card warn" style="margin:0;">
-    <span class="badge warn">首位（2ASIN合計）</span>
+    <span class="badge warn">Top100内 2ASIN</span>
     <h4>🏆 Hilander</h4>
     <ul style="font-size:13px;">
-      <li>2026-07 セグ内 <strong>38.6%</strong>（1,151個）</li>
-      <li>AL（B0CP4K1BZ1）: 592個 + ST（B0F49JWG7P）: 559個</li>
-      <li>他10子ASIN（色バリ）はTop100圏外</li>
-      <li>価格帯: ¥8,000-9,800</li>
+      <li>AL（B0CP4K1BZ1 ブラック）: 592個</li>
+      <li>ST（B0F49JWG7P ブラック）: 559個</li>
+      <li>2ASIN合計 <strong>1,151個</strong>（親合算表示の可能性）</li>
+      <li>他10色バリ（AL5色・ST5色・Hi2色）は Top100圏外</li>
+      <li>価格帯: ¥8,000-9,800（WAQ同帯）</li>
     </ul>
   </div>
   <div class="card info" style="margin:0;">
-    <span class="badge info">2位（2ASIN合計）</span>
+    <span class="badge info">Top100内 2ASIN</span>
     <h4>📊 DesertFox</h4>
     <ul style="font-size:13px;">
-      <li>2026-07 セグ内 <strong>35.1%</strong>（1,046個）</li>
       <li>B0DJ6J9YQ7: 699個 + B0C9C8RQ9S: 347個</li>
-      <li>価格帯: ¥3,800-4,700（低価格）</li>
-      <li>2025-07に一時大幅減 → 2026-06以降復調</li>
+      <li>2ASIN合計 <strong>1,046個</strong></li>
+      <li>他色は Top100圏外</li>
+      <li>価格帯: ¥3,800-4,700（<strong>低価格</strong>・WAQ/Hilanderと別セグメントの可能性も）</li>
     </ul>
   </div>
-  <div class="card primary" style="margin:0;">
-    <span class="badge primary">3位（1商品でセグ最強）</span>
-    <h4>🎯 WAQ</h4>
-    <ul style="font-size:13px;">
-      <li>2026-07 セグ内 <strong>26.3%</strong>（B0CPSFTDDB BLACK 785個）</li>
-      <li>単一商品でセグ販売数<strong>1位</strong></li>
-      <li>価格 ¥8,082（Hilander同帯）</li>
-      <li>2025-07 38.8%からピーク後低下</li>
-    </ul>
+</div>
+
+<div class="hypothesis">
+  <span class="hypothesis-label">🧠 Claude解釈・仮説</span>
+  <h4>マクロ環境要因とWAQ固有要因の切り分け</h4>
+  <p><strong>マクロ環境要因（不可避）:</strong> リクライニングローチェア市場全体が -12.8% 縮小。この影響で WAQ も約 -13% の減少は不可避（構造的縮小）。</p>
+  <p><strong>WAQ固有要因（対策可能）:</strong> WAQ実売-42.7%減 のうち、市場縮小分-13%を除いた <strong>-30%は WAQ 固有の失速</strong>。これが打ち手を打つべき本丸。</p>
+  <div class="reasoning">
+    <strong>推論根拠:</strong> セグメント全体 -12.8% vs WAQ内部 -42.7% の差から算出。<br>
+    <strong>WAQ固有要因の候補（内部視点§5で詳述）:</strong> A+コンテンツ量不足（Hilanderの1/7）、低評価バリの品質問題、ハイバック未成長、KW対策の遅れ、ブランド認知停滞（Google Trends 4年間横ばい）等。<br>
+    <strong>ただし注意:</strong> WAQ・Hilander・DesertFox の詳細シェア比較はデータ粒度不整合で不可能。「WAQが直接的にどれだけ Hilander に奪われたか」は数値化困難。
   </div>
 </div>
 
