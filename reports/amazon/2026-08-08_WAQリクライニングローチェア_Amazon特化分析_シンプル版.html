@@ -347,22 +347,43 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--border);
   </div>
   <table>
     <thead><tr>
-      <th>月</th>
-      <th class="num">WAQ</th>
-      <th class="num">Hilander合計</th>
-      <th class="num">DesertFox</th>
-      <th class="num">5社総計</th>
+      <th rowspan="2">月</th>
+      <th class="num" rowspan="2">WAQ</th>
+      <th class="num" rowspan="2">Hilander<br>合計</th>
+      <th class="num" colspan="3" style="text-align:center; background:#f3e8ff; color:#6d28d9;">└ Hilander内訳</th>
+      <th class="num" rowspan="2">DesertFox</th>
+      <th class="num" rowspan="2">5社総計</th>
+    </tr>
+    <tr>
+      <th class="num" style="background:#faf5ff; color:#6d28d9; font-size:11px;">ST<br><span style="font-weight:400;">スチール</span></th>
+      <th class="num" style="background:#faf5ff; color:#6d28d9; font-size:11px;">AL<br><span style="font-weight:400;">アルミ</span></th>
+      <th class="num" style="background:#faf5ff; color:#6d28d9; font-size:11px;">Hi<br><span style="font-weight:400;">ハイチェア</span></th>
     </tr></thead>
     <tbody>
-      <tr class="peak-row"><td>2025-07</td><td class="num">1,325</td><td class="num">1,508</td><td class="num">346</td><td class="num">3,179</td></tr>
-      <tr><td>2025-12</td><td class="num">738</td><td class="num">797</td><td class="num">172</td><td class="num">1,707</td></tr>
-      <tr class="highlight-row"><td>2026-01</td><td class="num">325</td><td class="num">739</td><td class="num">142</td><td class="num">1,206</td></tr>
-      <tr class="highlight-row"><td>2026-06</td><td class="num">348</td><td class="num">1,075</td><td class="num">243</td><td class="num">1,666</td></tr>
-      <tr><td>2026-07</td><td class="num">785</td><td class="num">1,267</td><td class="num">347</td><td class="num">2,399</td></tr>
-      <tr><td>2026-08*</td><td class="num">682</td><td class="num">1,271</td><td class="num">341</td><td class="num">2,294</td></tr>
+      <tr class="peak-row"><td>2025-07</td><td class="num">1,325</td><td class="num"><strong>1,508</strong></td><td class="num" style="color:#6d28d9;">1,061</td><td class="num" style="color:#6d28d9;">447</td><td class="num" style="color:#6d28d9;">0</td><td class="num">346</td><td class="num">3,179</td></tr>
+      <tr><td>2025-12</td><td class="num">738</td><td class="num"><strong>797</strong></td><td class="num" style="color:#6d28d9;">461</td><td class="num" style="color:#6d28d9;">258</td><td class="num" style="color:#6d28d9;">78</td><td class="num">172</td><td class="num">1,707</td></tr>
+      <tr class="highlight-row"><td>2026-01</td><td class="num">325</td><td class="num"><strong>739</strong></td><td class="num" style="color:#6d28d9;">422</td><td class="num" style="color:#6d28d9;">250</td><td class="num" style="color:#6d28d9;">67</td><td class="num">142</td><td class="num">1,206</td></tr>
+      <tr class="highlight-row"><td>2026-06</td><td class="num">348</td><td class="num"><strong>1,075</strong></td><td class="num" style="color:#6d28d9;">576</td><td class="num" style="color:#6d28d9;">421</td><td class="num" style="color:#6d28d9;">78</td><td class="num">243</td><td class="num">1,666</td></tr>
+      <tr><td>2026-07</td><td class="num">785</td><td class="num"><strong>1,267</strong></td><td class="num" style="color:#6d28d9;">559</td><td class="num" style="color:#6d28d9;"><strong>592</strong></td><td class="num" style="color:#6d28d9;">116</td><td class="num">347</td><td class="num">2,399</td></tr>
+      <tr><td>2026-08*</td><td class="num">682</td><td class="num"><strong>1,271</strong></td><td class="num" style="color:#6d28d9;">682</td><td class="num" style="color:#6d28d9;">465</td><td class="num" style="color:#6d28d9;">124</td><td class="num">341</td><td class="num">2,294</td></tr>
     </tbody>
   </table>
-  <p style="font-size:11.5px; color:var(--sub);">※2026-08は途中集計 | ※Hilander合計はST/AL/Hiの3親ASIN合算 | ※中間月は詳細版レポート参照</p>
+  <p style="font-size:11.5px; color:var(--sub);">※2026-08は途中集計 | ※ST=B0F49JWG7P（スチール脚）/ AL=B0CLMFWVDM（アルミ脚）/ Hi=B0FVHZXVB2（クライマックスハイチェア・2025-10発売） | ※中間月は詳細版レポート参照</p>
+
+  <!-- Hilander内訳スタックバー -->
+  <div class="chart-box" style="margin-top:16px;">
+    <div class="chart-title">📊 Hilander内訳（ST / AL / Hi 月次販売個数・積み上げ）</div>
+    <div class="chart-wrap"><canvas id="chartHilanderBreak"></canvas></div>
+  </div>
+  <div class="callout-micro" style="font-size:12.5px;">
+    <strong>📌 Hilander内訳の示唆:</strong>
+    <ul style="margin:6px 0 0; padding-left:20px;">
+      <li><strong>ST（スチール脚）が長らく主力</strong>: 2025-07に単月1,061個の爆発力。ただし2026-07以降はAL/Hiが伸びてST依存度が低下</li>
+      <li><strong>AL（アルミ脚）が急伸</strong>: 2026-07に592個でST（559個）を初めて超過。軽量ニーズ取込か</li>
+      <li><strong>Hi（ハイチェア）は2025-10発売の新型</strong>: じわじわ拡大し2026-08時点で月124個。<strong>WAQハイバック（月200個規模）の直接競合</strong>として要警戒</li>
+      <li><strong>3ASIN分散戦略の効果</strong>: WAQ 1親×8バリ（主力1バリ集中）に対し、Hilanderは3親で市場を面で押さえる構造</li>
+    </ul>
+  </div>
   <h4 style="margin-top:14px;">前年同月比バトル（WAQ vs Hilander合計）</h4>
   <table>
     <thead><tr><th>月</th><th class="num">WAQ 前年比</th><th class="num">Hilander合計 前年比</th></tr></thead>
@@ -822,6 +843,31 @@ new Chart(document.getElementById('chart3way'), {
     plugins: { legend: { position: 'top' },
       tooltip: { callbacks: { label: c => c.dataset.label + ': ' + c.parsed.y.toLocaleString() + '個' } } },
     scales: { y: { beginAtZero: true, ticks: { callback: v => v.toLocaleString() } } }
+  }
+});
+
+// 3-B-2. Hilander内訳スタックバー
+new Chart(document.getElementById('chartHilanderBreak'), {
+  type: 'bar',
+  data: {
+    labels: ['2025-07','2025-12','2026-01','2026-06','2026-07','2026-08*'],
+    datasets: [
+      { label: 'ST（スチール）', data: [1061,461,422,576,559,682],
+        backgroundColor: '#a855f7', borderRadius: 2 },
+      { label: 'AL（アルミ）', data: [447,258,250,421,592,465],
+        backgroundColor: '#c084fc', borderRadius: 2 },
+      { label: 'Hi（ハイチェア）', data: [0,78,67,78,116,124],
+        backgroundColor: '#e9d5ff', borderRadius: 2 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'top' },
+      tooltip: { callbacks: { label: c => c.dataset.label + ': ' + c.parsed.y.toLocaleString() + '個' } } },
+    scales: {
+      x: { stacked: true },
+      y: { stacked: true, beginAtZero: true, ticks: { callback: v => v.toLocaleString() } }
+    }
   }
 });
 
