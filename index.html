@@ -40,11 +40,17 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--border);
 <header>
   <h1>WAQ 分析レポート集</h1>
   <p>マーケティング・売上分析・競合調査の集約ページ</p>
-  <p style="font-size:12px; opacity:.8;">🔒 社内限定 | 最終更新: 2026-08-08</p>
+  <p style="font-size:12px; opacity:.8;">🔒 社内限定 | 最終更新: 2026-08-17</p>
 </header>
 
 <h2>🛒 Amazon 分析</h2>
 <div class="report-list">
+  <a href="reports/amazon/2026-08-17_Amazon日別売上_14日.html" class="report-card">
+    <span class="badge">Amazon</span><span class="badge" style="background:#fef3c7;color:#92400e;">日次売上</span><span class="badge" style="background:#dcfce7;color:#166534;">SP-API</span>
+    <h3>Amazon 日別売上レポート（14日間）</h3>
+    <p>SP-API GET_SALES_AND_TRAFFIC_REPORT で取得した過去14日の日別売上・注文・セッション・CVR・BuyBox%・Top20 ASIN。BQ+Looker Studio自動化プロジェクトの初回サンプル。</p>
+    <div class="meta">📅 2026-08-17 | 📊 Chart.js グラフ2 + テーブル3</div>
+  </a>
   <a href="reports/amazon/2026-08-08_WAQリクライニングローチェア_Amazon特化分析_シンプル版.html" class="report-card">
     <span class="badge">Amazon</span><span class="badge" style="background:#dcfce7;color:#166534;">最新版</span><span class="badge" style="background:#dbeafe;color:#1d4ed8;">経営MTG向け</span>
     <h3>WAQ リクライニングローチェア Amazon特化 分析（シンプル版）</h3>
@@ -89,10 +95,12 @@ footer{margin-top:40px; padding-top:20px; border-top:1px solid var(--border);
 
 <h2>🛒 Shopify（自社EC）分析</h2>
 <div class="report-list">
-  <div class="report-card" style="opacity:.5;">
-    <h3>準備中</h3>
-    <p>Shopify（DirectShop）売上-74.8%減の要因分析は次回セッションで実施予定</p>
-  </div>
+  <a href="reports/shopify/2026-08-17_Shopify日別売上_14日.html" class="report-card">
+    <span class="badge" style="background:#dcfce7;color:#166534;">Shopify</span><span class="badge" style="background:#fef3c7;color:#92400e;">日次売上</span><span class="badge" style="background:#dbeafe;color:#1d4ed8;">BigQuery</span>
+    <h3>Shopify 日別売上レポート（14日間）</h3>
+    <p>BQ sales_mart から集計した過去14日の日別売上・注文・AOV・顧客数・新規vsリピート比・Top20 SKU。売上管理BQプロジェクトの初回サンプル。</p>
+    <div class="meta">📅 2026-08-17 | 📊 Chart.js グラフ2 + テーブル4</div>
+  </a>
 </div>
 
 <footer>

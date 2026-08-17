@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Shopify 日別売上レポート - 2026-08-02〜2026-08-15</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+    background: #f5f6fa; color: #2c3e50; line-height: 1.6; padding: 20px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 { color: #96bf48; font-size: 28px; margin-bottom: 8px; }
+  h2 { color: #232f3e; font-size: 20px; margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #96bf48; }
+  .meta { color: #7f8c8d; font-size: 14px; margin-bottom: 20px; }
+  .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-left: 8px; }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-blue { background: #d1ecf1; color: #0c5460; }
+
+  .toc { background: #fff; padding: 16px 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+  .toc h3 { font-size: 14px; color: #7f8c8d; margin-bottom: 8px; }
+  .toc a { color: #96bf48; text-decoration: none; margin-right: 16px; }
+  .toc a:hover { text-decoration: underline; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 20px 0; }
+  .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #96bf48; }
+  .card .label { font-size: 12px; color: #7f8c8d; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .card .value { font-size: 24px; font-weight: 700; color: #232f3e; }
+  .card.blue { border-left-color: #3498db; }
+  .card.green { border-left-color: #27ae60; }
+  .card.purple { border-left-color: #9b59b6; }
+  .card.red { border-left-color: #e74c3c; }
+
+  table { width: 100%; background: white; border-collapse: collapse; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden; }
+  th { background: #232f3e; color: white; padding: 12px; text-align: left; font-size: 13px; font-weight: 600; }
+  td { padding: 10px 12px; border-bottom: 1px solid #ecf0f1; font-size: 14px; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafbfc; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .rank { font-weight: 700; color: #96bf48; }
+  .sku { font-family: 'SF Mono', Menlo, monospace; font-size: 12px; color: #0066c0; }
+  .name { color: #232f3e; font-size: 12px; }
+
+  .chart-container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin: 16px 0; height: 350px; }
+
+  .footer { margin-top: 40px; padding: 20px; text-align: center; color: #7f8c8d; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>🛍 Shopify 日別売上レポート
+    <span class="badge badge-green">自社EC</span>
+    <span class="badge badge-blue">Admin API</span>
+  </h1>
+  <div class="meta">
+    期間: <strong>2026-08-02 〜 2026-08-15</strong>（14日間）&nbsp;/&nbsp;
+    生成: 2026/8/17 18:17:49&nbsp;/&nbsp;
+    データ元: BigQuery sales_mart
+  </div>
+
+  <div class="toc">
+    <h3>目次</h3>
+    <a href="#summary">📈 期間サマリ</a>
+    <a href="#daily">📅 日別推移</a>
+    <a href="#chart">📉 グラフ</a>
+    <a href="#customer">👥 顧客タイプ</a>
+    <a href="#top">🏆 Top20 SKU</a>
+  </div>
+
+  <h2 id="summary">📈 期間サマリ</h2>
+  <div class="cards">
+    <div class="card"><div class="label">売上合計</div><div class="value">¥10,743,469</div></div>
+    <div class="card blue"><div class="label">注文数</div><div class="value">993</div></div>
+    <div class="card green"><div class="label">販売数量</div><div class="value">479</div></div>
+    <div class="card purple"><div class="label">平均注文単価</div><div class="value">¥10,819</div></div>
+    <div class="card red"><div class="label">ユニーク顧客</div><div class="value">987</div></div>
+    <div class="card"><div class="label">割引総額</div><div class="value">¥25,350</div></div>
+    <div class="card blue"><div class="label">新規顧客売上比</div><div class="value">0.0%</div></div>
+    <div class="card green"><div class="label">リピート顧客売上比</div><div class="value">0.0%</div></div>
+  </div>
+
+  <h2 id="daily">📅 日別推移</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>日付</th>
+        <th class="num">売上</th>
+        <th class="num">注文</th>
+        <th class="num">AOV</th>
+        <th class="num">顧客数</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td>2026-08-02</td>
+        <td class="num">¥1,129,816</td>
+        <td class="num">109</td>
+        <td class="num">¥10,365</td>
+        <td class="num">109</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-03</td>
+        <td class="num">¥1,024,386</td>
+        <td class="num">81</td>
+        <td class="num">¥12,647</td>
+        <td class="num">81</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-04</td>
+        <td class="num">¥854,220</td>
+        <td class="num">69</td>
+        <td class="num">¥12,380</td>
+        <td class="num">68</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-05</td>
+        <td class="num">¥1,234,225</td>
+        <td class="num">155</td>
+        <td class="num">¥7,963</td>
+        <td class="num">154</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-06</td>
+        <td class="num">¥982,716</td>
+        <td class="num">83</td>
+        <td class="num">¥11,840</td>
+        <td class="num">83</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-07</td>
+        <td class="num">¥790,889</td>
+        <td class="num">84</td>
+        <td class="num">¥9,415</td>
+        <td class="num">82</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-08</td>
+        <td class="num">¥817,934</td>
+        <td class="num">78</td>
+        <td class="num">¥10,486</td>
+        <td class="num">78</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-09</td>
+        <td class="num">¥542,245</td>
+        <td class="num">51</td>
+        <td class="num">¥10,632</td>
+        <td class="num">51</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-10</td>
+        <td class="num">¥658,910</td>
+        <td class="num">56</td>
+        <td class="num">¥11,766</td>
+        <td class="num">56</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-11</td>
+        <td class="num">¥708,824</td>
+        <td class="num">65</td>
+        <td class="num">¥10,905</td>
+        <td class="num">64</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-12</td>
+        <td class="num">¥551,836</td>
+        <td class="num">45</td>
+        <td class="num">¥12,263</td>
+        <td class="num">45</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-13</td>
+        <td class="num">¥521,795</td>
+        <td class="num">45</td>
+        <td class="num">¥11,595</td>
+        <td class="num">44</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-14</td>
+        <td class="num">¥531,612</td>
+        <td class="num">38</td>
+        <td class="num">¥13,990</td>
+        <td class="num">38</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-15</td>
+        <td class="num">¥394,061</td>
+        <td class="num">34</td>
+        <td class="num">¥11,590</td>
+        <td class="num">34</td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+  <h2 id="chart">📉 グラフ</h2>
+  <div class="chart-container"><canvas id="revenueChart"></canvas></div>
+  <div class="chart-container"><canvas id="customerChart"></canvas></div>
+
+  <h2 id="customer">👥 顧客タイプ別</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>顧客タイプ</th>
+        <th class="num">注文数</th>
+        <th class="num">売上</th>
+        <th class="num">売上構成比</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td>新規</td>
+        <td class="num">887</td>
+        <td class="num">¥9,464,666</td>
+        <td class="num">88.1%</td>
+      </tr>
+      
+      <tr>
+        <td>リピート</td>
+        <td class="num">106</td>
+        <td class="num">¥1,278,803</td>
+        <td class="num">11.9%</td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+  <h2 id="top">🏆 Top20 SKU（期間合計・売上順）</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>SKU / 商品名</th>
+        <th class="num">売上</th>
+        <th class="num">販売数</th>
+        <th class="num">割引</th>
+        <th class="num">粗売上</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td class="rank">1</td>
+        <td>
+          <div class="sku">waq-fwf1-black</div>
+          <div class="name">【先着順】WAQ FIELD WAIST FAN ウエストファン 腰掛け扇風機 冷却プレート付き 3WAY ハンディファ...</div>
+        </td>
+        <td class="num">¥382,480</td>
+        <td class="num">86</td>
+        <td class="num">¥11,400</td>
+        <td class="num">¥393,880</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">2</td>
+        <td>
+          <div class="sku">waq-abs1-coyote</div>
+          <div class="name">WAQ AIR BED 電動ポンプ内蔵エアーベッド シングル/ダブル｜アウトドア・キャンプ・来客用にも最適 【送料無料/...</div>
+        </td>
+        <td class="num">¥359,520</td>
+        <td class="num">24</td>
+        <td class="num">¥0</td>
+        <td class="num">¥359,520</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">3</td>
+        <td>
+          <div class="sku">waq-abd1-black</div>
+          <div class="name">WAQ AIR BED 電動ポンプ内蔵エアーベッド シングル/ダブル｜アウトドア・キャンプ・来客用にも最適 【送料無料/...</div>
+        </td>
+        <td class="num">¥356,400</td>
+        <td class="num">18</td>
+        <td class="num">¥0</td>
+        <td class="num">¥356,400</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">4</td>
+        <td>
+          <div class="sku">waq-et3set-s1-charcoal</div>
+          <div class="name">【単品購入よりお得なセット】WAQ  EASE TARP3.0 サイドシートSET 日除けシェード 日除けテント ワンア...</div>
+        </td>
+        <td class="num">¥343,680</td>
+        <td class="num">16</td>
+        <td class="num">¥0</td>
+        <td class="num">¥343,680</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">5</td>
+        <td>
+          <div class="sku">waq-et3-coyote</div>
+          <div class="name">WAQ  EASE TARP 3.0 日除けシェード 日除けテント ワンアクション構造｜アウトドア・キャンプ・暑さ対策に...</div>
+        </td>
+        <td class="num">¥322,620</td>
+        <td class="num">19</td>
+        <td class="num">¥0</td>
+        <td class="num">¥322,620</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">6</td>
+        <td>
+          <div class="sku">waq-rcmdp1-black</div>
+          <div class="name">WAQ Relaxing CampMat PLUS 電動ポンプ付き 10cmキャンプマット シングル / ダブル【送料無...</div>
+        </td>
+        <td class="num">¥309,400</td>
+        <td class="num">13</td>
+        <td class="num">¥0</td>
+        <td class="num">¥309,400</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">7</td>
+        <td>
+          <div class="sku">waq-fwf1-tan</div>
+          <div class="name">【先着順】WAQ FIELD WAIST FAN ウエストファン 腰掛け扇風機 冷却プレート付き 3WAY ハンディファ...</div>
+        </td>
+        <td class="num">¥304,790</td>
+        <td class="num">68</td>
+        <td class="num">¥6,650</td>
+        <td class="num">¥311,440</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">8</td>
+        <td>
+          <div class="sku">waq-rcmsp1-black</div>
+          <div class="name">WAQ Relaxing CampMat PLUS 電動ポンプ付き 10cmキャンプマット シングル / ダブル【送料無...</div>
+        </td>
+        <td class="num">¥297,500</td>
+        <td class="num">17</td>
+        <td class="num">¥0</td>
+        <td class="num">¥297,500</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">9</td>
+        <td>
+          <div class="sku">waq-rcmd1-olive</div>
+          <div class="name">キャンプマット 10cm ダブルサイズ  WAQ RELAXING CAMP MAT【送料無料/1年保証/在庫限り】 -...</div>
+        </td>
+        <td class="num">¥277,760</td>
+        <td class="num">14</td>
+        <td class="num">¥0</td>
+        <td class="num">¥277,760</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">10</td>
+        <td>
+          <div class="sku">waq-abd1set-gs-black</div>
+          <div class="name">【お得なセット商品】WAQ AIR BED+専用グランドシートセット シングル/ダブル｜アウトドア・キャンプ・来客用にも...</div>
+        </td>
+        <td class="num">¥275,760</td>
+        <td class="num">12</td>
+        <td class="num">¥0</td>
+        <td class="num">¥275,760</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">11</td>
+        <td>
+          <div class="sku">waq-abs1set-gs-coyote</div>
+          <div class="name">【お得なセット商品】WAQ AIR BED+専用グランドシートセット シングル/ダブル｜アウトドア・キャンプ・来客用にも...</div>
+        </td>
+        <td class="num">¥269,400</td>
+        <td class="num">15</td>
+        <td class="num">¥0</td>
+        <td class="num">¥269,400</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">12</td>
+        <td>
+          <div class="sku">waq-fwf1-olive</div>
+          <div class="name">【先着順】WAQ FIELD WAIST FAN ウエストファン 腰掛け扇風機 冷却プレート付き 3WAY ハンディファ...</div>
+        </td>
+        <td class="num">¥220,620</td>
+        <td class="num">49</td>
+        <td class="num">¥3,800</td>
+        <td class="num">¥224,420</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">13</td>
+        <td>
+          <div class="sku">waq-rcmdp1-coyote</div>
+          <div class="name">WAQ Relaxing CampMat PLUS 電動ポンプ付き 10cmキャンプマット シングル / ダブル【送料無...</div>
+        </td>
+        <td class="num">¥214,200</td>
+        <td class="num">9</td>
+        <td class="num">¥0</td>
+        <td class="num">¥214,200</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">14</td>
+        <td>
+          <div class="sku">waq-rcmsp1-coyote</div>
+          <div class="name">WAQ Relaxing CampMat PLUS 電動ポンプ付き 10cmキャンプマット シングル / ダブル【送料無...</div>
+        </td>
+        <td class="num">¥210,000</td>
+        <td class="num">12</td>
+        <td class="num">¥0</td>
+        <td class="num">¥210,000</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">15</td>
+        <td>
+          <div class="sku">waq-abs1-black</div>
+          <div class="name">WAQ AIR BED 電動ポンプ内蔵エアーベッド シングル/ダブル｜アウトドア・キャンプ・来客用にも最適 【送料無料/...</div>
+        </td>
+        <td class="num">¥209,720</td>
+        <td class="num">14</td>
+        <td class="num">¥0</td>
+        <td class="num">¥209,720</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">16</td>
+        <td>
+          <div class="sku">waq-rcmd1-black</div>
+          <div class="name">キャンプマット 10cm ダブルサイズ  WAQ RELAXING CAMP MAT【送料無料/1年保証/在庫限り】 -...</div>
+        </td>
+        <td class="num">¥198,400</td>
+        <td class="num">10</td>
+        <td class="num">¥0</td>
+        <td class="num">¥198,400</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">17</td>
+        <td>
+          <div class="sku">waq-abd1-coyote</div>
+          <div class="name">WAQ AIR BED 電動ポンプ内蔵エアーベッド シングル/ダブル｜アウトドア・キャンプ・来客用にも最適 【送料無料/...</div>
+        </td>
+        <td class="num">¥198,000</td>
+        <td class="num">10</td>
+        <td class="num">¥0</td>
+        <td class="num">¥198,000</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">18</td>
+        <td>
+          <div class="sku">waq-asd1set-gs-black</div>
+          <div class="name">【お得なセット商品】WAQ AIR SOFA+専用グランドシートセット シングル ダブル｜エアソファ 1人 2人掛け 電...</div>
+        </td>
+        <td class="num">¥197,800</td>
+        <td class="num">10</td>
+        <td class="num">¥0</td>
+        <td class="num">¥197,800</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">19</td>
+        <td>
+          <div class="sku">waq-mbs1-black</div>
+          <div class="name">【初回ロット完売 / 次回9月末出荷分で予約販売中】 WAQ MULTI BURNER BASE IGT規格対応 カセッ...</div>
+        </td>
+        <td class="num">¥195,440</td>
+        <td class="num">28</td>
+        <td class="num">¥0</td>
+        <td class="num">¥195,440</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">20</td>
+        <td>
+          <div class="sku">waq-fwf1-black</div>
+          <div class="name">【累計販売数10,000個突破】WAQ FIELD WAIST FAN ウエストファン 腰掛け扇風機 冷却プレート付き ...</div>
+        </td>
+        <td class="num">¥156,800</td>
+        <td class="num">35</td>
+        <td class="num">¥3,500</td>
+        <td class="num">¥160,300</td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+  <div class="footer">
+    Generated from BigQuery sales_mart / WAQ株式会社 売上管理BQプロジェクト
+  </div>
+</div>
+
+<script>
+new Chart(document.getElementById('revenueChart'), {
+  type: 'bar',
+  data: {
+    labels: ["08-02","08-03","08-04","08-05","08-06","08-07","08-08","08-09","08-10","08-11","08-12","08-13","08-14","08-15"],
+    datasets: [
+      { label: '売上¥', data: [1129816,1024386,854220,1234225,982716,790889,817934,542245,658910,708824,551836,521795,531612,394061], backgroundColor: '#96bf48', yAxisID: 'y', order: 2 },
+      { label: '注文数', data: [109,81,69,155,83,84,78,51,56,65,45,45,38,34], type: 'line', borderColor: '#3498db', backgroundColor: '#3498db', yAxisID: 'y1', order: 1, tension: 0.3 },
+    ],
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { title: { display: true, text: '日別 売上・注文数' } },
+    scales: {
+      y: { position: 'left', title: { display: true, text: '売上¥' }, ticks: { callback: v => '¥' + (v/1000).toFixed(0) + 'k' } },
+      y1: { position: 'right', title: { display: true, text: '注文数' }, grid: { drawOnChartArea: false } },
+    },
+  },
+});
+new Chart(document.getElementById('customerChart'), {
+  type: 'line',
+  data: {
+    labels: ["08-02","08-03","08-04","08-05","08-06","08-07","08-08","08-09","08-10","08-11","08-12","08-13","08-14","08-15"],
+    datasets: [
+      { label: '日別ユニーク顧客数', data: [109,81,68,154,83,82,78,51,56,64,45,44,38,34], borderColor: '#9b59b6', backgroundColor: '#9b59b622', tension: 0.3, fill: true },
+    ],
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { title: { display: true, text: '日別 ユニーク顧客数' } },
+  },
+});
+</script>
+</body>
+</html>

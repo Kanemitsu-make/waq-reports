@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Amazon 日別売上レポート - 2026-08-03〜2026-08-16</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
+    background: #f5f6fa; color: #2c3e50; line-height: 1.6; padding: 20px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  h1 { color: #ff9900; font-size: 28px; margin-bottom: 8px; }
+  h2 { color: #232f3e; font-size: 20px; margin: 32px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #ff9900; }
+  .meta { color: #7f8c8d; font-size: 14px; margin-bottom: 20px; }
+  .badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-left: 8px; }
+  .badge-green { background: #d4edda; color: #155724; }
+  .badge-orange { background: #fff3cd; color: #856404; }
+  .badge-blue { background: #d1ecf1; color: #0c5460; }
+
+  .toc { background: #fff; padding: 16px 24px; border-radius: 8px; margin-bottom: 24px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+  .toc h3 { font-size: 14px; color: #7f8c8d; margin-bottom: 8px; }
+  .toc a { color: #ff9900; text-decoration: none; margin-right: 16px; }
+  .toc a:hover { text-decoration: underline; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 20px 0; }
+  .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #ff9900; }
+  .card .label { font-size: 12px; color: #7f8c8d; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .card .value { font-size: 24px; font-weight: 700; color: #232f3e; }
+  .card.blue { border-left-color: #3498db; }
+  .card.green { border-left-color: #27ae60; }
+  .card.purple { border-left-color: #9b59b6; }
+  .card.red { border-left-color: #e74c3c; }
+
+  table { width: 100%; background: white; border-collapse: collapse; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden; }
+  th { background: #232f3e; color: white; padding: 12px; text-align: left; font-size: 13px; font-weight: 600; }
+  td { padding: 10px 12px; border-bottom: 1px solid #ecf0f1; font-size: 14px; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: #fafbfc; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .rank { font-weight: 700; color: #ff9900; }
+  .asin-link { color: #0066c0; text-decoration: none; }
+  .asin-link:hover { text-decoration: underline; }
+
+  .chart-container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin: 16px 0; height: 350px; }
+
+  .footer { margin-top: 40px; padding: 20px; text-align: center; color: #7f8c8d; font-size: 12px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>📊 Amazon 日別売上レポート
+    <span class="badge badge-orange">Amazon.co.jp</span>
+    <span class="badge badge-blue">SP-API</span>
+  </h1>
+  <div class="meta">
+    期間: <strong>2026-08-03 〜 2026-08-16</strong>（14日間）&nbsp;/&nbsp;
+    生成: 2026/8/17 17:43:45
+  </div>
+
+  <div class="toc">
+    <h3>目次</h3>
+    <a href="#summary">📈 期間サマリ</a>
+    <a href="#daily">📅 日別推移</a>
+    <a href="#chart">📉 グラフ</a>
+    <a href="#top">🏆 Top20 ASIN</a>
+  </div>
+
+  <h2 id="summary">📈 期間サマリ</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="label">売上合計</div>
+      <div class="value">¥37,297,367</div>
+    </div>
+    <div class="card blue">
+      <div class="label">注文アイテム数</div>
+      <div class="value">4,135</div>
+    </div>
+    <div class="card green">
+      <div class="label">販売数量</div>
+      <div class="value">4,369</div>
+    </div>
+    <div class="card purple">
+      <div class="label">平均注文単価</div>
+      <div class="value">¥9,020</div>
+    </div>
+    <div class="card red">
+      <div class="label">セッション</div>
+      <div class="value">213,446</div>
+    </div>
+    <div class="card">
+      <div class="label">ページビュー</div>
+      <div class="value">287,401</div>
+    </div>
+    <div class="card blue">
+      <div class="label">平均CVR (Unit/Sess)</div>
+      <div class="value">2.05%</div>
+    </div>
+    <div class="card green">
+      <div class="label">アクティブASIN</div>
+      <div class="value">183</div>
+    </div>
+  </div>
+
+  <h2 id="daily">📅 日別推移</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>日付</th>
+        <th class="num">売上</th>
+        <th class="num">注文</th>
+        <th class="num">販売数</th>
+        <th class="num">AOV</th>
+        <th class="num">セッション</th>
+        <th class="num">PV</th>
+        <th class="num">CVR</th>
+        <th class="num">BuyBox%</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td>2026-08-03</td>
+        <td class="num">¥4,128,094</td>
+        <td class="num">461</td>
+        <td class="num">488</td>
+        <td class="num">¥8,955</td>
+        <td class="num">20,770</td>
+        <td class="num">27,701</td>
+        <td class="num">2.35%</td>
+        <td class="num">98.7%</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-04</td>
+        <td class="num">¥3,731,264</td>
+        <td class="num">407</td>
+        <td class="num">430</td>
+        <td class="num">¥9,168</td>
+        <td class="num">21,340</td>
+        <td class="num">28,334</td>
+        <td class="num">2.01%</td>
+        <td class="num">98.7%</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-05</td>
+        <td class="num">¥4,665,104</td>
+        <td class="num">554</td>
+        <td class="num">571</td>
+        <td class="num">¥8,421</td>
+        <td class="num">22,392</td>
+        <td class="num">30,149</td>
+        <td class="num">2.55%</td>
+        <td class="num">98.9%</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-06</td>
+        <td class="num">¥4,389,296</td>
+        <td class="num">502</td>
+        <td class="num">522</td>
+        <td class="num">¥8,744</td>
+        <td class="num">21,844</td>
+        <td class="num">28,913</td>
+        <td class="num">2.39%</td>
+        <td class="num">98.8%</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-07</td>
+        <td class="num">¥2,371,543</td>
+        <td class="num">276</td>
+        <td class="num">298</td>
+        <td class="num">¥8,593</td>
+        <td class="num">11,573</td>
+        <td class="num">15,628</td>
+        <td class="num">2.57%</td>
+        <td class="num">98.6%</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-08</td>
+        <td class="num">¥2,971,054</td>
+        <td class="num">324</td>
+        <td class="num">345</td>
+        <td class="num">¥9,170</td>
+        <td class="num">13,004</td>
+        <td class="num">17,956</td>
+        <td class="num">2.65%</td>
+        <td class="num">99.0%</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-09</td>
+        <td class="num">¥2,507,637</td>
+        <td class="num">279</td>
+        <td class="num">297</td>
+        <td class="num">¥8,988</td>
+        <td class="num">14,505</td>
+        <td class="num">19,892</td>
+        <td class="num">2.05%</td>
+        <td class="num">98.6%</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-10</td>
+        <td class="num">¥2,084,212</td>
+        <td class="num">229</td>
+        <td class="num">245</td>
+        <td class="num">¥9,101</td>
+        <td class="num">11,764</td>
+        <td class="num">16,011</td>
+        <td class="num">2.08%</td>
+        <td class="num">98.5%</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-11</td>
+        <td class="num">¥2,412,122</td>
+        <td class="num">254</td>
+        <td class="num">278</td>
+        <td class="num">¥9,497</td>
+        <td class="num">14,007</td>
+        <td class="num">19,287</td>
+        <td class="num">1.98%</td>
+        <td class="num">98.8%</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-12</td>
+        <td class="num">¥1,616,663</td>
+        <td class="num">184</td>
+        <td class="num">189</td>
+        <td class="num">¥8,786</td>
+        <td class="num">10,508</td>
+        <td class="num">13,887</td>
+        <td class="num">1.80%</td>
+        <td class="num">98.5%</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-13</td>
+        <td class="num">¥1,478,689</td>
+        <td class="num">155</td>
+        <td class="num">169</td>
+        <td class="num">¥9,540</td>
+        <td class="num">11,693</td>
+        <td class="num">15,840</td>
+        <td class="num">1.45%</td>
+        <td class="num">98.6%</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-14</td>
+        <td class="num">¥1,629,380</td>
+        <td class="num">164</td>
+        <td class="num">174</td>
+        <td class="num">¥9,935</td>
+        <td class="num">12,123</td>
+        <td class="num">16,154</td>
+        <td class="num">1.44%</td>
+        <td class="num">98.7%</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-15</td>
+        <td class="num">¥1,685,629</td>
+        <td class="num">184</td>
+        <td class="num">192</td>
+        <td class="num">¥9,161</td>
+        <td class="num">12,926</td>
+        <td class="num">17,429</td>
+        <td class="num">1.49%</td>
+        <td class="num">98.9%</td>
+      </tr>
+      
+      <tr>
+        <td>2026-08-16</td>
+        <td class="num">¥1,626,680</td>
+        <td class="num">162</td>
+        <td class="num">171</td>
+        <td class="num">¥10,041</td>
+        <td class="num">14,997</td>
+        <td class="num">20,220</td>
+        <td class="num">1.14%</td>
+        <td class="num">99.0%</td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+  <h2 id="chart">📉 グラフ</h2>
+  <div class="chart-container"><canvas id="revenueChart"></canvas></div>
+  <div class="chart-container"><canvas id="sessionChart"></canvas></div>
+
+  <h2 id="top">🏆 Top20 ASIN（期間合計・売上順）</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>ASIN</th>
+        <th class="num">売上</th>
+        <th class="num">注文</th>
+        <th class="num">販売数</th>
+        <th class="num">セッション</th>
+        <th class="num">CVR</th>
+        <th class="num">BuyBox%</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <tr>
+        <td class="rank">1</td>
+        <td><a href="https://www.amazon.co.jp/dp/B08PFCRZ5V" target="_blank" class="asin-link">B08PFCRZ5V</a></td>
+        <td class="num">¥1,897,400</td>
+        <td class="num">226</td>
+        <td class="num">285</td>
+        <td class="num">6,411</td>
+        <td class="num">4.45%</td>
+        <td class="num">99.8%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">2</td>
+        <td><a href="https://www.amazon.co.jp/dp/B0FV89G1C9" target="_blank" class="asin-link">B0FV89G1C9</a></td>
+        <td class="num">¥1,301,700</td>
+        <td class="num">81</td>
+        <td class="num">87</td>
+        <td class="num">4,582</td>
+        <td class="num">1.90%</td>
+        <td class="num">99.7%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">3</td>
+        <td><a href="https://www.amazon.co.jp/dp/B0H2DCPF66" target="_blank" class="asin-link">B0H2DCPF66</a></td>
+        <td class="num">¥1,242,325</td>
+        <td class="num">262</td>
+        <td class="num">272</td>
+        <td class="num">3,972</td>
+        <td class="num">6.85%</td>
+        <td class="num">99.9%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">4</td>
+        <td><a href="https://www.amazon.co.jp/dp/B0H2D6FDPN" target="_blank" class="asin-link">B0H2D6FDPN</a></td>
+        <td class="num">¥1,091,414</td>
+        <td class="num">232</td>
+        <td class="num">239</td>
+        <td class="num">2,984</td>
+        <td class="num">8.01%</td>
+        <td class="num">100.0%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">5</td>
+        <td><a href="https://www.amazon.co.jp/dp/B0H2DD9KZ7" target="_blank" class="asin-link">B0H2DD9KZ7</a></td>
+        <td class="num">¥1,074,239</td>
+        <td class="num">229</td>
+        <td class="num">235</td>
+        <td class="num">4,184</td>
+        <td class="num">5.62%</td>
+        <td class="num">99.9%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">6</td>
+        <td><a href="https://www.amazon.co.jp/dp/B0GK7627XS" target="_blank" class="asin-link">B0GK7627XS</a></td>
+        <td class="num">¥1,001,320</td>
+        <td class="num">59</td>
+        <td class="num">67</td>
+        <td class="num">2,927</td>
+        <td class="num">2.29%</td>
+        <td class="num">99.9%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">7</td>
+        <td><a href="https://www.amazon.co.jp/dp/B0D9N9231T" target="_blank" class="asin-link">B0D9N9231T</a></td>
+        <td class="num">¥926,601</td>
+        <td class="num">193</td>
+        <td class="num">194</td>
+        <td class="num">1,972</td>
+        <td class="num">9.84%</td>
+        <td class="num">100.0%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">8</td>
+        <td><a href="https://www.amazon.co.jp/dp/B0D9N7BPFZ" target="_blank" class="asin-link">B0D9N7BPFZ</a></td>
+        <td class="num">¥905,685</td>
+        <td class="num">189</td>
+        <td class="num">189</td>
+        <td class="num">2,685</td>
+        <td class="num">7.04%</td>
+        <td class="num">100.0%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">9</td>
+        <td><a href="https://www.amazon.co.jp/dp/B07PGCZPK6" target="_blank" class="asin-link">B07PGCZPK6</a></td>
+        <td class="num">¥881,775</td>
+        <td class="num">76</td>
+        <td class="num">79</td>
+        <td class="num">4,655</td>
+        <td class="num">1.70%</td>
+        <td class="num">99.8%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">10</td>
+        <td><a href="https://www.amazon.co.jp/dp/B0FDPXYYNK" target="_blank" class="asin-link">B0FDPXYYNK</a></td>
+        <td class="num">¥786,165</td>
+        <td class="num">164</td>
+        <td class="num">165</td>
+        <td class="num">3,152</td>
+        <td class="num">5.23%</td>
+        <td class="num">100.0%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">11</td>
+        <td><a href="https://www.amazon.co.jp/dp/B0CPSFTDDB" target="_blank" class="asin-link">B0CPSFTDDB</a></td>
+        <td class="num">¥724,686</td>
+        <td class="num">79</td>
+        <td class="num">86</td>
+        <td class="num">7,249</td>
+        <td class="num">1.19%</td>
+        <td class="num">99.9%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">12</td>
+        <td><a href="https://www.amazon.co.jp/dp/B0GK6W52R1" target="_blank" class="asin-link">B0GK6W52R1</a></td>
+        <td class="num">¥711,810</td>
+        <td class="num">31</td>
+        <td class="num">36</td>
+        <td class="num">1,245</td>
+        <td class="num">2.89%</td>
+        <td class="num">99.5%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">13</td>
+        <td><a href="https://www.amazon.co.jp/dp/B08WPRC6Y1" target="_blank" class="asin-link">B08WPRC6Y1</a></td>
+        <td class="num">¥711,660</td>
+        <td class="num">93</td>
+        <td class="num">102</td>
+        <td class="num">4,971</td>
+        <td class="num">2.05%</td>
+        <td class="num">100.0%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">14</td>
+        <td><a href="https://www.amazon.co.jp/dp/B0BKK47SKS" target="_blank" class="asin-link">B0BKK47SKS</a></td>
+        <td class="num">¥683,380</td>
+        <td class="num">39</td>
+        <td class="num">41</td>
+        <td class="num">2,175</td>
+        <td class="num">1.89%</td>
+        <td class="num">99.9%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">15</td>
+        <td><a href="https://www.amazon.co.jp/dp/B0BKKR6VWM" target="_blank" class="asin-link">B0BKKR6VWM</a></td>
+        <td class="num">¥667,400</td>
+        <td class="num">38</td>
+        <td class="num">40</td>
+        <td class="num">2,042</td>
+        <td class="num">1.96%</td>
+        <td class="num">99.9%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">16</td>
+        <td><a href="https://www.amazon.co.jp/dp/B0FJRTKDSX" target="_blank" class="asin-link">B0FJRTKDSX</a></td>
+        <td class="num">¥630,419</td>
+        <td class="num">40</td>
+        <td class="num">40</td>
+        <td class="num">895</td>
+        <td class="num">4.47%</td>
+        <td class="num">99.8%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">17</td>
+        <td><a href="https://www.amazon.co.jp/dp/B0969GHZZ1" target="_blank" class="asin-link">B0969GHZZ1</a></td>
+        <td class="num">¥626,620</td>
+        <td class="num">55</td>
+        <td class="num">57</td>
+        <td class="num">2,651</td>
+        <td class="num">2.15%</td>
+        <td class="num">99.7%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">18</td>
+        <td><a href="https://www.amazon.co.jp/dp/B0DXFN4PBT" target="_blank" class="asin-link">B0DXFN4PBT</a></td>
+        <td class="num">¥597,020</td>
+        <td class="num">36</td>
+        <td class="num">42</td>
+        <td class="num">3,063</td>
+        <td class="num">1.37%</td>
+        <td class="num">99.9%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">19</td>
+        <td><a href="https://www.amazon.co.jp/dp/B0FV81BWBP" target="_blank" class="asin-link">B0FV81BWBP</a></td>
+        <td class="num">¥574,200</td>
+        <td class="num">29</td>
+        <td class="num">29</td>
+        <td class="num">2,875</td>
+        <td class="num">1.01%</td>
+        <td class="num">99.6%</td>
+      </tr>
+      
+      <tr>
+        <td class="rank">20</td>
+        <td><a href="https://www.amazon.co.jp/dp/B0FV8G3YLR" target="_blank" class="asin-link">B0FV8G3YLR</a></td>
+        <td class="num">¥567,840</td>
+        <td class="num">34</td>
+        <td class="num">34</td>
+        <td class="num">4,645</td>
+        <td class="num">0.73%</td>
+        <td class="num">99.5%</td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+  <div class="footer">
+    Generated by SP-API Reports Test / WAQ株式会社 売上管理BQプロジェクト
+  </div>
+</div>
+
+<script>
+new Chart(document.getElementById('revenueChart'), {
+  type: 'bar',
+  data: {
+    labels: ["08-03","08-04","08-05","08-06","08-07","08-08","08-09","08-10","08-11","08-12","08-13","08-14","08-15","08-16"],
+    datasets: [
+      { label: '売上¥', data: [4128094,3731264,4665104,4389296,2371543,2971054,2507637,2084212,2412122,1616663,1478689,1629380,1685629,1626680], backgroundColor: '#ff9900', yAxisID: 'y', order: 2 },
+      { label: '注文数', data: [461,407,554,502,276,324,279,229,254,184,155,164,184,162], type: 'line', borderColor: '#3498db', backgroundColor: '#3498db', yAxisID: 'y1', order: 1, tension: 0.3 },
+    ],
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { title: { display: true, text: '日別 売上・注文数' } },
+    scales: {
+      y: { position: 'left', title: { display: true, text: '売上¥' }, ticks: { callback: v => '¥' + (v/1000).toFixed(0) + 'k' } },
+      y1: { position: 'right', title: { display: true, text: '注文数' }, grid: { drawOnChartArea: false } },
+    },
+  },
+});
+new Chart(document.getElementById('sessionChart'), {
+  type: 'line',
+  data: {
+    labels: ["08-03","08-04","08-05","08-06","08-07","08-08","08-09","08-10","08-11","08-12","08-13","08-14","08-15","08-16"],
+    datasets: [
+      { label: 'セッション', data: [20770,21340,22392,21844,11573,13004,14505,11764,14007,10508,11693,12123,12926,14997], borderColor: '#e74c3c', backgroundColor: '#e74c3c22', tension: 0.3, fill: true },
+    ],
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { title: { display: true, text: '日別 セッション数' } },
+  },
+});
+</script>
+</body>
+</html>
