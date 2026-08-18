@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>WAQ FIELD WAIST FAN 売上減少要因分析（2026-08-18）</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;background:#f5f7fa;color:#2c3e50;line-height:1.6;padding:20px}
+  .container{max-width:1200px;margin:0 auto}
+  header{background:linear-gradient(135deg,#0f766e 0%,#14b8a6 100%);color:#fff;padding:40px 32px;border-radius:16px;margin-bottom:32px;box-shadow:0 10px 30px rgba(15,118,110,0.2)}
+  header h1{font-size:26px;margin-bottom:8px}
+  header .sub{opacity:.95;font-size:14px}
+  .badge{display:inline-block;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:600;margin-right:8px}
+  .badge-orange{background:#fff3cd;color:#856404}
+  .badge-red{background:#f8d7da;color:#721c24}
+  .badge-green{background:#d4edda;color:#155724}
+  .badge-blue{background:#d1ecf1;color:#0c5460}
+  h2{font-size:20px;margin:32px 0 16px;padding:8px 0 8px 12px;border-left:5px solid #0f766e;background:#f0fdfa}
+  h3{font-size:16px;margin:20px 0 10px;color:#232f3e}
+  .toc{background:#fff;padding:16px 24px;border-radius:8px;margin-bottom:24px;box-shadow:0 2px 4px rgba(0,0,0,0.05)}
+  .toc h3{margin:0 0 8px;color:#7f8c8d;font-size:14px}
+  .toc a{color:#0f766e;text-decoration:none;margin-right:16px;line-height:2}
+  .toc a:hover{text-decoration:underline}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:20px 0}
+  .card{background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.05);border-left:4px solid #14b8a6}
+  .card .label{font-size:12px;color:#7f8c8d;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+  .card .value{font-size:24px;font-weight:700;color:#232f3e}
+  .card .sub{font-size:12px;color:#95a5a6;margin-top:4px}
+  .card.red{border-left-color:#e74c3c}
+  .card.green{border-left-color:#27ae60}
+  .card.blue{border-left-color:#3498db}
+  .card.purple{border-left-color:#9b59b6}
+  .card.orange{border-left-color:#f39c12}
+  table{width:100%;background:#fff;border-collapse:collapse;box-shadow:0 2px 4px rgba(0,0,0,0.05);border-radius:8px;overflow:hidden;margin:12px 0}
+  th{background:#232f3e;color:#fff;padding:12px;text-align:left;font-size:13px;font-weight:600}
+  td{padding:10px 12px;border-bottom:1px solid #ecf0f1;font-size:14px}
+  tr:last-child td{border-bottom:none}
+  tr:hover td{background:#fafbfc}
+  .num{text-align:right;font-variant-numeric:tabular-nums}
+  .down{color:#e74c3c;font-weight:700}
+  .up{color:#27ae60;font-weight:700}
+  .chart-container{background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.05);margin:16px 0;height:400px}
+  .insight{background:#fff9e6;border-left:4px solid #f39c12;padding:16px 20px;border-radius:6px;margin:16px 0}
+  .insight strong{color:#7d4e00}
+  .hypo{background:#e6f7ff;border-left:4px solid #3498db;padding:16px 20px;border-radius:6px;margin:16px 0}
+  .conc{background:#e8f5e9;border-left:4px solid #27ae60;padding:20px;border-radius:6px;margin:24px 0}
+  .conc h3{margin-top:0;color:#155724}
+  .footer{margin-top:40px;padding:20px;text-align:center;color:#7f8c8d;font-size:12px;border-top:1px solid #ecf0f1}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>🔥 WAQ FIELD WAIST FAN 売上減少要因分析</h1>
+  <div class="sub">
+    <span class="badge badge-red">要因調査</span>
+    <span class="badge badge-orange">Shopify＋Amazon</span>
+    <span class="badge badge-blue">競合6商品比較</span>
+    <span class="badge badge-green">市場動向</span>
+  </div>
+  <div class="sub" style="margin-top:12px">
+    対象: WAQ-FWF1（3色: Black/Olive/Tan） / 発売: 2026-05-25 / 分析日: 2026-08-18
+  </div>
+</header>
+
+<div class="toc">
+<h3>目次</h3>
+<a href="#summary">📊 サマリ</a>
+<a href="#shopify">🛒 Shopify 詳細</a>
+<a href="#amazon">📦 Amazon 詳細</a>
+<a href="#competitors">🥊 競合比較</a>
+<a href="#trends">📈 市場動向 (Google Trends)</a>
+<a href="#price">💴 価格分析</a>
+<a href="#conclusion">🎯 結論と示唆</a>
+</div>
+
+<!-- ============ Section 1 サマリ ============ -->
+<h2 id="summary">📊 全体サマリ</h2>
+<div class="cards">
+  <div class="card"><div class="label">Shopify 累計売上</div><div class="value">¥16,206,044</div><div class="sub">3,639個 / 発売〜今日</div></div>
+  <div class="card blue"><div class="label">Amazon 90日売上</div><div class="value">¥15,835,350</div><div class="sub">3,461個 / 74,628セッション</div></div>
+  <div class="card red"><div class="label">Shopify 直近減少率</div><div class="value down">-94%</div><div class="sub">7末63 → 8/15-18平均4個/日</div></div>
+  <div class="card green"><div class="label">競合合計 直近合算</div><div class="value">85,482個</div><div class="sub">直近30日・6商品合計</div></div>
+</div>
+<div class="insight">
+<strong>💡 結論の骨子:</strong>
+WAQ-FWF1は8月中旬に売上が急降下（-81%）。ただし<strong>競合6商品も同時期に-51%〜-88%減</strong>で、Google Trendsも同時に-37%〜-59%減。<br>
+→ <strong>これは市場全体の季節性が主因</strong>で、WAQ固有の問題ではない。ただし価格帯・市場縮小など長期リスクは別途あり。
+</div>
+
+<!-- ============ Section 2 Shopify ============ -->
+<h2 id="shopify">🛒 Shopify FWF1 売上推移</h2>
+
+<h3>週次推移（発売〜今日）</h3>
+<div class="chart-container"><canvas id="shopifyWeeklyChart"></canvas></div>
+
+<h3>日別推移（色別）</h3>
+<div class="chart-container"><canvas id="shopifyDailyChart"></canvas></div>
+
+<h3>週次売上テーブル</h3>
+<table>
+<thead><tr><th>週開始</th><th class="num">Black</th><th class="num">Olive</th><th class="num">Tan</th><th class="num">合計販売数</th><th class="num">売上</th></tr></thead>
+<tbody>
+<tr><td>2026-05-25</td><td class="num">208</td><td class="num">185</td><td class="num">216</td><td class="num">609</td><td class="num">¥2,670,020</td></tr><tr><td>2026-06-01</td><td class="num">112</td><td class="num">105</td><td class="num">89</td><td class="num">306</td><td class="num">¥1,347,880</td></tr><tr><td>2026-06-08</td><td class="num">44</td><td class="num">64</td><td class="num">96</td><td class="num">204</td><td class="num">¥905,520</td></tr><tr><td>2026-06-15</td><td class="num">108</td><td class="num">82</td><td class="num">82</td><td class="num">272</td><td class="num">¥1,218,760</td></tr><tr><td>2026-06-22</td><td class="num">65</td><td class="num">61</td><td class="num">50</td><td class="num">176</td><td class="num">¥794,130</td></tr><tr><td>2026-06-29</td><td class="num">142</td><td class="num">92</td><td class="num">96</td><td class="num">330</td><td class="num">¥1,479,400</td></tr><tr><td>2026-07-06</td><td class="num">154</td><td class="num">104</td><td class="num">98</td><td class="num">356</td><td class="num">¥1,577,670</td></tr><tr><td>2026-07-13</td><td class="num">102</td><td class="num">115</td><td class="num">112</td><td class="num">329</td><td class="num">¥1,476,170</td></tr><tr><td>2026-07-20</td><td class="num">137</td><td class="num">94</td><td class="num">96</td><td class="num">327</td><td class="num">¥1,471,760</td></tr><tr><td>2026-07-27</td><td class="num">122</td><td class="num">113</td><td class="num">89</td><td class="num">324</td><td class="num">¥1,443,054</td></tr><tr><td>2026-08-03</td><td class="num">132</td><td class="num">94</td><td class="num">112</td><td class="num">338</td><td class="num">¥1,514,490</td></tr><tr><td>2026-08-10</td><td class="num">21</td><td class="num">26</td><td class="num">17</td><td class="num">64</td><td class="num">¥288,870</td></tr><tr><td>2026-08-17</td><td class="num">2</td><td class="num">1</td><td class="num">1</td><td class="num">4</td><td class="num">¥18,320</td></tr>
+</tbody>
+</table>
+
+<!-- ============ Section 3 Amazon ============ -->
+<h2 id="amazon">📦 Amazon FWF1 過去90日</h2>
+
+<table>
+<thead><tr><th>ASIN</th><th>色</th><th class="num">売上</th><th class="num">注文</th><th class="num">販売数</th><th class="num">セッション</th><th class="num">CVR</th><th class="num">BuyBox</th></tr></thead>
+<tbody>
+
+<tr>
+<td><a href="https://www.amazon.co.jp/dp/B0H2D6FDPN" target="_blank" style="color:#0066c0">B0H2D6FDPN</a></td>
+<td>Black</td>
+<td class="num">¥4,997,696</td>
+<td class="num">1,044</td>
+<td class="num">1,093</td>
+<td class="num">17,372</td>
+<td class="num">6.29%</td>
+<td class="num">99.9%</td>
+</tr>
+
+<tr>
+<td><a href="https://www.amazon.co.jp/dp/B0H2DCPF66" target="_blank" style="color:#0066c0">B0H2DCPF66</a></td>
+<td>Olive</td>
+<td class="num">¥5,904,307</td>
+<td class="num">1,244</td>
+<td class="num">1,290</td>
+<td class="num">35,809</td>
+<td class="num">3.60%</td>
+<td class="num">99.8%</td>
+</tr>
+
+<tr>
+<td><a href="https://www.amazon.co.jp/dp/B0H2DD9KZ7" target="_blank" style="color:#0066c0">B0H2DD9KZ7</a></td>
+<td>Tan</td>
+<td class="num">¥4,933,347</td>
+<td class="num">1,034</td>
+<td class="num">1,078</td>
+<td class="num">21,447</td>
+<td class="num">5.03%</td>
+<td class="num">99.9%</td>
+</tr>
+
+<tr style="font-weight:700;background:#f0fdfa">
+<td colspan="2">合計</td>
+<td class="num">¥15,835,350</td>
+<td class="num">3,322</td>
+<td class="num">3,461</td>
+<td class="num">74,628</td>
+<td class="num">4.64%</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>Amazon全体（参考・全ASIN含む）日別推移</h3>
+<div class="chart-container"><canvas id="amazonAllDailyChart"></canvas></div>
+
+
+<div class="insight">
+<strong>💡 Amazon FWF1 の特徴:</strong>
+BuyBox 99.8-99.9%と高く、CVRも3.6-6.3%と健全。<strong>販売ページ側の問題ではない</strong>。ただし絶対的な販売数は競合の1/5〜1/10と少なく、認知・流入の課題あり。
+</div>
+
+<!-- ============ Section 4 競合 ============ -->
+<h2 id="competitors">🥊 競合6商品との比較</h2>
+
+<h3>直近30日 日別販売数 推移（WAQ FWF1 vs 競合）</h3>
+<div class="chart-container"><canvas id="compDailyChart"></canvas></div>
+
+<h3>ピーク→現在の減少率（全商品）</h3>
+<table>
+<thead><tr><th>ASIN / 名称</th><th>カテゴリ</th><th class="num">7月末ピーク</th><th class="num">8/15-18平均</th><th class="num">減少率</th></tr></thead>
+<tbody>
+<tr>
+<td><a href="https://www.amazon.co.jp/dp/B0F546XM97" target="_blank" style="color:#0066c0">B0F546XM97</a> 携帯扇風機カーキ</td>
+<td>携帯型</td>
+<td class="num">2,664個/日</td>
+<td class="num">825個/日</td>
+<td class="num down">-69%</td>
+</tr><tr>
+<td><a href="https://www.amazon.co.jp/dp/B0F59RB7X6" target="_blank" style="color:#0066c0">B0F59RB7X6</a> 腰掛けブラック</td>
+<td>ベルト型</td>
+<td class="num">1,154個/日</td>
+<td class="num">188個/日</td>
+<td class="num down">-84%</td>
+</tr><tr>
+<td><a href="https://www.amazon.co.jp/dp/B0F6YC5N6Q" target="_blank" style="color:#0066c0">B0F6YC5N6Q</a> サンワダイレクト</td>
+<td>ベルト型</td>
+<td class="num">32個/日</td>
+<td class="num">7個/日</td>
+<td class="num down">-79%</td>
+</tr><tr>
+<td><a href="https://www.amazon.co.jp/dp/B0GRT8N1RJ" target="_blank" style="color:#0066c0">B0GRT8N1RJ</a> Excitech</td>
+<td>ベルト型</td>
+<td class="num">396個/日</td>
+<td class="num">49個/日</td>
+<td class="num down">-88%</td>
+</tr><tr>
+<td><a href="https://www.amazon.co.jp/dp/B0GWCRXMFC" target="_blank" style="color:#0066c0">B0GWCRXMFC</a> HALOHOME</td>
+<td>ベルト型</td>
+<td class="num">326個/日</td>
+<td class="num">50個/日</td>
+<td class="num down">-85%</td>
+</tr><tr>
+<td><a href="https://www.amazon.co.jp/dp/B0H1W291BW" target="_blank" style="color:#0066c0">B0H1W291BW</a> Alloom白</td>
+<td>ベルト型</td>
+<td class="num">688個/日</td>
+<td class="num">303個/日</td>
+<td class="num down">-56%</td>
+</tr>
+<tr style="background:#fff9e6;font-weight:700">
+<td>WAQ FWF1（Shopify計）</td>
+<td>ベルト型</td>
+<td class="num">63個/日</td>
+<td class="num">4個/日</td>
+<td class="num down">-94%</td>
+</tr>
+</tbody>
+</table>
+
+<h3>月別販売数（競合＋WAQ）</h3>
+<div class="chart-container"><canvas id="compMonthlyChart"></canvas></div>
+
+<!-- ============ Section 5 Google Trends ============ -->
+<h2 id="trends">📈 市場動向 (Google Trends)</h2>
+
+<div class="chart-container"><canvas id="trendChart"></canvas></div>
+
+<table>
+<thead><tr><th>KW</th><th class="num">2025-07ピーク</th><th class="num">2026-07ピーク</th><th class="num">YoY</th><th class="num">2026-08</th><th class="num">ピーク→8月</th></tr></thead>
+<tbody>
+<tr><td>ベルトファン</td><td class="num">100</td><td class="num">98</td><td class="num">-2%</td><td class="num">62</td><td class="num down">-37%</td></tr>
+<tr><td>携帯扇風機</td><td class="num">57</td><td class="num">39</td><td class="num down">-32%</td><td class="num">20</td><td class="num down">-49%</td></tr>
+<tr><td>腰掛け扇風機</td><td class="num">33</td><td class="num">17</td><td class="num down">-48%</td><td class="num">7</td><td class="num down">-59%</td></tr>
+<tr><td>ウエストファン</td><td class="num">49</td><td class="num">100</td><td class="num up">+104%</td><td class="num">48</td><td class="num down">-52%</td></tr>
+</tbody>
+</table>
+
+<div class="insight">
+<strong>💡 市場動向の重要示唆:</strong><br>
+<strong>①</strong> 「腰掛け扇風機」「携帯扇風機」は YoY -32〜-48% で<strong>市場縮小</strong>。<br>
+<strong>②</strong> 一方「ウエストファン」は YoY +104% で<strong>新カテゴリ名として定着</strong>中（WAQブランディング効果 or 業界呼称変化）。<br>
+<strong>③</strong> 8月の一斉減少は例年通りの季節性。
+</div>
+
+<!-- ============ Section 6 価格 ============ -->
+<h2 id="price">💴 競合との価格比較</h2>
+
+<div class="chart-container"><canvas id="priceChart"></canvas></div>
+
+<h3>8月時点 平均価格ランキング</h3>
+<table>
+<thead><tr><th>順位</th><th>商品</th><th class="num">2026-08平均価格</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>WAQ FWF1（Shopify BLACK通常）</td><td class="num">¥4,580</td></tr><tr><td>2</td><td>Excitech (B0GRT8N1RJ)</td><td class="num">¥4,317</td></tr><tr><td>3</td><td>サンワダイレクト (B0F6YC5N6Q)</td><td class="num">¥3,980</td></tr><tr><td>4</td><td>携帯扇風機カーキ (B0F546XM97)</td><td class="num">¥3,543</td></tr><tr><td>5</td><td>腰掛けブラック (B0F59RB7X6)</td><td class="num">¥3,081</td></tr><tr><td>6</td><td>HALOHOME (B0GWCRXMFC)</td><td class="num">¥3,050</td></tr><tr><td>7</td><td>Alloom白 (B0H1W291BW)</td><td class="num">¥2,840</td></tr>
+</tbody>
+</table>
+
+<div class="insight">
+<strong>💡 価格劣位の可能性:</strong>
+WAQ FWF1 の Shopify価格 <strong>¥4,580</strong> は競合中央値 <strong>¥3,300前後</strong>より <strong>+40%</strong>高い。品質・保証で差別化できてれば問題ないが、価格重視層は競合に流れている可能性。
+</div>
+
+<!-- ============ Section 7 結論 ============ -->
+<h2 id="conclusion">🎯 結論と示唆</h2>
+
+<div class="conc">
+<h3>結論</h3>
+<p><strong>WAQ-FWF1 の8月急減 (-81%) は市場全体の季節性が主因</strong>。競合6商品も同時期に-51%〜-88%減っており、WAQ固有の問題ではない。BuyBox・CVRも健全。</p>
+<p style="margin-top:12px"><strong>ただし、長期リスクとして以下を継続監視:</strong></p>
+<ul style="margin-left:20px;margin-top:8px">
+<li><strong>市場縮小</strong>: 「腰掛け扇風機」「携帯扇風機」検索 YoY -32〜-48%</li>
+<li><strong>価格劣位</strong>: WAQ ¥4,580 vs 競合中央値 ¥3,300（+40%）</li>
+<li><strong>絶対量の小ささ</strong>: Amazon 90日 3,300個 vs 競合月販1万個超</li>
+</ul>
+</div>
+
+<div class="hypo">
+<h3>次のアクション候補</h3>
+<ol style="margin-left:20px">
+<li><strong>広告費 vs 売上のROI分析</strong>: Amazon SP広告データの取得（現在手動DL・将来はAmazon Advertising API接続で自動化）</li>
+<li><strong>価格戦略再考</strong>: 保証・付加価値を訴求 or ¥3,980程度の廉価版検討</li>
+<li><strong>ウエストファンKW認知</strong>: +104%成長を活かした SEO / タイトル最適化</li>
+<li><strong>来年の準備</strong>: 4-5月の需要立ち上がりに合わせた広告・在庫計画</li>
+</ol>
+</div>
+
+<div class="footer">
+Generated 2026/8/18 11:19:55 / データ元: Shopify Admin API / Amazon SP-API / SellerSprite / Google Trends<br>
+WAQ株式会社 マーケティング分析
+</div>
+
+</div>
+
+<script>
+Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif";
+
+// Shopify 週次
+new Chart(document.getElementById('shopifyWeeklyChart'), {
+  type: 'bar',
+  data: {
+    labels: ["05-25","06-01","06-08","06-15","06-22","06-29","07-06","07-13","07-20","07-27","08-03","08-10","08-17"],
+    datasets: [
+      { label:'販売数', data:[609,306,204,272,176,330,356,329,327,324,338,64,4], backgroundColor:'#14b8a6', yAxisID:'y', order:2 },
+      { label:'売上¥', data:[2670020,1347880,905520,1218760,794130,1479400,1577670,1476170,1471760,1443054,1514490,288870,18320], type:'line', borderColor:'#e74c3c', backgroundColor:'#e74c3c', yAxisID:'y1', order:1, tension:0.3 }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ title:{display:true, text:'Shopify FWF1 週次販売数・売上'} },
+    scales:{
+      y:{position:'left',title:{display:true,text:'販売数'}},
+      y1:{position:'right',title:{display:true,text:'売上¥'},grid:{drawOnChartArea:false},ticks:{callback:v=>'¥'+(v/1000).toFixed(0)+'k'}}
+    }
+  }
+});
+
+// Shopify 日別 色別
+new Chart(document.getElementById('shopifyDailyChart'), {
+  type: 'line',
+  data: {
+    labels: ["05-25","05-26","05-27","05-28","05-29","05-30","05-31","06-01","06-02","06-03","06-04","06-05","06-06","06-07","06-08","06-09","06-10","06-11","06-12","06-13","06-14","06-15","06-16","06-17","06-18","06-19","06-20","06-21","06-22","06-23","06-24","06-25","06-26","06-27","06-28","06-29","06-30","07-01","07-02","07-03","07-04","07-05","07-06","07-07","07-08","07-09","07-10","07-11","07-12","07-13","07-14","07-15","07-16","07-17","07-18","07-19","07-20","07-21","07-22","07-23","07-24","07-25","07-26","07-27","07-28","07-29","07-30","07-31","08-01","08-02","08-03","08-04","08-05","08-06","08-07","08-08","08-09","08-10","08-11","08-12","08-13","08-14","08-15","08-16","08-17"],
+    datasets: [
+      { label:'Black', data:[59,39,29,18,20,14,29,28,10,22,17,8,14,13,15,1,10,5,1,5,7,17,7,12,25,23,6,18,8,4,9,12,5,13,14,19,19,16,16,21,25,26,44,16,18,13,20,21,22,16,9,21,20,7,18,11,15,25,32,18,14,11,22,10,13,12,21,24,24,18,8,8,61,17,19,12,7,3,5,5,3,0,1,4,2], borderColor:'#2c3e50', backgroundColor:'#2c3e5022', tension:0.3, fill:true },
+      { label:'Olive', data:[46,35,27,15,18,13,31,25,18,13,16,3,12,18,8,4,7,15,10,17,3,0,11,12,17,18,15,9,3,3,3,6,11,15,20,15,9,8,12,19,12,17,17,13,19,14,14,17,10,34,23,10,9,13,12,14,18,13,14,15,12,12,10,21,13,7,14,14,25,19,6,6,34,14,17,12,5,3,5,6,4,3,1,4,1], borderColor:'#7f8c8d', backgroundColor:'#7f8c8d22', tension:0.3, fill:true },
+      { label:'Tan',   data:[107,25,21,6,12,13,32,22,12,25,8,4,7,11,10,9,9,17,7,16,28,3,5,16,29,20,3,6,4,8,2,13,3,8,12,6,18,16,9,18,13,16,12,11,18,15,20,9,13,20,22,10,15,12,14,19,9,20,15,8,14,12,18,8,14,8,11,25,9,14,14,10,42,14,14,13,5,4,4,2,2,3,0,2,1], borderColor:'#d4a574', backgroundColor:'#d4a57422', tension:0.3, fill:true }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ title:{display:true, text:'Shopify 色別日次販売数（発売〜今日）'} },
+    scales:{ y:{stacked:true}, x:{ticks:{maxTicksLimit:15}} }
+  }
+});
+
+// 競合 日別 vs WAQ
+new Chart(document.getElementById('compDailyChart'), {
+  type: 'line',
+  data: {
+    labels: ["07-20","07-21","07-22","07-23","07-24","07-25","07-26","07-27","07-28","07-29","07-30","07-31","08-01","08-02","08-03","08-04","08-05","08-06","08-07","08-08","08-09","08-10","08-11","08-12","08-13","08-14","08-15","08-16","08-17","08-18"],
+    datasets: [
+      { label:'携帯扇風機カーキ', data:[1553,1583,1839,1524,1526,1778,2431,2664,1764,2106,1061,1050,1806,1759,1725,1518,1798,1771,689,1171,1374,1330,1330,1113,1037,853,815,815,815,853], borderColor:'#3498db', backgroundColor:'transparent', tension:0.3, borderWidth:1.5 },
+{ label:'腰掛けブラック', data:[710,766,993,1033,992,938,1095,1154,709,953,486,484,806,710,737,571,654,644,317,409,430,384,338,276,248,227,187,181,181,201], borderColor:'#e74c3c', backgroundColor:'transparent', tension:0.3, borderWidth:1.5 },
+{ label:'サンワダイレクト', data:[22,21,23,25,25,26,32,29,18,22,19,16,17,19,13,11,12,15,10,11,10,9,9,7,6,8,8,7,6,6], borderColor:'#f39c12', backgroundColor:'transparent', tension:0.3, borderWidth:1.5 },
+{ label:'Excitech', data:[137,197,265,301,342,332,396,383,278,291,172,166,244,227,237,181,198,207,55,59,51,41,40,39,42,44,50,49,49,47], borderColor:'#9b59b6', backgroundColor:'transparent', tension:0.3, borderWidth:1.5 },
+{ label:'HALOHOME', data:[307,240,279,296,298,273,326,200,102,108,60,89,148,152,179,159,141,166,106,151,157,144,122,93,73,62,51,49,49,49], borderColor:'#1abc9c', backgroundColor:'transparent', tension:0.3, borderWidth:1.5 },
+{ label:'Alloom白', data:[688,630,584,584,597,538,637,618,429,602,362,327,473,467,464,387,439,488,273,495,596,545,545,394,336,295,264,340,314,295], borderColor:'#34495e', backgroundColor:'transparent', tension:0.3, borderWidth:1.5 },
+      { label:'WAQ FWF1 (Shopify)', data:[42,58,61,41,40,35,50,39,40,27,46,63,58,51,28,24,137,45,50,37,17,10,14,13,9,6,2,10,4,0], borderColor:'#0f766e', backgroundColor:'#0f766e33', tension:0.3, borderWidth:3, borderDash:[] }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ title:{display:true, text:'競合6商品 vs WAQ FWF1 日別販売数（直近30日）'} },
+    scales:{ y:{title:{display:true,text:'販売数/日'}} }
+  }
+});
+
+// 競合 月別
+new Chart(document.getElementById('compMonthlyChart'), {
+  type: 'bar',
+  data: {
+    labels: ["2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08"],
+    datasets: [
+      { label:'携帯扇風機カーキ', data:[0,600,10377,40534,18879,3887,797,380,282,260,347,722,2903,8285,9681,27619,38874], backgroundColor:'#3498db' },
+{ label:'腰掛けブラック', data:[0,1302,12303,24350,6308,871,344,245,171,174,172,364,892,3197,3649,17440,12927], backgroundColor:'#e74c3c' },
+{ label:'サンワダイレクト', data:[0,355,401,131,22,14,17,11,0,5,2,3,0,107,113,511,310], backgroundColor:'#f39c12' },
+{ label:'Excitech', data:[0,0,0,0,0,0,0,0,0,0,0,2,2,1541,1598,5574,3193], backgroundColor:'#9b59b6' },
+{ label:'HALOHOME', data:[0,0,0,0,0,0,0,0,0,0,0,0,148,1356,1798,6441,3534], backgroundColor:'#1abc9c' },
+{ label:'Alloom白', data:[0,0,0,0,0,0,0,0,0,0,0,0,0,123,5464,14175,12772], backgroundColor:'#34495e' }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ title:{display:true, text:'競合各社 月別販売数推移'} },
+    scales:{ x:{stacked:false}, y:{title:{display:true,text:'販売数'}} }
+  }
+});
+
+// Google Trends
+new Chart(document.getElementById('trendChart'), {
+  type: 'line',
+  data: {
+    labels: ["2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08"],
+    datasets: [
+      { label:'ベルトファン', data:[33,38,39,41,34,44,74,100,49,40,35,38,37,41,40,43,39,51,61,98,62], borderColor:'#3498db', tension:0.3 },
+      { label:'携帯扇風機',   data:[1,1,1,2,6,14,46,57,20,9,4,2,2,1,1,3,5,19,17,39,20], borderColor:'#e74c3c', tension:0.3 },
+      { label:'腰掛け扇風機', data:[0,0,0,0,0,6,30,33,6,1,0,0,0,0,0,0,1,6,5,17,7], borderColor:'#f39c12', tension:0.3 },
+      { label:'ウエストファン(単独スケール)', data:[0,0,38,44,0,26,63,49,33,0,55,0,0,53,34,0,68,49,93,100,48], borderColor:'#9b59b6', tension:0.3, borderDash:[5,5] }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ title:{display:true, text:'Google Trends 月別（0-100・上3つは複合、ウエストファンは単独）'} },
+    scales:{ y:{title:{display:true,text:'相対検索量'}} }
+  }
+});
+
+// 価格
+new Chart(document.getElementById('priceChart'), {
+  type: 'line',
+  data: {
+    labels: ["2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08"],
+    datasets: [
+      { label:'携帯扇風機カーキ', data:[null,8312,3380,3672,3227,3216,3747,4077,5180,5269,4299,3885,3827,3759,3670,3731,3543], borderColor:'#3498db', backgroundColor:'transparent', tension:0.3, spanGaps:true },
+{ label:'腰掛けブラック', data:[null,5188,2980,3241,2831,2831,3369,3584,3799,4370,4608,3404,3323,3117,3189,3165,3081], borderColor:'#e74c3c', backgroundColor:'transparent', tension:0.3, spanGaps:true },
+{ label:'サンワダイレクト', data:[null,3980,3980,3980,null,null,null,null,null,null,null,null,null,3980,3980,3980,3980], borderColor:'#f39c12', backgroundColor:'transparent', tension:0.3, spanGaps:true },
+{ label:'Excitech', data:[null,null,null,null,null,null,null,null,null,null,null,null,null,4435,4427,4448,4317], borderColor:'#9b59b6', backgroundColor:'transparent', tension:0.3, spanGaps:true },
+{ label:'HALOHOME', data:[null,null,null,null,null,null,null,null,null,null,null,null,3307,2951,2810,3307,3050], borderColor:'#1abc9c', backgroundColor:'transparent', tension:0.3, spanGaps:true },
+{ label:'Alloom白', data:[null,null,null,null,null,null,null,null,null,null,null,null,null,3806,3062,3303,2840], borderColor:'#34495e', backgroundColor:'transparent', tension:0.3, spanGaps:true },
+      { label:'WAQ FWF1 (¥4,580固定)', data:[4580,4580,4580,4580,4580,4580,4580,4580,4580,4580,4580,4580,4580,4580,4580,4580,4580], borderColor:'#0f766e', borderDash:[5,5], borderWidth:2 }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ title:{display:true, text:'競合平均価格推移（月次）'} },
+    scales:{ y:{title:{display:true,text:'価格¥'},ticks:{callback:v=>'¥'+v.toLocaleString()}} }
+  }
+});
+
+
+new Chart(document.getElementById('amazonAllDailyChart'), {
+  type: 'line',
+  data: {
+    labels: ["05-19","05-20","05-21","05-22","05-23","05-24","05-25","05-26","05-27","05-28","05-29","05-30","05-31","06-01","06-02","06-03","06-04","06-05","06-06","06-07","06-08","06-09","06-10","06-11","06-12","06-13","06-14","06-15","06-16","06-17","06-18","06-19","06-20","06-21","06-22","06-23","06-24","06-25","06-26","06-27","06-28","06-29","06-30","07-01","07-02","07-03","07-04","07-05","07-06","07-07","07-08","07-09","07-10","07-11","07-12","07-13","07-14","07-15","07-16","07-17","07-18","07-19","07-20","07-21","07-22","07-23","07-24","07-25","07-26","07-27","07-28","07-29","07-30","07-31","08-01","08-02","08-03","08-04","08-05","08-06","08-07","08-08","08-09","08-10","08-11","08-12","08-13","08-14","08-15","08-16","08-17"],
+    datasets:[{ label:'全ASIN合算 売上¥', data:[1404370,2126260,2417911,2182155,2469825,3573338,2448297,2152349,2931069,2252988,2299959,2314198,3251781,4370966,4392945,2056811,1658150,1197040,1560330,1843382,1417200,1500200,1515860,1326100,1020400,1588000,1342000,1367190,1770702,1279642,1333920,1077300,1058130,1553210,1254690,1187220,1156940,988920,1100240,1602320,2031280,1539580,1589350,1906184,1392260,1411337,1353990,1521600,1690002,7669576,5343001,4228626,10210742,9175431,12040035,17514105,2239371,2325940,1381234,1593834,1557420,1891830,2728336,2632808,2392680,2352410,1888560,2180660,2426580,2254550,1865690,3435233,2813865,2548423,4351835,5551924,4128094,3731264,4665104,4389296,2371543,2955254,2507637,2084212,2412122,1616663,1478689,1618380,1674830,1626680,1830463], borderColor:'#ff9900', backgroundColor:'#ff990022', tension:0.3, fill:true }]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ title:{display:true, text:'Amazon全ASIN日別売上（参考）'} },
+    scales:{ y:{ticks:{callback:v=>'¥'+(v/1000000).toFixed(1)+'M'}} }
+  }
+});
+
+</script>
+</body>
+</html>
