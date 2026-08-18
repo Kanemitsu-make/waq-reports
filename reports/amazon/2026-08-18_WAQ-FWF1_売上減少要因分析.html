@@ -232,23 +232,30 @@ BuyBox 99.8-99.9%と高く、CVRも3.6-6.3%と健全。<strong>販売ページ�
 <!-- ============ Section 5 Google Trends ============ -->
 <h2 id="trends">📈 市場動向 (Google Trends)</h2>
 
-<div class="chart-container"><canvas id="trendChart"></canvas></div>
+<h3>各KW 単独スケール推移（各KWの自スケール0-100）</h3>
+<div class="chart-container"><canvas id="trendStandaloneChart"></canvas></div>
 
+<h3>複合スケール（KW間の絶対検索量比較）</h3>
+<div class="chart-container"><canvas id="trendComboChart"></canvas></div>
+
+<h3>YoY詳細比較（各KW単独スケール）</h3>
 <table>
-<thead><tr><th>KW</th><th class="num">2025-07ピーク</th><th class="num">2026-07ピーク</th><th class="num">YoY</th><th class="num">2026-08</th><th class="num">ピーク→8月</th></tr></thead>
+<thead><tr><th>KW</th><th class="num">2025-07</th><th class="num">2026-07</th><th class="num">YoY(7月)</th><th class="num">2025-08</th><th class="num">2026-08</th><th class="num">YoY(8月)</th></tr></thead>
 <tbody>
-<tr><td>ベルトファン</td><td class="num">100</td><td class="num">98</td><td class="num">-2%</td><td class="num">62</td><td class="num down">-37%</td></tr>
-<tr><td>携帯扇風機</td><td class="num">57</td><td class="num">39</td><td class="num down">-32%</td><td class="num">20</td><td class="num down">-49%</td></tr>
-<tr><td>腰掛け扇風機</td><td class="num">33</td><td class="num">17</td><td class="num down">-48%</td><td class="num">7</td><td class="num down">-59%</td></tr>
-<tr><td>ウエストファン</td><td class="num">49</td><td class="num">100</td><td class="num up">+104%</td><td class="num">48</td><td class="num down">-52%</td></tr>
+<tr><td>ベルトファン</td><td class="num">100</td><td class="num">98</td><td class="num">-2%</td><td class="num">49</td><td class="num">62</td><td class="num up">+27%</td></tr>
+<tr><td>携帯扇風機</td><td class="num">100</td><td class="num">69</td><td class="num down">-31%</td><td class="num">35</td><td class="num">36</td><td class="num up">+3%</td></tr>
+<tr><td>腰掛け扇風機</td><td class="num">100</td><td class="num">50</td><td class="num down">-50%</td><td class="num">17</td><td class="num">20</td><td class="num up">+18%</td></tr>
+<tr style="background:#e8f5e9"><td>ウエストファン</td><td class="num">49</td><td class="num">100</td><td class="num up">+104%</td><td class="num">33</td><td class="num">48</td><td class="num up">+45%</td></tr>
 </tbody>
 </table>
 
 <div class="insight">
-<strong>💡 市場動向の重要示唆:</strong><br>
-<strong>①</strong> 「腰掛け扇風機」「携帯扇風機」は YoY -32〜-48% で<strong>市場縮小</strong>。<br>
-<strong>②</strong> 一方「ウエストファン」は YoY +104% で<strong>新カテゴリ名として定着</strong>中（WAQブランディング効果 or 業界呼称変化）。<br>
-<strong>③</strong> 8月の一斉減少は例年通りの季節性。
+<strong>💡 市場動向の重要示唆（4KW単独スケールで再検証）:</strong><br>
+<strong>①</strong> 「腰掛け扇風機」は7月ピーク時 <strong>YoY -50%</strong>（-半減）。カテゴリ縮小明確。<br>
+<strong>②</strong> 「携帯扇風機」も <strong>YoY -31%</strong>で縮小。<br>
+<strong>③</strong> 「ベルトファン」はほぼ横ばい（-2%）。呼称としてはまだ強い。<br>
+<strong>④</strong> 「ウエストファン」は <strong>YoY +104%</strong>で最大成長。WAQ独自KW認知が広がっている。<br>
+<strong>⑤</strong> 意外にも8月は全KWで <strong>+3〜+45% YoY</strong>。お盆期の残存需要は昨年より高い。
 </div>
 
 <!-- ============ Section 6 価格 ============ -->
@@ -294,7 +301,7 @@ WAQ FWF1 の Shopify価格 <strong>¥4,580</strong> は競合中央値 <strong>�
 </div>
 
 <div class="footer">
-Generated 2026/8/18 11:19:55 / データ元: Shopify Admin API / Amazon SP-API / SellerSprite / Google Trends<br>
+Generated 2026/8/18 11:28:57 / データ元: Shopify Admin API / Amazon SP-API / SellerSprite / Google Trends<br>
 WAQ株式会社 マーケティング分析
 </div>
 
@@ -384,22 +391,41 @@ new Chart(document.getElementById('compMonthlyChart'), {
   }
 });
 
-// Google Trends
-new Chart(document.getElementById('trendChart'), {
+// Google Trends 単独スケール
+new Chart(document.getElementById('trendStandaloneChart'), {
   type: 'line',
   data: {
     labels: ["2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08"],
     datasets: [
-      { label:'ベルトファン', data:[33,38,39,41,34,44,74,100,49,40,35,38,37,41,40,43,39,51,61,98,62], borderColor:'#3498db', tension:0.3 },
-      { label:'携帯扇風機',   data:[1,1,1,2,6,14,46,57,20,9,4,2,2,1,1,3,5,19,17,39,20], borderColor:'#e74c3c', tension:0.3 },
-      { label:'腰掛け扇風機', data:[0,0,0,0,0,6,30,33,6,1,0,0,0,0,0,0,1,6,5,17,7], borderColor:'#f39c12', tension:0.3 },
-      { label:'ウエストファン(単独スケール)', data:[0,0,38,44,0,26,63,49,33,0,55,0,0,53,34,0,68,49,93,100,48], borderColor:'#9b59b6', tension:0.3, borderDash:[5,5] }
+      { label:'ベルトファン', data:[33,38,39,41,34,44,74,100,49,40,35,38,37,41,40,43,39,51,61,98,62], borderColor:'#3498db', tension:0.3, borderWidth:2 },
+      { label:'携帯扇風機',   data:[2,2,2,3,11,25,81,100,35,16,6,4,3,2,2,5,9,34,29,69,36], borderColor:'#e74c3c', tension:0.3, borderWidth:2 },
+      { label:'腰掛け扇風機', data:[0,0,0,0,0,18,92,100,17,3,0,0,0,0,0,0,3,18,16,50,20], borderColor:'#f39c12', tension:0.3, borderWidth:2 },
+      { label:'ウエストファン', data:[0,0,38,44,0,26,63,49,33,0,55,0,0,53,34,0,68,49,93,100,48], borderColor:'#9b59b6', tension:0.3, borderWidth:3 }
     ]
   },
   options:{
     responsive:true, maintainAspectRatio:false,
-    plugins:{ title:{display:true, text:'Google Trends 月別（0-100・上3つは複合、ウエストファンは単独）'} },
-    scales:{ y:{title:{display:true,text:'相対検索量'}} }
+    plugins:{ title:{display:true, text:'各KW単独スケール（それぞれ0-100・YoY比較用）'} },
+    scales:{ y:{title:{display:true,text:'相対検索量'}, min:0, max:100} }
+  }
+});
+
+// Google Trends 複合スケール
+new Chart(document.getElementById('trendComboChart'), {
+  type: 'line',
+  data: {
+    labels: ["2024-12","2025-01","2025-02","2025-03","2025-04","2025-05","2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08"],
+    datasets: [
+      { label:'ベルトファン', data:[33,38,39,41,34,44,74,100,49,40,35,38,37,41,40,43,39,51,61,98,62], borderColor:'#3498db', tension:0.3, borderWidth:2 },
+      { label:'携帯扇風機',   data:[1,1,1,2,6,14,46,57,20,9,4,2,2,1,1,3,5,19,17,39,20], borderColor:'#e74c3c', tension:0.3, borderWidth:2 },
+      { label:'腰掛け扇風機', data:[0,0,0,0,0,6,30,33,6,1,0,0,0,0,0,0,1,6,5,17,7], borderColor:'#f39c12', tension:0.3, borderWidth:2 },
+      { label:'ウエストファン', data:[0,0,1,1,0,1,2,1,1,0,2,0,0,1,1,0,2,1,3,3,1], borderColor:'#9b59b6', tension:0.3, borderWidth:2 }
+    ]
+  },
+  options:{
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ title:{display:true, text:'複合スケール（KW間の絶対検索量比較・ベルトファンが最大）'} },
+    scales:{ y:{title:{display:true,text:'相対検索量（複合正規化）'}} }
   }
 });
 
