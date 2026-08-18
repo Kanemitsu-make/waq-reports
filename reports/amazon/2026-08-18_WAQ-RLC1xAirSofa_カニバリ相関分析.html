@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>WAQ RLC1×Air Sofa カニバリ相関分析（2026-08-18）</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;background:#f5f7fa;color:#2c3e50;line-height:1.6;padding:20px}
+.container{max-width:1200px;margin:0 auto}
+header{background:linear-gradient(135deg,#059669 0%,#10b981 100%);color:#fff;padding:40px 32px;border-radius:16px;margin-bottom:32px;box-shadow:0 10px 30px rgba(16,185,129,0.2)}
+header h1{font-size:26px;margin-bottom:8px}
+header .sub{opacity:.95;font-size:14px}
+.badge{display:inline-block;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:600;margin-right:8px}
+.badge-orange{background:#fff3cd;color:#856404}
+.badge-green{background:#d1fae5;color:#065f46}
+.badge-blue{background:#d1ecf1;color:#0c5460}
+h2{font-size:20px;margin:32px 0 16px;padding:8px 0 8px 12px;border-left:5px solid #059669;background:#ecfdf5}
+h3{font-size:16px;margin:20px 0 10px;color:#232f3e}
+.toc{background:#fff;padding:16px 24px;border-radius:8px;margin-bottom:24px;box-shadow:0 2px 4px rgba(0,0,0,0.05)}
+.toc h3{margin:0 0 8px;color:#7f8c8d;font-size:14px}
+.toc a{color:#059669;text-decoration:none;margin-right:16px;line-height:2}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:20px 0}
+.card{background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.05);border-left:4px solid #10b981}
+.card.red{border-left-color:#e74c3c}
+.card.green{border-left-color:#27ae60}
+.card.blue{border-left-color:#3498db}
+.card.purple{border-left-color:#9b59b6}
+.card.orange{border-left-color:#f39c12}
+.card .label{font-size:12px;color:#7f8c8d;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+.card .value{font-size:24px;font-weight:700;color:#232f3e}
+.card .sub{font-size:12px;color:#95a5a6;margin-top:4px}
+table{width:100%;background:#fff;border-collapse:collapse;box-shadow:0 2px 4px rgba(0,0,0,0.05);border-radius:8px;overflow:hidden;margin:12px 0}
+th{background:#232f3e;color:#fff;padding:12px;text-align:left;font-size:13px;font-weight:600}
+td{padding:10px 12px;border-bottom:1px solid #ecf0f1;font-size:14px}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafbfc}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.down{color:#e74c3c;font-weight:700}
+.up{color:#27ae60;font-weight:700}
+.chart-container{background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.05);margin:16px 0;height:400px}
+.insight{background:#fff9e6;border-left:4px solid #f39c12;padding:16px 20px;border-radius:6px;margin:16px 0}
+.insight strong{color:#7d4e00}
+.conc{background:#e8f5e9;border-left:4px solid #27ae60;padding:20px;border-radius:6px;margin:24px 0}
+.conc h3{margin-top:0;color:#155724}
+.hypo{background:#f5f3ff;border-left:4px solid #8b5cf6;padding:16px 20px;border-radius:6px;margin:16px 0}
+.footer{margin-top:40px;padding:20px;text-align:center;color:#7f8c8d;font-size:12px;border-top:1px solid #ecf0f1}
+.highlight{background:#d1fae5;padding:2px 6px;border-radius:3px;font-weight:600;color:#065f46}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>🔄 WAQ RLC1 × Air Sofa カニバリズム相関分析</h1>
+  <div class="sub">
+    <span class="badge badge-green">結論：カニバリなし</span>
+    <span class="badge badge-orange">Amazon単独</span>
+    <span class="badge badge-blue">2026年データ</span>
+  </div>
+  <div class="sub" style="margin-top:12px">
+    対象: WAQ Reclining Low Chair × WAQ AIR SOFA / 期間: 2026-01-01〜2026-08-17（229日） / データ元: 内部売上シートGSS
+  </div>
+</header>
+
+<div class="toc">
+<h3>目次</h3>
+<a href="#summary">📊 サマリと結論</a>
+<a href="#correlation">📈 相関分析</a>
+<a href="#monthly">📅 月次推移</a>
+<a href="#daily">📆 日次推移</a>
+<a href="#scatter">🎯 散布図</a>
+<a href="#insight">💡 データから読み取れる分析</a>
+<a href="#suggestions">🤖 Claude提案</a>
+</div>
+
+<!-- ============ サマリ ============ -->
+<h2 id="summary">📊 サマリと結論</h2>
+<div class="cards">
+  <div class="card green"><div class="label">月次販売数相関</div><div class="value up">+0.821</div><div class="sub">極めて強い正相関</div></div>
+  <div class="card blue"><div class="label">日次販売数相関</div><div class="value up">+0.558</div><div class="sub">強い正相関</div></div>
+  <div class="card"><div class="label">RLC1 累計販売</div><div class="value">3,433個</div><div class="sub">¥30,828,340</div></div>
+  <div class="card orange"><div class="label">AirSofa 累計販売</div><div class="value">872個</div><div class="sub">¥17,265,600</div></div>
+</div>
+
+<div class="conc">
+<h3>🎯 結論：<span class="highlight">カニバリズムは発生していない</span></h3>
+<p>両商品の販売動向は<strong>強い正相関</strong>（月次r=+0.821、日次r=+0.558）を示している。もしカニバリが起きていれば負相関（片方が売れると片方が減る）が現れるはずだが、実際は<strong>両商品同時に売れ、同時に減る</strong>パターン。</p>
+<p style="margin-top:12px"><strong>両商品は同じ市場季節性（キャンプ需要）を共有しており、競合関係ではなく相補関係</strong>。7月ピーク→8月急減も両商品で同期している。</p>
+</div>
+
+<!-- ============ 相関 ============ -->
+<h2 id="correlation">📈 相関分析</h2>
+
+<h3>相関係数 (Pearson)</h3>
+<table>
+<thead><tr><th>粒度</th><th>指標</th><th class="num">相関係数 r</th><th>解釈</th></tr></thead>
+<tbody>
+<tr style="background:#ecfdf5"><td><strong>月次</strong></td><td>販売個数</td><td class="num up"><strong>+0.821</strong></td><td>📈 極めて強い正相関</td></tr>
+<tr><td>月次</td><td>セッション</td><td class="num up">+0.779</td><td>📈 強い正相関</td></tr>
+<tr><td>日次</td><td>販売個数</td><td class="num up">+0.558</td><td>📈 強い正相関</td></tr>
+<tr><td>日次</td><td>売上</td><td class="num up">+0.558</td><td>📈 強い正相関</td></tr>
+<tr><td>日次</td><td>セッション</td><td class="num up">+0.335</td><td>📈 中程度正相関</td></tr>
+</tbody>
+</table>
+
+<div class="insight">
+<strong>📖 相関係数の読み方:</strong>
+<ul style="margin-left:20px;margin-top:8px">
+<li><strong>r &gt; +0.5</strong>: 強い正相関 = 同時に増減する → <strong>共通要因あり</strong>（今回：季節性）</li>
+<li><strong>-0.3 &lt; r &lt; +0.3</strong>: 相関なし = 独立</li>
+<li><strong>r &lt; -0.3</strong>: 中〜強い負相関 = <strong>カニバリ疑い</strong>（片方の増加が他方の減少に繋がる）</li>
+</ul>
+<strong>今回の結果は「カニバリ否定」＋「同一市場需要の証拠」</strong>。
+</div>
+
+<!-- ============ 月次 ============ -->
+<h2 id="monthly">📅 月次推移</h2>
+
+<div class="chart-container"><canvas id="monthlyChart"></canvas></div>
+
+<table>
+<thead><tr><th>月</th><th class="num">RLC1販売</th><th class="num">AirSofa販売</th><th class="num">RLC1セッション</th><th class="num">AirSofaセッション</th><th class="num">日数</th></tr></thead>
+<tbody>
+<tr><td>2026-01</td><td class="num">300</td><td class="num">37</td><td class="num">23,810</td><td class="num">4,270</td><td class="num">31</td></tr><tr><td>2026-02</td><td class="num">185</td><td class="num">70</td><td class="num">17,780</td><td class="num">6,350</td><td class="num">28</td></tr><tr><td>2026-03</td><td class="num">413</td><td class="num">116</td><td class="num">28,317</td><td class="num">7,354</td><td class="num">31</td></tr><tr><td>2026-04</td><td class="num">678</td><td class="num">180</td><td class="num">36,457</td><td class="num">11,721</td><td class="num">30</td></tr><tr><td>2026-05</td><td class="num">596</td><td class="num">99</td><td class="num">38,245</td><td class="num">11,745</td><td class="num">31</td></tr><tr><td>2026-06</td><td class="num">199</td><td class="num">91</td><td class="num">26,365</td><td class="num">15,436</td><td class="num">30</td></tr><tr><td>2026-07</td><td class="num">835</td><td class="num">183</td><td class="num">48,826</td><td class="num">20,556</td><td class="num">31</td></tr><tr><td>2026-08</td><td class="num">227</td><td class="num">96</td><td class="num">22,194</td><td class="num">9,144</td><td class="num">17</td></tr>
+</tbody>
+</table>
+
+<!-- ============ 日次 ============ -->
+<h2 id="daily">📆 日次推移</h2>
+
+<h3>日別販売数（両商品重ね）</h3>
+<div class="chart-container"><canvas id="dailyUnitsChart"></canvas></div>
+
+<h3>日別セッション数（両商品重ね）</h3>
+<div class="chart-container"><canvas id="dailySessChart"></canvas></div>
+
+<h3>週次販売数（トレンド見やすさUP）</h3>
+<div class="chart-container"><canvas id="weeklyChart"></canvas></div>
+
+<!-- ============ 散布図 ============ -->
+<h2 id="scatter">🎯 散布図（相関の視覚化）</h2>
+
+<h3>月次: RLC1販売数 × AirSofa販売数</h3>
+<div class="chart-container"><canvas id="scatterMonthlyChart"></canvas></div>
+
+<h3>日次: RLC1販売数 × AirSofa販売数</h3>
+<div class="chart-container"><canvas id="scatterDailyChart"></canvas></div>
+
+<div class="insight">
+<strong>📖 散布図の読み方:</strong>
+右上がりに点が集まっている = 正相関（両方増える方向）。もしカニバリなら右下がり（片方が高いとき片方が低い）になるはず。
+</div>
+
+<!-- ============ 分析 ============ -->
+<h2 id="insight">💡 データから読み取れる分析</h2>
+
+<div class="insight">
+<h3>① 顧客層の重複可能性が高い</h3>
+<p>両商品の販売数が同時に増減している = 「同じキャンプ需要期に両方買われる」構造。単一顧客が両方買っている（クロスセル）か、同種の顧客セグメントが両方見ている可能性。</p>
+</div>
+
+<div class="insight">
+<h3>② 販売規模の非対称性</h3>
+<p>RLC1販売数 3433 vs AirSofa 872 = <strong>約4倍差</strong>。ただし単価差でAirSofaの方が高価（RLC1 ¥8,980 / AirSofa ¥19,800）。<br>
+売上比では 64% : 36% と縮まる。</p>
+</div>
+
+<div class="insight">
+<h3>③ 季節性のピークが完全一致</h3>
+<p>両商品とも<strong>7月がピーク</strong>（RLC1: 835個 / AirSofa: 183個）で、8月に急減。これは他のキャンプ商品（FWF1等）も同様のパターン。<br>
+→ WAQ全商品を通じた「夏季ピーク型」季節性を確認できる。</p>
+</div>
+
+<div class="insight">
+<h3>④ 8月の同時急減はカニバリではない</h3>
+<p>8月に両方が減少 → もしカニバリなら片方が伸びるはず。<strong>両方減っている＝市場全体の需要減が主因</strong>。（FWF1分析でも実証済み）</p>
+</div>
+
+<div class="insight">
+<h3>⑤ セッション相関がやや弱い理由</h3>
+<p>販売相関 r=0.558 に対して<strong>セッション相関 r=0.335 と弱め</strong>。これは：</p>
+<ul style="margin-left:20px;margin-top:4px">
+<li>広告出稿タイミングが商品ごとに違う</li>
+<li>片方はセール中でセッション集中する日がある</li>
+<li>新商品訴求時期は個別に流入変化する</li>
+</ul>
+<p>→ 顧客流入は個別に動くが、購買行動は季節性で同期する構造。</p>
+</div>
+
+<div class="insight">
+<h3>⑥ 相補関係の可能性</h3>
+<p>RLC1（座る）とAirSofa（くつろぐ）は<strong>使用シーンが補完的</strong>。カニバリ関係というより「同じキャンプ設営の中で両方使う」商品セット。<br>
+セット販売・バンドル訴求の余地が大きい。</p>
+</div>
+
+<!-- ============ Claude提案 ============ -->
+<h2 id="suggestions">🤖 Claude提案：相補関係を活かす施策</h2>
+
+<div class="hypo">
+<p><strong>「カニバリ懸念」を「相補関係」に読み替えると、以下の施策余地が見える：</strong></p>
+</div>
+
+<table>
+<thead><tr><th>#</th><th>施策</th><th>効果</th><th>実装容易性</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>クロスセル訴求強化</strong>：RLC1商品ページ「よく一緒に購入されている」にAirSofa配置（逆も同様）</td><td>単価UP・購入率UP</td><td>★☆☆ 即日</td></tr>
+<tr><td>2</td><td><strong>セットバンドル販売</strong>：「キャンプくつろぎセット」でRLC1 + AirSofa</td><td>単価大幅UP</td><td>★★☆ 1週間</td></tr>
+<tr><td>3</td><td><strong>A+コンテンツで使用シーン統合訴求</strong>：AirSofa側のA+に「RLC1と併用のリラックス空間」画像</td><td>クロス認知UP</td><td>★★☆ 2週間</td></tr>
+<tr><td>4</td><td><strong>広告のTargeting共有</strong>：AmazonスポンサープロダクトでRLC1閲覧者にAirSofa広告</td><td>ROAS改善</td><td>★☆☆ 半日</td></tr>
+<tr><td>5</td><td><strong>春〜7月のマーケ予算集中</strong>：両商品同時プロモで相乗効果</td><td>効率UP</td><td>★★☆ 予算計画次第</td></tr>
+<tr><td>6</td><td><strong>顧客の実際のクロス購入率調査</strong>：Brand Analytics「Repeat Purchase Behavior」で確認</td><td>仮説検証</td><td>★☆☆ 1日</td></tr>
+</tbody>
+</table>
+
+<div class="conc" style="background:#f5f3ff;border-left-color:#8b5cf6">
+<h3 style="color:#5b21b6">🥇 Claude推奨アクション TOP 3</h3>
+<ol style="margin-left:20px;margin-top:8px">
+<li><strong>Brand Analyticsで実際のクロス購入率確認</strong>（仮説を数値で裏付け）</li>
+<li><strong>ユーザー行動から見て相補的なら、セット販売検討</strong></li>
+<li><strong>2027年春〜7月のマーケ計画で両商品を同時押し</strong>（今年の相関パターンを活用）</li>
+</ol>
+</div>
+
+<div class="footer">
+Generated 2026/8/18 19:01:46 / データ元: 内部売上管理シート(Amazon日別)<br>
+WAQ株式会社 マーケティング分析
+</div>
+
+</div>
+
+<script>
+Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif";
+
+// 月次販売数
+new Chart(document.getElementById('monthlyChart'), {
+  type:'bar',
+  data:{ labels:["2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07","2026-08"], datasets:[
+    { label:'RLC1販売数', data:[300,185,413,678,596,199,835,227], backgroundColor:'#059669', yAxisID:'y' },
+    { label:'AirSofa販売数', data:[37,70,116,180,99,91,183,96], backgroundColor:'#f59e0b', yAxisID:'y1' }
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{title:{display:true,text:'月次販売数（両商品同時ピーク＝7月）'}},
+    scales:{
+      y:{position:'left',title:{display:true,text:'RLC1販売数'}},
+      y1:{position:'right',title:{display:true,text:'AirSofa販売数'},grid:{drawOnChartArea:false}}
+    }
+  }
+});
+
+// 日次販売数
+new Chart(document.getElementById('dailyUnitsChart'), {
+  type:'line',
+  data:{ labels:["01-01","01-02","01-03","01-04","01-05","01-06","01-07","01-08","01-09","01-10","01-11","01-12","01-13","01-14","01-15","01-16","01-17","01-18","01-19","01-20","01-21","01-22","01-23","01-24","01-25","01-26","01-27","01-28","01-29","01-30","01-31","02-01","02-02","02-03","02-04","02-05","02-06","02-07","02-08","02-09","02-10","02-11","02-12","02-13","02-14","02-15","02-16","02-17","02-18","02-19","02-20","02-21","02-22","02-23","02-24","02-25","02-26","02-27","02-28","03-01","03-02","03-03","03-04","03-05","03-06","03-07","03-08","03-09","03-10","03-11","03-12","03-13","03-14","03-15","03-16","03-17","03-18","03-19","03-20","03-21","03-22","03-23","03-24","03-25","03-26","03-27","03-28","03-29","03-30","03-31","04-01","04-02","04-03","04-04","04-05","04-06","04-07","04-08","04-09","04-10","04-11","04-12","04-13","04-14","04-15","04-16","04-17","04-18","04-19","04-20","04-21","04-22","04-23","04-24","04-25","04-26","04-27","04-28","04-29","04-30","05-01","05-02","05-03","05-04","05-05","05-06","05-07","05-08","05-09","05-10","05-11","05-12","05-13","05-14","05-15","05-16","05-17","05-18","05-19","05-20","05-21","05-22","05-23","05-24","05-25","05-26","05-27","05-28","05-29","05-30","05-31","06-01","06-02","06-03","06-04","06-05","06-06","06-07","06-08","06-09","06-10","06-11","06-12","06-13","06-14","06-15","06-16","06-17","06-18","06-19","06-20","06-21","06-22","06-23","06-24","06-25","06-26","06-27","06-28","06-29","06-30","07-01","07-02","07-03","07-04","07-05","07-06","07-07","07-08","07-09","07-10","07-11","07-12","07-13","07-14","07-15","07-16","07-17","07-18","07-19","07-20","07-21","07-22","07-23","07-24","07-25","07-26","07-27","07-28","07-29","07-30","07-31","08-01","08-02","08-03","08-04","08-05","08-06","08-07","08-08","08-09","08-10","08-11","08-12","08-13","08-14","08-15","08-16","08-17"], datasets:[
+    { label:'RLC1', data:[16,9,17,11,11,10,12,1,7,10,7,9,6,11,8,9,12,22,6,10,3,9,10,13,11,6,10,8,6,12,8,17,23,6,11,9,7,7,6,3,5,4,4,7,1,8,4,7,2,5,3,2,7,5,6,0,8,5,13,7,7,24,23,13,13,20,21,29,13,10,3,6,18,11,13,7,8,10,13,2,14,9,9,16,13,7,16,16,11,31,58,24,38,35,51,63,8,4,3,6,13,17,17,6,15,13,8,12,18,14,16,22,10,18,24,19,29,20,34,63,46,45,46,12,10,17,12,8,15,19,12,17,9,4,15,8,15,12,6,15,20,14,25,25,31,12,30,31,7,31,27,21,28,5,2,0,5,13,4,5,8,3,0,10,5,6,5,7,8,2,3,11,2,5,4,4,3,7,4,5,14,8,11,6,14,13,10,70,52,38,88,89,108,171,6,6,3,6,7,8,4,13,12,4,7,9,12,6,10,21,11,12,18,30,28,16,28,28,10,3,11,6,13,6,4,7,8,3,8], borderColor:'#059669', backgroundColor:'#05966922', tension:0.3, yAxisID:'y' },
+    { label:'AirSofa', data:[3,5,3,2,1,1,2,0,0,1,0,3,0,1,1,0,0,0,1,1,0,2,0,0,0,3,0,0,2,3,2,1,0,0,1,0,6,2,4,1,5,0,2,0,2,2,4,5,4,5,3,1,2,1,3,1,9,4,2,4,0,3,3,2,3,1,8,3,6,4,1,2,2,2,8,1,4,2,1,6,2,4,4,3,8,5,5,9,4,6,9,4,6,6,7,10,2,7,6,6,5,7,5,7,1,2,0,4,2,7,1,2,4,7,3,5,14,13,12,16,14,5,4,2,1,0,2,3,2,2,3,4,1,2,4,3,3,1,3,2,0,7,3,7,3,2,5,3,2,2,4,4,3,2,2,4,4,3,9,7,3,1,0,2,1,2,3,1,2,4,2,6,2,2,3,1,3,3,5,3,4,10,1,2,5,4,6,16,7,8,17,11,12,12,8,3,1,6,4,9,6,7,4,3,4,1,3,5,3,1,2,2,6,14,10,10,4,4,10,3,5,2,5,3,1,7,3,3,6], borderColor:'#f59e0b', backgroundColor:'#f59e0b22', tension:0.3, yAxisID:'y1' }
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{title:{display:true,text:'日別販売数（2軸・同期して動いている）'}},
+    scales:{ y:{position:'left'}, y1:{position:'right',grid:{drawOnChartArea:false}}, x:{ticks:{maxTicksLimit:15}} }
+  }
+});
+
+// 日次セッション
+new Chart(document.getElementById('dailySessChart'), {
+  type:'line',
+  data:{ labels:["01-01","01-02","01-03","01-04","01-05","01-06","01-07","01-08","01-09","01-10","01-11","01-12","01-13","01-14","01-15","01-16","01-17","01-18","01-19","01-20","01-21","01-22","01-23","01-24","01-25","01-26","01-27","01-28","01-29","01-30","01-31","02-01","02-02","02-03","02-04","02-05","02-06","02-07","02-08","02-09","02-10","02-11","02-12","02-13","02-14","02-15","02-16","02-17","02-18","02-19","02-20","02-21","02-22","02-23","02-24","02-25","02-26","02-27","02-28","03-01","03-02","03-03","03-04","03-05","03-06","03-07","03-08","03-09","03-10","03-11","03-12","03-13","03-14","03-15","03-16","03-17","03-18","03-19","03-20","03-21","03-22","03-23","03-24","03-25","03-26","03-27","03-28","03-29","03-30","03-31","04-01","04-02","04-03","04-04","04-05","04-06","04-07","04-08","04-09","04-10","04-11","04-12","04-13","04-14","04-15","04-16","04-17","04-18","04-19","04-20","04-21","04-22","04-23","04-24","04-25","04-26","04-27","04-28","04-29","04-30","05-01","05-02","05-03","05-04","05-05","05-06","05-07","05-08","05-09","05-10","05-11","05-12","05-13","05-14","05-15","05-16","05-17","05-18","05-19","05-20","05-21","05-22","05-23","05-24","05-25","05-26","05-27","05-28","05-29","05-30","05-31","06-01","06-02","06-03","06-04","06-05","06-06","06-07","06-08","06-09","06-10","06-11","06-12","06-13","06-14","06-15","06-16","06-17","06-18","06-19","06-20","06-21","06-22","06-23","06-24","06-25","06-26","06-27","06-28","06-29","06-30","07-01","07-02","07-03","07-04","07-05","07-06","07-07","07-08","07-09","07-10","07-11","07-12","07-13","07-14","07-15","07-16","07-17","07-18","07-19","07-20","07-21","07-22","07-23","07-24","07-25","07-26","07-27","07-28","07-29","07-30","07-31","08-01","08-02","08-03","08-04","08-05","08-06","08-07","08-08","08-09","08-10","08-11","08-12","08-13","08-14","08-15","08-16","08-17"], datasets:[
+    { label:'RLC1セッション', data:[719,650,1013,890,682,653,690,556,461,655,795,805,630,549,527,563,736,870,587,536,558,748,1090,1241,1094,744,1233,952,806,741,1036,1193,1094,550,583,559,511,750,725,595,599,906,564,452,631,754,539,568,501,506,484,494,654,814,573,575,540,434,632,858,613,1213,1052,1131,1389,1735,1704,1279,737,581,666,493,713,961,649,587,714,631,827,827,1109,849,767,623,619,577,758,1059,807,1789,1818,1836,2194,2810,2928,2432,823,743,613,647,875,1069,776,729,741,703,698,813,1046,798,929,990,877,867,1066,1459,1107,909,1186,1975,1820,1912,2166,1070,1156,1300,939,913,1273,1205,1008,927,935,686,588,801,960,729,694,832,1066,997,1615,1861,1614,1367,1560,1525,1270,1557,1899,1489,1661,828,649,653,963,1057,789,750,958,769,631,783,875,629,666,563,570,487,675,759,642,638,597,647,705,1385,2609,1303,635,942,783,695,813,1134,898,2926,2343,2902,3975,4078,4712,6062,952,846,744,723,829,906,1063,784,704,668,567,761,1094,831,778,1272,1601,1440,1910,2393,1871,1981,2008,1854,783,873,1014,829,998,781,910,999,941,1144,905], borderColor:'#059669', tension:0.3, yAxisID:'y' },
+    { label:'AirSofaセッション', data:[154,143,176,165,131,139,142,132,101,106,122,147,131,136,121,106,112,151,145,100,98,89,83,110,99,92,146,197,258,219,219,254,205,279,226,300,251,277,262,236,239,258,218,173,232,239,236,227,207,201,195,201,231,259,210,248,226,145,115,222,82,190,209,193,182,198,291,157,237,237,229,216,244,270,255,241,219,172,227,284,289,240,235,260,267,223,315,335,309,326,283,254,275,332,360,325,377,426,347,298,375,407,375,330,352,357,293,372,445,359,343,479,466,410,500,526,443,454,579,579,464,335,333,319,315,388,274,200,281,278,283,313,285,256,257,348,364,316,301,283,272,276,300,307,311,331,397,676,763,761,1158,1040,700,1360,882,488,436,723,590,624,718,305,315,397,555,453,442,316,298,319,341,386,326,335,585,447,397,448,450,387,373,413,376,455,518,592,627,1125,1084,806,842,690,647,451,540,822,674,422,612,590,974,658,809,767,764,804,1172,614,535,444,402,327,456,639,553,517,526,506,433,439,507,419,505,391,441,611,714,855,632], borderColor:'#f59e0b', tension:0.3, yAxisID:'y1' }
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{title:{display:true,text:'日別セッション数（2軸）'}},
+    scales:{ y:{position:'left'}, y1:{position:'right',grid:{drawOnChartArea:false}}, x:{ticks:{maxTicksLimit:15}} }
+  }
+});
+
+// 週次
+new Chart(document.getElementById('weeklyChart'), {
+  type:'bar',
+  data:{ labels:["12-29","01-05","01-12","01-19","01-26","02-02","02-09","02-16","02-23","03-02","03-09","03-16","03-23","03-30","04-06","04-13","04-20","04-27","05-04","05-11","05-18","05-25","06-01","06-08","06-15","06-22","06-29","07-06","07-13","07-20","07-27","08-03","08-10","08-17"], datasets:[
+    { label:'RLC1', data:[53,58,77,62,67,69,32,30,44,121,90,67,86,248,114,89,123,283,93,80,117,169,74,35,42,29,71,455,207,61,108,124,47,8], backgroundColor:'#059669', yAxisID:'y' },
+    { label:'AirSofa', data:[13,5,5,4,11,13,12,24,24,20,20,24,38,42,43,21,29,78,12,20,23,21,22,23,20,19,29,77,43,28,33,46,24,6], backgroundColor:'#f59e0b', yAxisID:'y1' }
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{title:{display:true,text:'週次販売数（週開始月曜）'}},
+    scales:{ y:{position:'left'}, y1:{position:'right',grid:{drawOnChartArea:false}} }
+  }
+});
+
+// 月次散布図
+new Chart(document.getElementById('scatterMonthlyChart'), {
+  type:'scatter',
+  data:{ datasets:[{ label:'月次データポイント', data:[{x:300,y:37,label:'2026-01'},{x:185,y:70,label:'2026-02'},{x:413,y:116,label:'2026-03'},{x:678,y:180,label:'2026-04'},{x:596,y:99,label:'2026-05'},{x:199,y:91,label:'2026-06'},{x:835,y:183,label:'2026-07'},{x:227,y:96,label:'2026-08'}], backgroundColor:'#059669', pointRadius:8, pointHoverRadius:10 }] },
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{
+      title:{display:true,text:'月次散布図: RLC1販売 × AirSofa販売（右上がり=正相関）'},
+      tooltip:{ callbacks:{ label: ctx => ctx.raw.label + ': RLC1=' + ctx.parsed.x + ', AirSofa=' + ctx.parsed.y } }
+    },
+    scales:{
+      x:{title:{display:true,text:'RLC1販売数'}},
+      y:{title:{display:true,text:'AirSofa販売数'}}
+    }
+  }
+});
+
+// 日次散布図
+new Chart(document.getElementById('scatterDailyChart'), {
+  type:'scatter',
+  data:{ datasets:[{ label:'日次データポイント', data:[{x:16,y:3},{x:9,y:5},{x:17,y:3},{x:11,y:2},{x:11,y:1},{x:10,y:1},{x:12,y:2},{x:1,y:0},{x:7,y:0},{x:10,y:1},{x:7,y:0},{x:9,y:3},{x:6,y:0},{x:11,y:1},{x:8,y:1},{x:9,y:0},{x:12,y:0},{x:22,y:0},{x:6,y:1},{x:10,y:1},{x:3,y:0},{x:9,y:2},{x:10,y:0},{x:13,y:0},{x:11,y:0},{x:6,y:3},{x:10,y:0},{x:8,y:0},{x:6,y:2},{x:12,y:3},{x:8,y:2},{x:17,y:1},{x:23,y:0},{x:6,y:0},{x:11,y:1},{x:9,y:0},{x:7,y:6},{x:7,y:2},{x:6,y:4},{x:3,y:1},{x:5,y:5},{x:4,y:0},{x:4,y:2},{x:7,y:0},{x:1,y:2},{x:8,y:2},{x:4,y:4},{x:7,y:5},{x:2,y:4},{x:5,y:5},{x:3,y:3},{x:2,y:1},{x:7,y:2},{x:5,y:1},{x:6,y:3},{x:0,y:1},{x:8,y:9},{x:5,y:4},{x:13,y:2},{x:7,y:4},{x:7,y:0},{x:24,y:3},{x:23,y:3},{x:13,y:2},{x:13,y:3},{x:20,y:1},{x:21,y:8},{x:29,y:3},{x:13,y:6},{x:10,y:4},{x:3,y:1},{x:6,y:2},{x:18,y:2},{x:11,y:2},{x:13,y:8},{x:7,y:1},{x:8,y:4},{x:10,y:2},{x:13,y:1},{x:2,y:6},{x:14,y:2},{x:9,y:4},{x:9,y:4},{x:16,y:3},{x:13,y:8},{x:7,y:5},{x:16,y:5},{x:16,y:9},{x:11,y:4},{x:31,y:6},{x:58,y:9},{x:24,y:4},{x:38,y:6},{x:35,y:6},{x:51,y:7},{x:63,y:10},{x:8,y:2},{x:4,y:7},{x:3,y:6},{x:6,y:6},{x:13,y:5},{x:17,y:7},{x:17,y:5},{x:6,y:7},{x:15,y:1},{x:13,y:2},{x:8,y:0},{x:12,y:4},{x:18,y:2},{x:14,y:7},{x:16,y:1},{x:22,y:2},{x:10,y:4},{x:18,y:7},{x:24,y:3},{x:19,y:5},{x:29,y:14},{x:20,y:13},{x:34,y:12},{x:63,y:16},{x:46,y:14},{x:45,y:5},{x:46,y:4},{x:12,y:2},{x:10,y:1},{x:17,y:0},{x:12,y:2},{x:8,y:3},{x:15,y:2},{x:19,y:2},{x:12,y:3},{x:17,y:4},{x:9,y:1},{x:4,y:2},{x:15,y:4},{x:8,y:3},{x:15,y:3},{x:12,y:1},{x:6,y:3},{x:15,y:2},{x:20,y:0},{x:14,y:7},{x:25,y:3},{x:25,y:7},{x:31,y:3},{x:12,y:2},{x:30,y:5},{x:31,y:3},{x:7,y:2},{x:31,y:2},{x:27,y:4},{x:21,y:4},{x:28,y:3},{x:5,y:2},{x:2,y:2},{x:0,y:4},{x:5,y:4},{x:13,y:3},{x:4,y:9},{x:5,y:7},{x:8,y:3},{x:3,y:1},{x:0,y:0},{x:10,y:2},{x:5,y:1},{x:6,y:2},{x:5,y:3},{x:7,y:1},{x:8,y:2},{x:2,y:4},{x:3,y:2},{x:11,y:6},{x:2,y:2},{x:5,y:2},{x:4,y:3},{x:4,y:1},{x:3,y:3},{x:7,y:3},{x:4,y:5},{x:5,y:3},{x:14,y:4},{x:8,y:10},{x:11,y:1},{x:6,y:2},{x:14,y:5},{x:13,y:4},{x:10,y:6},{x:70,y:16},{x:52,y:7},{x:38,y:8},{x:88,y:17},{x:89,y:11},{x:108,y:12},{x:171,y:12},{x:6,y:8},{x:6,y:3},{x:3,y:1},{x:6,y:6},{x:7,y:4},{x:8,y:9},{x:4,y:6},{x:13,y:7},{x:12,y:4},{x:4,y:3},{x:7,y:4},{x:9,y:1},{x:12,y:3},{x:6,y:5},{x:10,y:3},{x:21,y:1},{x:11,y:2},{x:12,y:2},{x:18,y:6},{x:30,y:14},{x:28,y:10},{x:16,y:10},{x:28,y:4},{x:28,y:4},{x:10,y:10},{x:3,y:3},{x:11,y:5},{x:6,y:2},{x:13,y:5},{x:6,y:3},{x:4,y:1},{x:7,y:7},{x:8,y:3},{x:3,y:3},{x:8,y:6}], backgroundColor:'#10b98155', pointRadius:3 }] },
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{title:{display:true,text:'日次散布図: RLC1販売 × AirSofa販売'}},
+    scales:{
+      x:{title:{display:true,text:'RLC1販売数'}},
+      y:{title:{display:true,text:'AirSofa販売数'}}
+    }
+  }
+});
+</script>
+</body>
+</html>
