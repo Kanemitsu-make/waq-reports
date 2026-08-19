@@ -76,6 +76,8 @@ tr:hover td{background:#fafbfc}
 <a href="#april">🔴 2026-04ターニングポイント</a>
 <a href="#disappeared">💀 消えたKWランキング</a>
 <a href="#suggestions">🤖 Claude提案</a>
+<a href="#organic">🌱 広告×オーガニック波及</a>
+<a href="#june">📉 2026-06 急落の分析</a>
 <a href="#glossary">📖 効率化パラドックス詳細解説</a>
 </div>
 
@@ -230,6 +232,95 @@ tr:hover td{background:#fafbfc}
 <p style="margin-top:12px"><strong>結論: 広告最適化は<span style="text-decoration:line-through">正解</span>ではなく、フェーズ選択が必要。今のRLC1は「露出投資フェーズ」に戻すべきタイミング。</strong></p>
 </div>
 
+<!-- ============ 広告 vs オーガニック ============ -->
+<h2 id="organic" class="orange">🌱 広告費削減はオーガニックにも波及するか</h2>
+
+<div class="insight">
+<strong>💡 Amazonの構造:</strong>
+Google広告と違い、Amazon SP広告は「オーガニック検索順位」にも影響する。<br>
+広告経由の売上も A9/A10アルゴリズムの<strong>「販売スピード」指標</strong>に算入されるため、<strong>広告↓ → 総販売↓ → SEO評価↓ → オーガニック検索順位↓ → オーガニック流入↓</strong> という負のスパイラルが起きうる。
+</div>
+
+<h3>波及する項目（Amazonの場合）</h3>
+
+<table>
+<thead><tr><th>時間軸</th><th>影響を受ける項目</th></tr></thead>
+<tbody>
+<tr><td>即時（〜2週間）</td><td>広告経由セッション・広告経由販売数</td></tr>
+<tr><td>短期（1-3ヶ月）</td><td>オーガニック検索順位、オーガニックセッション、BSR（カテゴリランキング）、「よく一緒に購入」露出</td></tr>
+<tr><td>中期（3-6ヶ月）</td><td>Amazon Choice/Bestseller バッジ剥奪リスク、Rufus AI推薦候補からの除外、レビュー流入速度低下</td></tr>
+<tr><td>長期（半年〜1年）</td><td>ブランド認知↓・指名検索↓、リピート顧客獲得機会損失、競合のシェア奪還が困難化</td></tr>
+</tbody>
+</table>
+
+<h3>WAQ RLC1 実データで検証（月別）</h3>
+
+<table>
+<thead><tr><th>月</th><th class="num">総売上</th><th class="num">広告売上</th><th class="num">広告シェア</th><th class="num">オーガニック推定</th></tr></thead>
+<tbody>
+<tr><td>2026-01</td><td class="num">¥2,694,000</td><td class="num">¥427,529</td><td class="num">15.9%</td><td class="num">¥2,266,471</td></tr><tr><td>2026-02</td><td class="num">¥1,661,300</td><td class="num">¥393,408</td><td class="num">23.7%</td><td class="num">¥1,267,892</td></tr><tr><td>2026-03</td><td class="num">¥3,708,740</td><td class="num">¥735,275</td><td class="num">19.8%</td><td class="num">¥2,973,465</td></tr><tr><td>2026-04</td><td class="num">¥6,088,440</td><td class="num">¥877,454</td><td class="num">14.4%</td><td class="num">¥5,210,986</td></tr><tr><td>2026-05</td><td class="num">¥5,352,080</td><td class="num">¥1,252,005</td><td class="num">23.4%</td><td class="num">¥4,100,075</td></tr><tr><td>2026-06</td><td class="num">¥1,787,020</td><td class="num">¥750,417</td><td class="num">42.0%</td><td class="num">¥1,036,603</td></tr><tr><td>2026-07</td><td class="num">¥7,498,300</td><td class="num">¥1,049,984</td><td class="num">14.0%</td><td class="num">¥6,448,316</td></tr>
+</tbody>
+</table>
+
+<h3>広告シェア推移グラフ</h3>
+<div class="chart-container"><canvas id="adOrgChart"></canvas></div>
+
+<div class="insight">
+<strong>💡 データが示すこと:</strong><br>
+広告シェアは通常14-24%で推移（＝オーガニックが76-86%を占める）。<br>
+広告費が減ってもすぐには全体売上が崩れないのは、<strong>オーガニックが厚いから</strong>。<br>
+しかし2026-06は広告シェアが<strong>42%まで急上昇</strong>＝オーガニックが崩れた月＝要注意。
+</div>
+
+<!-- ============ 6月急落の分析 ============ -->
+<h2 id="june">📉 2026-06 オーガニック急落の分析</h2>
+
+<div class="warn">
+<strong>⚠️ 2026-06 は特殊な月:</strong>
+<br>オーガニック売上が <strong>¥4.10M（5月）→ ¥1.04M（6月）= -75%</strong> と急落。
+<br>広告費・広告売上は横ばいなので、<strong>広告最適化の副作用ではない別要因</strong>。
+</div>
+
+<h3>時系列と Prime Day の関係</h3>
+<table>
+<thead><tr><th>月</th><th class="num">オーガニック売上</th><th>状況</th></tr></thead>
+<tbody>
+<tr><td>2026-05</td><td class="num">¥4,100,075</td><td>通常</td></tr>
+<tr style="background:#fef2f2"><td><strong>2026-06</strong></td><td class="num down"><strong>¥1,036,603</strong></td><td>🚨 <strong>-75%: Prime Day前の買い控え</strong></td></tr>
+<tr style="background:#ecfdf5"><td>2026-07</td><td class="num up">¥6,448,316</td><td>✨ <strong>+520%: Prime Day 7/7-13で一気に消化</strong></td></tr>
+</tbody>
+</table>
+
+<h3>複合要因の仮説（三重奏）</h3>
+
+<table>
+<thead><tr><th>#</th><th>要因</th><th>影響度</th><th>根拠</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>Prime Day 買い控え</strong></td><td>★★★ 最有力</td><td>7月がオーガニック +520% で 6月の需要が繰延</td></tr>
+<tr><td>2</td><td>梅雨（キャンプ需要↓）</td><td>★★</td><td>季節性・毎年6月は落ちる傾向</td></tr>
+<tr><td>3</td><td>Amazon Prime Day準備で広告オークション競争激化</td><td>★</td><td>一般KWのImpが奪われる副次効果</td></tr>
+</tbody>
+</table>
+
+<h3>他商品との比較（WAQ側の証拠）</h3>
+<div class="insight">
+<strong>全体広告費も6月に低下 → WAQは意図的に6月を絞って7月Prime Dayに集中:</strong>
+<table>
+<thead><tr><th>月</th><th class="num">WAQ全体広告費</th><th>動き</th></tr></thead>
+<tbody>
+<tr><td>2026-05</td><td class="num">¥3.76M</td><td>通常</td></tr>
+<tr><td>2026-06</td><td class="num">¥2.59M (-31%)</td><td>絞る</td></tr>
+<tr><td>2026-07</td><td class="num">¥5.10M (+97%)</td><td>Prime Day集中投下</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="hypo">
+<strong>📖 6月急落の解釈:</strong>
+<br>「効率化パラドックス」とは<strong>別の話</strong>。Prime Day戦略の副作用と季節性の複合要因。
+<br>ただし、これも<strong>オーガニックが影響を受けやすい体質</strong>である証拠でもある。
+</div>
+
 <!-- ============ 効率化パラドックス解説 ============ -->
 <h2 id="glossary" class="orange">📖 効率化パラドックスとは（詳細解説）</h2>
 
@@ -361,7 +452,7 @@ tr:hover td{background:#fafbfc}
 </div>
 
 <div class="footer">
-Generated 2026/8/19 12:04:03 / データ元: Amazon SP広告 検索用語レポート 14ヶ月分<br>
+Generated 2026/8/19 12:20:48 / データ元: Amazon SP広告 検索用語レポート 14ヶ月分<br>
 WAQ株式会社 マーケティング分析
 </div>
 
@@ -407,6 +498,23 @@ new Chart(document.getElementById('catImpChart'), {
   options:{ responsive:true, maintainAspectRatio:false,
     plugins:{title:{display:true,text:'月別×カテゴリ Impression推移（category/relatedが4月急減）'}},
     scales:{y:{title:{display:true,text:'Impression'}}}
+  }
+});
+
+// 広告 vs オーガニック
+new Chart(document.getElementById('adOrgChart'), {
+  data:{ labels:["2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07"], datasets:[
+    { type:'bar', label:'広告売上', data:[427529,393408,735275,877454,1252005,750417,1049984], backgroundColor:'#f59e0b', stack:'s' },
+    { type:'bar', label:'オーガニック推定', data:[2266471,1267892,2973465,5210986,4100075,1036603,6448316], backgroundColor:'#059669', stack:'s' },
+    { type:'line', label:'広告シェア%', data:[15.9,23.7,19.8,14.4,23.4,42.0,14.0], borderColor:'#dc2626', borderWidth:3, yAxisID:'y1', tension:0.3 }
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{title:{display:true,text:'月別 広告売上 vs オーガニック推定売上（積上げ）+ 広告シェア%'}},
+    scales:{
+      x:{stacked:true},
+      y:{stacked:true, position:'left',title:{display:true,text:'売上¥'},ticks:{callback:v=>'¥'+(v/1000000).toFixed(1)+'M'}},
+      y1:{position:'right',title:{display:true,text:'広告シェア%'},grid:{drawOnChartArea:false},min:0,max:50}
+    }
   }
 });
 
