@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>WAQ RLC1 広告最適化パラドックス（2026-08-19）</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;background:#f5f7fa;color:#2c3e50;line-height:1.6;padding:20px}
+.container{max-width:1200px;margin:0 auto}
+header{background:linear-gradient(135deg,#dc2626 0%,#f59e0b 100%);color:#fff;padding:40px 32px;border-radius:16px;margin-bottom:32px;box-shadow:0 10px 30px rgba(220,38,38,0.2)}
+header h1{font-size:26px;margin-bottom:8px}
+header .sub{opacity:.95;font-size:14px}
+.badge{display:inline-block;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:600;margin-right:8px}
+.badge-orange{background:#fff3cd;color:#856404}
+.badge-red{background:#f8d7da;color:#721c24}
+.badge-green{background:#d1fae5;color:#065f46}
+.badge-blue{background:#d1ecf1;color:#0c5460}
+h2{font-size:20px;margin:32px 0 16px;padding:8px 0 8px 12px;border-left:5px solid #dc2626;background:#fef2f2}
+h2.orange{border-left-color:#f59e0b;background:#fffbeb}
+h3{font-size:16px;margin:20px 0 10px;color:#232f3e}
+.toc{background:#fff;padding:16px 24px;border-radius:8px;margin-bottom:24px;box-shadow:0 2px 4px rgba(0,0,0,0.05)}
+.toc h3{margin:0 0 8px;color:#7f8c8d;font-size:14px}
+.toc a{color:#dc2626;text-decoration:none;margin-right:16px;line-height:2}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:20px 0}
+.card{background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.05);border-left:4px solid #dc2626}
+.card.red{border-left-color:#e74c3c}
+.card.green{border-left-color:#27ae60}
+.card.blue{border-left-color:#3498db}
+.card.purple{border-left-color:#9b59b6}
+.card.orange{border-left-color:#f59e0b}
+.card .label{font-size:12px;color:#7f8c8d;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+.card .value{font-size:24px;font-weight:700;color:#232f3e}
+.card .sub{font-size:12px;color:#95a5a6;margin-top:4px}
+table{width:100%;background:#fff;border-collapse:collapse;box-shadow:0 2px 4px rgba(0,0,0,0.05);border-radius:8px;overflow:hidden;margin:12px 0}
+th{background:#232f3e;color:#fff;padding:12px;text-align:left;font-size:13px;font-weight:600}
+td{padding:10px 12px;border-bottom:1px solid #ecf0f1;font-size:13px}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafbfc}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.down{color:#e74c3c;font-weight:700}
+.up{color:#27ae60;font-weight:700}
+.chart-container{background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.05);margin:16px 0;height:400px}
+.insight{background:#fff9e6;border-left:4px solid #f39c12;padding:16px 20px;border-radius:6px;margin:16px 0}
+.insight strong{color:#7d4e00}
+.warn{background:#fef2f2;border-left:4px solid #dc2626;padding:16px 20px;border-radius:6px;margin:16px 0}
+.warn strong{color:#991b1b}
+.conc{background:#e8f5e9;border-left:4px solid #27ae60;padding:20px;border-radius:6px;margin:24px 0}
+.conc h3{margin-top:0;color:#155724}
+.hypo{background:#f5f3ff;border-left:4px solid #8b5cf6;padding:16px 20px;border-radius:6px;margin:16px 0}
+.footer{margin-top:40px;padding:20px;text-align:center;color:#7f8c8d;font-size:12px;border-top:1px solid #ecf0f1}
+.highlight{background:#fecaca;padding:2px 6px;border-radius:3px;font-weight:600;color:#991b1b}
+.event-marker{background:#fef3c7;padding:4px 10px;border-radius:4px;font-weight:600;color:#92400e;display:inline-block;margin:4px 0}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>⚠️ WAQ RLC1 広告最適化パラドックス検証</h1>
+  <div class="sub">
+    <span class="badge badge-red">仮説検証</span>
+    <span class="badge badge-orange">14ヶ月分析</span>
+    <span class="badge badge-blue">SP広告データ</span>
+  </div>
+  <div class="sub" style="margin-top:12px">
+    仮説: 広告効率化（ROAS↑）が主要KW露出を減らし、モール競争力を劣化させた / 期間: 2025-06〜2026-07 (14ヶ月)
+  </div>
+</header>
+
+<div class="toc">
+<h3>目次</h3>
+<a href="#summary">📊 サマリ・結論</a>
+<a href="#paradox">🎯 効率化パラドックスの証拠</a>
+<a href="#category">📈 カテゴリ別KW投資推移</a>
+<a href="#april">🔴 2026-04ターニングポイント</a>
+<a href="#disappeared">💀 消えたKWランキング</a>
+<a href="#suggestions">🤖 Claude提案</a>
+</div>
+
+<!-- ============ サマリ ============ -->
+<h2 id="summary">📊 サマリ・結論</h2>
+<div class="cards">
+  <div class="card red"><div class="label">YoY Impression (7月)</div><div class="value down">-48%</div><div class="sub">334,299 → 174,046</div></div>
+  <div class="card green"><div class="label">YoY ROAS (7月)</div><div class="value up">+49%</div><div class="sub">7.9x → 11.8x</div></div>
+  <div class="card orange"><div class="label">YoY 販売数 (7月)</div><div class="value">+10.0%</div><div class="sub">110 → 121件</div></div>
+  <div class="card blue"><div class="label">YoY 広告費 (7月)</div><div class="value">-26.0%</div><div class="sub">¥119,921 → ¥88,874</div></div>
+</div>
+
+<div class="warn">
+<strong>🎯 判定: 「効率化パラドックス」の可能性 高</strong>
+<br>2026-04に <strong>カテゴリ主要KW -78% / 競合ブランドKW -49% / 関連KW -78%</strong> の大幅絞込を実施。
+<br>結果: <strong class="highlight">モール露出量が半減</strong>（Imp YoY -48%）しつつも、見かけのROAS/売上は微改善。
+<br>**「刈り取り効率」は上がったが「市場での存在感」が劣化**している状態。
+</div>
+
+<!-- ============ パラドックス ============ -->
+<h2 id="paradox">🎯 効率化パラドックスの証拠</h2>
+
+<h3>指標の逆転（2025-07 vs 2026-07 同月比較）</h3>
+<table>
+<thead><tr><th>指標</th><th class="num">2025-07</th><th class="num">2026-07</th><th class="num">YoY</th><th>解釈</th></tr></thead>
+<tbody>
+<tr><td>Impression</td><td class="num">334,299</td><td class="num">174,046</td><td class="num down">-48%</td><td>⚠️ モール露出激減</td></tr>
+<tr><td>広告費</td><td class="num">¥119,921</td><td class="num">¥88,874</td><td class="num">-26.0%</td><td>コスト削減</td></tr>
+<tr><td>販売数</td><td class="num">110</td><td class="num">121</td><td class="num up">+10.0%</td><td>微増</td></tr>
+<tr><td>売上</td><td class="num">¥951,175</td><td class="num">¥1,049,984</td><td class="num up">+10.0%</td><td>微増</td></tr>
+<tr><td>ROAS</td><td class="num">7.9x</td><td class="num">11.8x</td><td class="num up">+49%</td><td>✨ 見かけは大改善</td></tr>
+</tbody>
+</table>
+
+<div class="insight">
+<strong>💡 パラドックスの本質:</strong>
+数字上は「広告費削減して売上維持・ROAS大幅改善」で <strong>優等生に見える</strong>。
+しかし裏では <strong>Impression -48%</strong> = お客様の目に触れる機会が半減。
+これはAmazon SEOアルゴリズム上「売れなくなった商品」と評価される信号を送っている可能性大。
+</div>
+
+<h3>広告費 × Impression 推移</h3>
+<div class="chart-container"><canvas id="impCostChart"></canvas></div>
+
+<h3>ROAS推移（右軸）と広告費（左軸）</h3>
+<div class="chart-container"><canvas id="roasCostChart"></canvas></div>
+
+<!-- ============ カテゴリ ============ -->
+<h2 id="category">📈 カテゴリ別KW投資推移</h2>
+
+<h3>Impression（月別×カテゴリ）</h3>
+<div class="chart-container"><canvas id="catImpChart"></canvas></div>
+
+<h3>広告費（月別×カテゴリ）</h3>
+<div class="chart-container"><canvas id="catCostChart"></canvas></div>
+
+<div class="insight">
+<strong>💡 KW分類基準:</strong>
+<ul style="margin-left:20px;margin-top:4px">
+<li><strong>brand</strong>: 自ブランド指名（WAQ）</li>
+<li><strong>competitor</strong>: 競合ブランド攻めKW（Hilander/Coleman等）</li>
+<li><strong>category</strong>: カテゴリ主要KW（キャンプチェア/リクライニングチェア等）</li>
+<li><strong>related</strong>: 関連汎用KW（アウトドア/焚き火等）</li>
+<li><strong>longtail</strong>: ロングテール（型番/固有名等）</li>
+</ul>
+</div>
+
+<!-- ============ April ============ -->
+<h2 id="april" class="orange">🔴 2026-04 ターニングポイント</h2>
+
+<div class="event-marker">📌 2026-04: KW戦略転換の月</div>
+
+<table>
+<thead><tr><th>カテゴリ</th><th class="num">3月KW数</th><th class="num">3月Imp</th><th class="num">3月Cost</th><th class="num">4月KW数</th><th class="num">4月Imp</th><th class="num">4月Cost</th><th class="num">Imp変化</th></tr></thead>
+<tbody>
+<tr><td>brand</td><td class="num">2</td><td class="num">11</td><td class="num">¥97</td><td class="num">2</td><td class="num">4</td><td class="num">¥15</td><td class="num down">-64%</td></tr><tr><td>competitor</td><td class="num">83</td><td class="num">17,236</td><td class="num">¥10,281</td><td class="num">62</td><td class="num">8,843</td><td class="num">¥4,334</td><td class="num down">-49%</td></tr><tr><td>category</td><td class="num">433</td><td class="num">95,166</td><td class="num">¥58,675</td><td class="num">314</td><td class="num">20,955</td><td class="num">¥16,892</td><td class="num down">-78%</td></tr><tr><td>related</td><td class="num">153</td><td class="num">62,457</td><td class="num">¥28,195</td><td class="num">96</td><td class="num">13,844</td><td class="num">¥9,309</td><td class="num down">-78%</td></tr><tr><td>longtail</td><td class="num">643</td><td class="num">62,661</td><td class="num">¥34,508</td><td class="num">673</td><td class="num">45,881</td><td class="num">¥28,408</td><td class="num down">-27%</td></tr>
+</tbody>
+</table>
+
+<div class="warn">
+<strong>⚠️ 2026-04 実施された絞込内容:</strong>
+<ul style="margin-left:20px;margin-top:4px">
+<li><strong>カテゴリKW: -78%</strong>（キャンプチェア/リクライニングチェア/ローチェア等）</li>
+<li><strong>関連KW: -78%</strong>（アウトドア/焚き火/椅子等）</li>
+<li><strong>競合ブランドKW: -49%</strong>（Hilander/コールマン等の攻めKW）</li>
+<li>ロングテール: -27%（比較的維持）</li>
+</ul>
+<strong>「攻めるKW」を大量に切って「刈り取りKW」に絞る</strong>典型的な効率化の動き。
+</div>
+
+<!-- ============ 消えたKW ============ -->
+<h2 id="disappeared">💀 消えたKW（3月→4月で-80%以上減）</h2>
+
+<table>
+<thead><tr><th>#</th><th>キーワード</th><th>カテゴリ</th><th class="num">3月Imp</th><th class="num">3月Cost</th><th class="num">4月Imp</th><th class="num">Imp変化</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>アウトドア チェア</td><td>category</td><td class="num">16,575</td><td class="num">¥6,697</td><td class="num">405</td><td class="num down">-98%</td></tr><tr><td>2</td><td>キャンプ チェア</td><td>category</td><td class="num">10,075</td><td class="num">¥4,485</td><td class="num">1,227</td><td class="num down">-88%</td></tr><tr><td>3</td><td>キャンプ ローチェア</td><td>category</td><td class="num">8,836</td><td class="num">¥3,418</td><td class="num">49</td><td class="num down">-99%</td></tr><tr><td>4</td><td>アウトドア テーブル</td><td>related</td><td class="num">10,778</td><td class="num">¥2,072</td><td class="num">1</td><td class="num down">-100%</td></tr><tr><td>5</td><td>キャンプ リクライニングチェア</td><td>category</td><td class="num">3,381</td><td class="num">¥1,644</td><td class="num">496</td><td class="num down">-85%</td></tr><tr><td>6</td><td>キャンプ チェア リクライニング</td><td>category</td><td class="num">2,686</td><td class="num">¥1,287</td><td class="num">14</td><td class="num down">-99%</td></tr><tr><td>7</td><td>リクライニングチェア</td><td>category</td><td class="num">1,939</td><td class="num">¥1,155</td><td class="num">110</td><td class="num down">-94%</td></tr><tr><td>8</td><td>スパイスボックス</td><td>longtail</td><td class="num">6,270</td><td class="num">¥1,124</td><td class="num">0</td><td class="num down">-100%</td></tr><tr><td>9</td><td>アウトドアチェア</td><td>category</td><td class="num">2,064</td><td class="num">¥925</td><td class="num">0</td><td class="num down">-100%</td></tr><tr><td>10</td><td>st310 igt</td><td>longtail</td><td class="num">2,162</td><td class="num">¥908</td><td class="num">0</td><td class="num down">-100%</td></tr><tr><td>11</td><td>ローチェア アウトドア</td><td>category</td><td class="num">2,529</td><td class="num">¥907</td><td class="num">68</td><td class="num down">-97%</td></tr><tr><td>12</td><td>キャンプ テーブル igt</td><td>related</td><td class="num">4,133</td><td class="num">¥894</td><td class="num">0</td><td class="num down">-100%</td></tr><tr><td>13</td><td>アウトドア 椅子</td><td>related</td><td class="num">1,902</td><td class="num">¥801</td><td class="num">239</td><td class="num down">-87%</td></tr><tr><td>14</td><td>リクライニングチェア キャンプ</td><td>category</td><td class="num">1,885</td><td class="num">¥800</td><td class="num">35</td><td class="num down">-98%</td></tr><tr><td>15</td><td>ワンティグリス</td><td>longtail</td><td class="num">4,196</td><td class="num">¥727</td><td class="num">0</td><td class="num down">-100%</td></tr><tr><td>16</td><td>ハイランダー リクライニングチェア</td><td>competitor</td><td class="num">1,369</td><td class="num">¥695</td><td class="num">0</td><td class="num down">-100%</td></tr><tr><td>17</td><td>ujack チェア リクライニング</td><td>category</td><td class="num">1,657</td><td class="num">¥666</td><td class="num">14</td><td class="num down">-99%</td></tr><tr><td>18</td><td>ヘリノックス チェア</td><td>category</td><td class="num">2,958</td><td class="num">¥663</td><td class="num">404</td><td class="num down">-86%</td></tr><tr><td>19</td><td>キャンプ 椅子 リクライニング</td><td>category</td><td class="num">1,645</td><td class="num">¥609</td><td class="num">216</td><td class="num down">-87%</td></tr><tr><td>20</td><td>igt テーブル 4ユニット</td><td>longtail</td><td class="num">2,857</td><td class="num">¥578</td><td class="num">0</td><td class="num down">-100%</td></tr><tr><td>21</td><td>チェア アウトドア</td><td>category</td><td class="num">686</td><td class="num">¥574</td><td class="num">135</td><td class="num down">-80%</td></tr><tr><td>22</td><td>アウトドア ローチェア</td><td>category</td><td class="num">904</td><td class="num">¥571</td><td class="num">31</td><td class="num down">-97%</td></tr><tr><td>23</td><td>折りたたみ椅子 アウトドア</td><td>related</td><td class="num">793</td><td class="num">¥544</td><td class="num">0</td><td class="num down">-100%</td></tr><tr><td>24</td><td>キャンプチェア</td><td>category</td><td class="num">1,346</td><td class="num">¥533</td><td class="num">83</td><td class="num down">-94%</td></tr><tr><td>25</td><td>キャンプ ローチェア リクライニング</td><td>category</td><td class="num">1,295</td><td class="num">¥528</td><td class="num">3</td><td class="num down">-100%</td></tr><tr><td>26</td><td>クライマックスローチェア</td><td>category</td><td class="num">805</td><td class="num">¥525</td><td class="num">85</td><td class="num down">-89%</td></tr><tr><td>27</td><td>ヒルズフィールド</td><td>longtail</td><td class="num">994</td><td class="num">¥438</td><td class="num">126</td><td class="num down">-87%</td></tr><tr><td>28</td><td>igt (igt)</td><td>longtail</td><td class="num">401</td><td class="num">¥425</td><td class="num">40</td><td class="num down">-90%</td></tr><tr><td>29</td><td>あぐらチェア キャンプ</td><td>category</td><td class="num">807</td><td class="num">¥421</td><td class="num">65</td><td class="num down">-92%</td></tr><tr><td>30</td><td>igt 天板</td><td>longtail</td><td class="num">1,408</td><td class="num">¥418</td><td class="num">0</td><td class="num down">-100%</td></tr>
+</tbody>
+</table>
+
+<div class="insight">
+<strong>💡 消えたKWの意味:</strong>
+「ヘリノックス チェア」「ハイランダー リクライニングチェア」等の<strong>競合ブランド逆襲KW</strong>と、
+「キャンプチェア」「アウトドアチェア」等の<strong>カテゴリ主要KW</strong>が集中的に切られている。
+これらは<strong>「他社検索者を横取りする役割」＋「新規顧客獲得のフロント」</strong>のKW群。
+</div>
+
+<!-- ============ Claude提案 ============ -->
+<h2 id="suggestions" class="orange">🤖 Claude提案：KW戦略の再構築</h2>
+
+<div class="hypo">
+<p><strong>効率化パラドックスから脱するには、以下3層のKW投資バランスが必要：</strong></p>
+</div>
+
+<h3>短期（1-2週間）</h3>
+<table>
+<thead><tr><th>#</th><th>アクション</th><th>期待効果</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>2026-04以前の主要KW群を段階的に復活</strong>（キャンプチェア/リクライニングチェア）</td><td>モール露出回復</td></tr>
+<tr><td>2</td><td>ROAS目標を <strong>15x → 6-8x</strong> に緩和（投資フェーズへ）</td><td>予算枠拡大</td></tr>
+<tr><td>3</td><td>競合ブランドKW（Hilander等）への防衛+攻撃広告 復活</td><td>競合流出防止 + 新規獲得</td></tr>
+</tbody>
+</table>
+
+<h3>中期（1-2ヶ月）</h3>
+<table>
+<thead><tr><th>#</th><th>アクション</th><th>期待効果</th></tr></thead>
+<tbody>
+<tr><td>4</td><td>SB広告・SD広告への投資（現状SPのみ）</td><td>ブランド認知拡大</td></tr>
+<tr><td>5</td><td>KW別ROAS基準を差別化：認知KWは3x、獲得KWは6x、指名は無制限</td><td>戦略的リソース配分</td></tr>
+<tr><td>6</td><td>2026-04以前と現在の <strong>検索順位比較</strong>（BA検索クエリで検証）</td><td>効果測定</td></tr>
+</tbody>
+</table>
+
+<h3>長期（3-6ヶ月）</h3>
+<table>
+<thead><tr><th>#</th><th>アクション</th><th>期待効果</th></tr></thead>
+<tbody>
+<tr><td>7</td><td>「新規獲得KW枠」を予算内で常時確保（ROAS基準ゆるく）</td><td>継続的な流入源確保</td></tr>
+<tr><td>8</td><td>認知系広告（Amazon DSP/外部広告）でブランド想起UP</td><td>指名検索の底上げ</td></tr>
+<tr><td>9</td><td>四半期ごとの「KWポートフォリオ再点検」ルーチン化</td><td>効率化偏重の再発防止</td></tr>
+</tbody>
+</table>
+
+<div class="conc" style="background:#f5f3ff;border-left-color:#8b5cf6">
+<h3 style="color:#5b21b6">🥇 Claude推奨アクション TOP 3</h3>
+<ol style="margin-left:20px;margin-top:8px">
+<li><strong>「消えたKW Top10」のうちROAS 5x以上だったものを即復活</strong>（データで正当化できる）</li>
+<li><strong>2026-08〜09を「投資強化月」として ROAS目標を一時緩和</strong>（下期に向けた基盤作り）</li>
+<li><strong>四半期ごとの「KW投資戦略レビュー会議」</strong>（効率化偏重を継続的に監視）</li>
+</ol>
+<p style="margin-top:12px"><strong>結論: 広告最適化は<span style="text-decoration:line-through">正解</span>ではなく、フェーズ選択が必要。今のRLC1は「露出投資フェーズ」に戻すべきタイミング。</strong></p>
+</div>
+
+<div class="footer">
+Generated 2026/8/19 11:57:59 / データ元: Amazon SP広告 検索用語レポート 14ヶ月分<br>
+WAQ株式会社 マーケティング分析
+</div>
+
+</div>
+
+<script>
+Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif";
+
+// Impression & Cost
+new Chart(document.getElementById('impCostChart'), {
+  type:'bar',
+  data:{ labels:["2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07"], datasets:[
+    { label:'Impression', data:[288183,334299,175404,141537,149008,569574,155444,140466,148921,237531,89527,298946,143810,174053], backgroundColor:'#dc2626', yAxisID:'y' },
+    { label:'広告費¥', data:[89096,119921,67713,60709,63343,347355,104235,91842,89692,131755,58958,138746,79916,88902], type:'line', borderColor:'#3498db', backgroundColor:'#3498db', yAxisID:'y1', order:1, tension:0.3 }
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{title:{display:true,text:'月別 Impression & 広告費（2026-04でImp急減）'}},
+    scales:{ y:{position:'left',title:{display:true,text:'Impression'}}, y1:{position:'right',title:{display:true,text:'広告費¥'},grid:{drawOnChartArea:false}, ticks:{callback:v=>'¥'+(v/1000).toFixed(0)+'k'}} }
+  }
+});
+
+// ROAS & Cost
+new Chart(document.getElementById('roasCostChart'), {
+  data:{ labels:["2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07"], datasets:[
+    { type:'bar', label:'広告費¥', data:[89096,119921,67713,60709,63343,347355,104235,91842,89692,131755,58958,138746,79916,88902], backgroundColor:'#f59e0b', yAxisID:'y' },
+    { type:'line', label:'ROAS(倍)', data:[3.90,7.93,5.64,5.47,9.05,4.97,5.23,4.66,4.39,5.58,14.88,9.02,9.39,11.81], borderColor:'#059669', backgroundColor:'#059669', yAxisID:'y1', tension:0.3, borderWidth:3 }
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{title:{display:true,text:'月別 広告費とROAS（ROAS急上昇＝効率化の証拠）'}},
+    scales:{
+      y:{position:'left',title:{display:true,text:'広告費¥'},ticks:{callback:v=>'¥'+(v/1000).toFixed(0)+'k'}},
+      y1:{position:'right',title:{display:true,text:'ROAS(倍)'},grid:{drawOnChartArea:false}}
+    }
+  }
+});
+
+// カテゴリ別 Imp
+new Chart(document.getElementById('catImpChart'), {
+  type:'line',
+  data:{ labels:["2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07"], datasets:[
+    { label:'brand', data:[0,0,0,0,1798,3,5,3,0,11,4,18,0,7], borderColor:'#8b5cf6', backgroundColor:'#8b5cf622', tension:0.3, borderWidth:2 },{ label:'competitor', data:[0,0,0,0,2222,55291,14815,18846,12828,17236,8843,23345,17301,14485], borderColor:'#e74c3c', backgroundColor:'#e74c3c22', tension:0.3, borderWidth:2 },{ label:'category', data:[150459,333998,175252,140538,132558,153611,63788,44459,64772,95166,20955,114651,34501,37764], borderColor:'#059669', backgroundColor:'#05966922', tension:0.3, borderWidth:2 },{ label:'related', data:[137667,301,152,999,3829,208614,44257,14209,19835,62457,13844,35148,22251,33167], borderColor:'#f59e0b', backgroundColor:'#f59e0b22', tension:0.3, borderWidth:2 },{ label:'longtail', data:[57,0,0,0,8601,152055,32579,62949,51486,62661,45881,125784,69757,88630], borderColor:'#3498db', backgroundColor:'#3498db22', tension:0.3, borderWidth:2 }
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{title:{display:true,text:'月別×カテゴリ Impression推移（category/relatedが4月急減）'}},
+    scales:{y:{title:{display:true,text:'Impression'}}}
+  }
+});
+
+// カテゴリ別 Cost
+new Chart(document.getElementById('catCostChart'), {
+  type:'bar',
+  data:{ labels:["2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07"], datasets:[
+    { label:'brand', data:[0,0,0,0,614,53,61,36,0,97,15,108,0,28], backgroundColor:'#8b5cf6' },{ label:'competitor', data:[0,0,0,0,1955,33609,8545,10945,7245,10281,4334,9926,7049,6514], backgroundColor:'#e74c3c' },{ label:'category', data:[50864,119755,67611,60207,52380,115230,43218,34417,40843,58675,16892,56091,24784,25243], backgroundColor:'#059669' },{ label:'related', data:[38035,166,102,502,3321,118238,26207,14280,12631,28195,9309,19373,12828,16377], backgroundColor:'#f59e0b' },{ label:'longtail', data:[197,0,0,0,5072,80225,26204,32165,28973,34508,28408,53249,35255,40741], backgroundColor:'#3498db' }
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{title:{display:true,text:'月別×カテゴリ 広告費（積上げ）'}},
+    scales:{x:{stacked:true}, y:{stacked:true, title:{display:true,text:'広告費¥'}, ticks:{callback:v=>'¥'+(v/1000).toFixed(0)+'k'}}}
+  }
+});
+</script>
+</body>
+</html>
