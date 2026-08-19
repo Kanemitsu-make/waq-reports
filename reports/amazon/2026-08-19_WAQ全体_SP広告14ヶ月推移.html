@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>WAQ全商品 SP広告14ヶ月推移（2026-08-19）</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;background:#f5f7fa;color:#2c3e50;line-height:1.6;padding:20px}
+.container{max-width:1200px;margin:0 auto}
+header{background:linear-gradient(135deg,#1e3a8a 0%,#3b82f6 100%);color:#fff;padding:40px 32px;border-radius:16px;margin-bottom:32px;box-shadow:0 10px 30px rgba(59,130,246,0.2)}
+header h1{font-size:26px;margin-bottom:8px}
+header .sub{opacity:.95;font-size:14px}
+.badge{display:inline-block;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:600;margin-right:8px}
+.badge-blue{background:#d1ecf1;color:#0c5460}
+.badge-orange{background:#fff3cd;color:#856404}
+.badge-green{background:#d1fae5;color:#065f46}
+h2{font-size:20px;margin:32px 0 16px;padding:8px 0 8px 12px;border-left:5px solid #3b82f6;background:#eff6ff}
+h3{font-size:16px;margin:20px 0 10px;color:#232f3e}
+.toc{background:#fff;padding:16px 24px;border-radius:8px;margin-bottom:24px;box-shadow:0 2px 4px rgba(0,0,0,0.05)}
+.toc h3{margin:0 0 8px;color:#7f8c8d;font-size:14px}
+.toc a{color:#3b82f6;text-decoration:none;margin-right:16px;line-height:2}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:20px 0}
+.card{background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.05);border-left:4px solid #3b82f6}
+.card.red{border-left-color:#e74c3c}
+.card.green{border-left-color:#27ae60}
+.card.orange{border-left-color:#f59e0b}
+.card.purple{border-left-color:#9b59b6}
+.card .label{font-size:12px;color:#7f8c8d;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+.card .value{font-size:24px;font-weight:700;color:#232f3e}
+.card .sub{font-size:12px;color:#95a5a6;margin-top:4px}
+table{width:100%;background:#fff;border-collapse:collapse;box-shadow:0 2px 4px rgba(0,0,0,0.05);border-radius:8px;overflow:hidden;margin:12px 0}
+th{background:#232f3e;color:#fff;padding:12px;text-align:left;font-size:13px;font-weight:600}
+td{padding:10px 12px;border-bottom:1px solid #ecf0f1;font-size:13px}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafbfc}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.down{color:#e74c3c;font-weight:700}
+.up{color:#27ae60;font-weight:700}
+.chart-container{background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.05);margin:16px 0;height:400px}
+.insight{background:#fff9e6;border-left:4px solid #f39c12;padding:16px 20px;border-radius:6px;margin:16px 0}
+.insight strong{color:#7d4e00}
+.warn{background:#fef2f2;border-left:4px solid #dc2626;padding:16px 20px;border-radius:6px;margin:16px 0}
+.warn strong{color:#991b1b}
+.hypo{background:#f5f3ff;border-left:4px solid #8b5cf6;padding:16px 20px;border-radius:6px;margin:16px 0}
+.conc{background:#e8f5e9;border-left:4px solid #27ae60;padding:20px;border-radius:6px;margin:24px 0}
+.conc h3{margin-top:0;color:#155724}
+.footer{margin-top:40px;padding:20px;text-align:center;color:#7f8c8d;font-size:12px;border-top:1px solid #ecf0f1}
+.highlight{background:#dbeafe;padding:2px 6px;border-radius:3px;font-weight:600;color:#1e40af}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>📊 WAQ全商品 Amazon SP広告 14ヶ月推移</h1>
+  <div class="sub">
+    <span class="badge badge-blue">全商品集計</span>
+    <span class="badge badge-orange">14ヶ月</span>
+    <span class="badge badge-green">SP広告のみ</span>
+  </div>
+  <div class="sub" style="margin-top:12px">
+    対象: WAQ全キャンペーン合計 / 期間: 2025-06〜2026-07 / データ元: SP広告 検索用語レポート
+  </div>
+</header>
+
+<div class="toc">
+<h3>目次</h3>
+<a href="#summary">📊 サマリ</a>
+<a href="#trend">📈 14ヶ月推移</a>
+<a href="#yoy">📅 前年同月比</a>
+<a href="#events">🎯 大型イベント時の動き</a>
+<a href="#insight">💡 全体傾向の考察</a>
+<a href="#suggestions">🤖 Claude提案</a>
+</div>
+
+<!-- ============ サマリ ============ -->
+<h2 id="summary">📊 サマリ</h2>
+<div class="cards">
+  <div class="card"><div class="label">2025年 (7ヶ月分)</div><div class="value">¥40,610,202</div><div class="sub">広告費合計 / Imp 63,755,867</div></div>
+  <div class="card orange"><div class="label">2026年 (7ヶ月分)</div><div class="value">¥25,347,027</div><div class="sub">広告費合計 / Imp 42,632,833</div></div>
+  <div class="card red"><div class="label">広告費 YoY</div><div class="value down">-37.6%</div><div class="sub">2025 → 2026 (7ヶ月比較)</div></div>
+  <div class="card red"><div class="label">Impression YoY</div><div class="value down">-33.1%</div><div class="sub">露出量の変化</div></div>
+</div>
+
+<div class="warn">
+<strong>🎯 全体でも「効率化パラドックス」の兆候:</strong>
+<br>2026年（7ヶ月）の広告費は2025年比 <strong>-37.6%</strong>、Impressionは <strong>-33.1%</strong>減少。
+<br>個別商品（RLC1）だけでなく <strong>WAQ全体で広告投資を絞る方向</strong>にシフトしている。
+</div>
+
+<!-- ============ 推移 ============ -->
+<h2 id="trend">📈 14ヶ月推移</h2>
+
+<h3>広告費 & Impression</h3>
+<div class="chart-container"><canvas id="costImpChart"></canvas></div>
+
+<h3>広告売上 & ROAS</h3>
+<div class="chart-container"><canvas id="salesROASChart"></canvas></div>
+
+<h3>月別詳細テーブル</h3>
+<table>
+<thead><tr><th>月</th><th class="num">広告費</th><th class="num">Impression</th><th class="num">Click</th><th class="num">広告売上</th><th class="num">ROAS</th></tr></thead>
+<tbody>
+<tr><td>2025-06</td><td class="num">¥3,952,297</td><td class="num">7,177,105</td><td class="num">0</td><td class="num">¥24,259,939</td><td class="num">6.1x</td></tr><tr><td>2025-07</td><td class="num">¥6,310,436</td><td class="num">11,677,787</td><td class="num">0</td><td class="num">¥70,070,736</td><td class="num">11.1x</td></tr><tr><td>2025-08</td><td class="num">¥4,481,965</td><td class="num">6,958,308</td><td class="num">0</td><td class="num">¥32,450,184</td><td class="num">7.2x</td></tr><tr><td>2025-09</td><td class="num">¥5,278,158</td><td class="num">8,106,409</td><td class="num">0</td><td class="num">¥39,146,796</td><td class="num">7.4x</td></tr><tr><td>2025-10</td><td class="num">¥7,082,515</td><td class="num">11,904,761</td><td class="num">0</td><td class="num">¥65,811,432</td><td class="num">9.3x</td></tr><tr><td>2025-11</td><td class="num">¥8,906,705</td><td class="num">12,753,986</td><td class="num">0</td><td class="num">¥64,688,321</td><td class="num">7.3x</td></tr><tr><td>2025-12</td><td class="num">¥4,598,126</td><td class="num">5,177,511</td><td class="num">0</td><td class="num">¥31,448,674</td><td class="num">6.8x</td></tr><tr><td>2026-01</td><td class="num">¥4,375,561</td><td class="num">6,217,564</td><td class="num">120,900</td><td class="num">¥29,466,542</td><td class="num">6.7x</td></tr><tr><td>2026-02</td><td class="num">¥2,631,695</td><td class="num">3,917,945</td><td class="num">80,544</td><td class="num">¥17,408,452</td><td class="num">6.6x</td></tr><tr><td>2026-03</td><td class="num">¥3,464,414</td><td class="num">5,617,565</td><td class="num">98,795</td><td class="num">¥27,095,658</td><td class="num">7.8x</td></tr><tr><td>2026-04</td><td class="num">¥3,425,907</td><td class="num">5,673,012</td><td class="num">105,259</td><td class="num">¥33,988,859</td><td class="num">9.9x</td></tr><tr><td>2026-05</td><td class="num">¥3,764,234</td><td class="num">7,489,515</td><td class="num">116,685</td><td class="num">¥32,767,505</td><td class="num">8.7x</td></tr><tr><td>2026-06</td><td class="num">¥2,589,648</td><td class="num">4,224,297</td><td class="num">83,083</td><td class="num">¥21,060,549</td><td class="num">8.1x</td></tr><tr><td>2026-07</td><td class="num">¥5,095,569</td><td class="num">9,492,935</td><td class="num">153,646</td><td class="num">¥63,077,889</td><td class="num">12.4x</td></tr>
+</tbody>
+</table>
+
+<!-- ============ YoY ============ -->
+<h2 id="yoy">📅 前年同月比（YoY）</h2>
+
+<table>
+<thead><tr><th>月</th><th class="num">2025 広告費</th><th class="num">2026 広告費</th><th class="num">Cost YoY</th><th class="num">2025 Imp</th><th class="num">2026 Imp</th><th class="num">Imp YoY</th></tr></thead>
+<tbody>
+<tr><td>06月</td><td class="num">¥3,952,297</td><td class="num">¥2,589,648</td><td class="num down">-34.5%</td><td class="num">7,177,105</td><td class="num">4,224,297</td><td class="num down">-41.1%</td></tr><tr><td>07月</td><td class="num">¥6,310,436</td><td class="num">¥5,095,569</td><td class="num down">-19.3%</td><td class="num">11,677,787</td><td class="num">9,492,935</td><td class="num down">-18.7%</td></tr>
+</tbody>
+</table>
+
+<div class="insight">
+<strong>💡 YoYの傾向:</strong><br>
+比較可能な2ヶ月（06月・07月）で見ると、<strong>いずれもImp・広告費が前年比マイナス</strong>。
+<br>特に <strong>2026-07 は Imp -18.7%</strong>、広告費 <strong>-19.3%</strong>。
+<br>Prime Day投資も控えめ化している。
+</div>
+
+<h3>広告売上・ROAS YoY</h3>
+<table>
+<thead><tr><th>月</th><th class="num">2025 売上</th><th class="num">2026 売上</th><th class="num">売上 YoY</th><th class="num">2025 ROAS</th><th class="num">2026 ROAS</th></tr></thead>
+<tbody>
+<tr><td>06月</td><td class="num">¥24,259,939</td><td class="num">¥21,060,549</td><td class="num down">-13.2%</td><td class="num">6.1x</td><td class="num">8.1x</td></tr><tr><td>07月</td><td class="num">¥70,070,736</td><td class="num">¥63,077,889</td><td class="num down">-10.0%</td><td class="num">11.1x</td><td class="num">12.4x</td></tr>
+</tbody>
+</table>
+
+<!-- ============ イベント ============ -->
+<h2 id="events">🎯 大型イベント時の動き</h2>
+
+<table>
+<thead><tr><th>時期</th><th>イベント</th><th class="num">広告費</th><th class="num">売上</th><th class="num">ROAS</th></tr></thead>
+<tbody>
+<tr><td>2025-07</td><td>🌞 プライムデー2025</td><td class="num">¥6,310,436</td><td class="num">¥70,070,736</td><td class="num">11.1x</td></tr>
+<tr><td>2025-11</td><td>🖤 ブラックフライデー2025</td><td class="num">¥8,906,705</td><td class="num">¥64,688,321</td><td class="num">7.3x</td></tr>
+<tr style="background:#eff6ff"><td><strong>2026-07</strong></td><td>🌞 <strong>プライムデー2026</strong></td><td class="num"><strong>¥5,095,569</strong></td><td class="num"><strong>¥63,077,889</strong></td><td class="num"><strong>12.4x</strong></td></tr>
+</tbody>
+</table>
+
+<div class="warn">
+<strong>⚠️ プライムデー YoY 比較:</strong>
+<br>広告費: ¥6.31M → ¥5.10M (<strong>-19%</strong>)
+<br>売上: ¥70.07M → ¥63.08M (<strong>-10%</strong>)
+<br>ROAS: 11.1x → 12.4x (+12%)
+<br><br>
+<strong>効率は上がったが売上は落ちた</strong>。ここでも効率化パラドックスの兆候。
+</div>
+
+<!-- ============ 考察 ============ -->
+<h2 id="insight">💡 全体傾向の考察</h2>
+
+<div class="insight">
+<strong>① WAQ全体で広告投資を継続的に絞っている</strong>
+<br>2025年後半（10-12月）は月¥5-9M規模だった広告費が、2026年前半は月¥2-5M規模に。
+<br>会社全体のマーケ方針として「効率化」に舵を切っている可能性。
+</div>
+
+<div class="insight">
+<strong>② Impression YoY -20〜-40% がほぼ全月で発生</strong>
+<br>「WAQ全商品のモール露出量が1年で1〜2割減っている」ということ。
+<br>RLC1個別で見た-48%より緩やかだが、全社規模で見ても看過できない水準。
+</div>
+
+<div class="insight">
+<strong>③ ROASは全月的に高水準（6-12x）</strong>
+<br>Amazon SP広告の健全レンジ4-6xを継続的に超過。
+<br>「攻めのフェーズ」ではなく「守り・刈り取りフェーズ」に完全移行している。
+</div>
+
+<div class="insight">
+<strong>④ Prime Day投資も控えめ化</strong>
+<br>2025 Prime Day (7月) 広告費 ¥6.31M → 2026 Prime Day ¥5.10M。
+<br>売上も ¥70.07M → ¥63.08M と -10%減。
+<br>大型イベントでもアクセルを踏まない姿勢が明確。
+</div>
+
+<!-- ============ Claude提案 ============ -->
+<h2 id="suggestions">🤖 Claude提案：全社マーケ戦略の再点検</h2>
+
+<div class="hypo">
+<p><strong>個別商品（RLC1）と全体の両方で「効率化パラドックス」が観察された。全社レベルでのマーケ戦略見直しを提案：</strong></p>
+</div>
+
+<h3>📋 全社レベルのアクション</h3>
+<table>
+<thead><tr><th>#</th><th>アクション</th><th>目的</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>マーケKPIを「効率」と「露出」の2軸で管理</strong>（ROAS + Impシェア）</td><td>効率化偏重の是正</td></tr>
+<tr><td>2</td><td>商品ライフサイクル別に <strong>ROAS目標を差別化</strong>（新製品3x / 成長期5x / 成熟期7x）</td><td>フェーズ最適化</td></tr>
+<tr><td>3</td><td>年次で「攻めの月」を設定（4-5月/9-10月/Prime Day前）→ ROAS目標一時緩和</td><td>投資メリハリ</td></tr>
+<tr><td>4</td><td>Impシェアの<strong>四半期モニタリング</strong>を運用ルーチンに組込</td><td>継続監視</td></tr>
+<tr><td>5</td><td>SB広告・SD広告・Amazon DSPへの<strong>投資バランス点検</strong></td><td>認知系広告の復活</td></tr>
+</tbody>
+</table>
+
+<h3>🎯 個別商品への波及</h3>
+<p><strong>参考: RLC1個別分析レポート</strong> → <a href="./2026-08-19_WAQ-RLC1_広告効率化パラドックス検証.html" style="color:#3b82f6">効率化パラドックス検証</a></p>
+<p>全社のマーケ最適化トレンドが、個別商品の売上減少（RLC1 前年比-42.7%）にも影響している可能性大。<br>
+他の主要商品（FWF1/AirSofa/RLC1以外）でも同様の分析を行うことで、全社的な意思決定に繋がる。</p>
+
+<div class="conc">
+<h3>💎 本レポートの本質メッセージ</h3>
+<p><strong>「WAQ全体で広告効率化が進行しており、モール全体での存在感が縮小傾向にある」</strong></p>
+<p style="margin-top:12px">効率化そのものが悪ではないが、<strong>「投資フェーズと効率化フェーズを意識的に切り替える」</strong>意思決定が必要。<br>
+現状は無意識に効率化に流れており、認知/新規獲得への投資が構造的に不足している可能性が高い。</p>
+</div>
+
+<div class="footer">
+Generated 2026/8/19 12:39:16 / データ元: Amazon SP広告 検索用語レポート 14ヶ月全キャンペーン<br>
+WAQ株式会社 マーケティング分析
+</div>
+
+</div>
+
+<script>
+Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif";
+
+// Cost & Imp
+new Chart(document.getElementById('costImpChart'), {
+  data:{ labels:["2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07"], datasets:[
+    { type:'bar', label:'広告費¥', data:[3952297,6310436,4481965,5278158,7082515,8906705,4598126,4375561,2631695,3464414,3425907,3764234,2589648,5095569], backgroundColor:'#3b82f6', yAxisID:'y' },
+    { type:'line', label:'Impression', data:[7177105,11677787,6958308,8106409,11904761,12753986,5177511,6217564,3917945,5617565,5673012,7489515,4224297,9492935], borderColor:'#e74c3c', backgroundColor:'#e74c3c', yAxisID:'y1', tension:0.3, borderWidth:3 }
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{title:{display:true,text:'WAQ全体 月別 広告費 & Impression'}},
+    scales:{
+      y:{position:'left',title:{display:true,text:'広告費¥'},ticks:{callback:v=>'¥'+(v/1000000).toFixed(1)+'M'}},
+      y1:{position:'right',title:{display:true,text:'Impression'},grid:{drawOnChartArea:false},ticks:{callback:v=>(v/1000000).toFixed(1)+'M'}}
+    }
+  }
+});
+
+// Sales & ROAS
+new Chart(document.getElementById('salesROASChart'), {
+  data:{ labels:["2025-06","2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07"], datasets:[
+    { type:'bar', label:'広告売上¥', data:[24259939,70070736,32450184,39146796,65811432,64688321,31448674,29466542,17408452,27095658,33988859,32767505,21060549,63077889], backgroundColor:'#059669', yAxisID:'y' },
+    { type:'line', label:'ROAS(倍)', data:[6.14,11.10,7.24,7.42,9.29,7.26,6.84,6.73,6.61,7.82,9.92,8.70,8.13,12.38], borderColor:'#f59e0b', backgroundColor:'#f59e0b', yAxisID:'y1', tension:0.3, borderWidth:3 }
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{title:{display:true,text:'WAQ全体 月別 広告売上 & ROAS'}},
+    scales:{
+      y:{position:'left',title:{display:true,text:'広告売上¥'},ticks:{callback:v=>'¥'+(v/1000000).toFixed(0)+'M'}},
+      y1:{position:'right',title:{display:true,text:'ROAS(倍)'},grid:{drawOnChartArea:false}}
+    }
+  }
+});
+</script>
+</body>
+</html>
