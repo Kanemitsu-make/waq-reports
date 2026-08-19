@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>効率化パラドックス 全社性検証（2026-08-19）</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;background:#f5f7fa;color:#2c3e50;line-height:1.6;padding:20px}
+.container{max-width:1200px;margin:0 auto}
+header{background:linear-gradient(135deg,#7c2d12 0%,#dc2626 100%);color:#fff;padding:40px 32px;border-radius:16px;margin-bottom:32px;box-shadow:0 10px 30px rgba(220,38,38,0.2)}
+header h1{font-size:26px;margin-bottom:8px}
+header .sub{opacity:.95;font-size:14px}
+.badge{display:inline-block;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:600;margin-right:8px}
+.badge-red{background:#f8d7da;color:#721c24}
+.badge-orange{background:#fff3cd;color:#856404}
+.badge-green{background:#d1fae5;color:#065f46}
+.badge-blue{background:#d1ecf1;color:#0c5460}
+h2{font-size:20px;margin:32px 0 16px;padding:8px 0 8px 12px;border-left:5px solid #dc2626;background:#fef2f2}
+h2.blue{border-left-color:#3b82f6;background:#eff6ff}
+h2.orange{border-left-color:#f59e0b;background:#fffbeb}
+h2.green{border-left-color:#059669;background:#ecfdf5}
+h3{font-size:16px;margin:20px 0 10px;color:#232f3e}
+.toc{background:#fff;padding:16px 24px;border-radius:8px;margin-bottom:24px;box-shadow:0 2px 4px rgba(0,0,0,0.05)}
+.toc h3{margin:0 0 8px;color:#7f8c8d;font-size:14px}
+.toc a{color:#dc2626;text-decoration:none;margin-right:16px;line-height:2}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:20px 0}
+.card{background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.05);border-left:4px solid #dc2626}
+.card.red{border-left-color:#dc2626}
+.card.green{border-left-color:#059669}
+.card.blue{border-left-color:#3b82f6}
+.card.orange{border-left-color:#f59e0b}
+.card.purple{border-left-color:#9b59b6}
+.card .label{font-size:12px;color:#7f8c8d;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:4px}
+.card .value{font-size:24px;font-weight:700;color:#232f3e}
+.card .sub{font-size:12px;color:#95a5a6;margin-top:4px}
+table{width:100%;background:#fff;border-collapse:collapse;box-shadow:0 2px 4px rgba(0,0,0,0.05);border-radius:8px;overflow:hidden;margin:12px 0}
+th{background:#232f3e;color:#fff;padding:12px;text-align:left;font-size:13px;font-weight:600}
+td{padding:10px 12px;border-bottom:1px solid #ecf0f1;font-size:13px}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafbfc}
+.num{text-align:right;font-variant-numeric:tabular-nums}
+.down{color:#e74c3c;font-weight:700}
+.up{color:#27ae60;font-weight:700}
+.chart-container{background:#fff;padding:20px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.05);margin:16px 0;height:400px}
+.insight{background:#fff9e6;border-left:4px solid #f39c12;padding:16px 20px;border-radius:6px;margin:16px 0}
+.insight strong{color:#7d4e00}
+.warn{background:#fef2f2;border-left:4px solid #dc2626;padding:16px 20px;border-radius:6px;margin:16px 0}
+.warn strong{color:#991b1b}
+.hypo{background:#f5f3ff;border-left:4px solid #8b5cf6;padding:16px 20px;border-radius:6px;margin:16px 0}
+.conc{background:#e8f5e9;border-left:4px solid #27ae60;padding:20px;border-radius:6px;margin:24px 0}
+.conc h3{margin-top:0;color:#155724}
+.diff{background:#dbeafe;border-left:4px solid #3b82f6;padding:16px 20px;border-radius:6px;margin:16px 0}
+.diff strong{color:#1e40af}
+.footer{margin-top:40px;padding:20px;text-align:center;color:#7f8c8d;font-size:12px;border-top:1px solid #ecf0f1}
+.highlight{background:#fecaca;padding:2px 6px;border-radius:3px;font-weight:600;color:#991b1b}
+.pattern-shibori{color:#dc2626;font-weight:700}
+.pattern-kakudai{color:#059669;font-weight:700}
+.pattern-keizoku{color:#3b82f6;font-weight:700}
+.pattern-ichiji{color:#f59e0b;font-weight:700}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+  <h1>🔬 効率化パラドックス 全社性検証</h1>
+  <div class="sub">
+    <span class="badge badge-red">仮説再検証</span>
+    <span class="badge badge-orange">5商品比較</span>
+    <span class="badge badge-blue">結論修正版</span>
+  </div>
+  <div class="sub" style="margin-top:12px">
+    検証: 「効率化パラドックスは全社的か vs RLC1特有か」 / 対象: 稼働月数上位5商品 / 期間: 2025-06〜2026-07
+  </div>
+</header>
+
+<div class="toc">
+<h3>目次</h3>
+<a href="#preface">📌 前提整理（前レポとの関係）</a>
+<a href="#method">🔬 検証方法</a>
+<a href="#summary">📊 サマリ・結論</a>
+<a href="#pattern">🎨 パターン分類</a>
+<a href="#comparison">📈 5商品比較チャート</a>
+<a href="#detail">📋 商品別詳細</a>
+<a href="#why">❓ なぜRLC1だけか（仮説）</a>
+<a href="#suggestions">🤖 Claude提案</a>
+</div>
+
+<!-- ============ 前提整理 ============ -->
+<h2 id="preface" class="blue">📌 前提整理（3レポの関係・混同防止）</h2>
+
+<div class="diff">
+<strong>本シリーズの構成:</strong>
+<table style="margin-top:12px">
+<thead><tr><th>#</th><th>レポート名</th><th>粒度</th><th>結論</th></tr></thead>
+<tbody>
+<tr><td>①</td><td><a href="./2026-08-19_WAQ-RLC1_広告効率化パラドックス検証.html">RLC1広告効率化パラドックス検証</a></td><td>単商品(RLC1)</td><td>「RLC1でパラドックス発生」</td></tr>
+<tr><td>②</td><td><a href="./2026-08-19_WAQ全体_SP広告14ヶ月推移.html">WAQ全体SP広告14ヶ月推移</a></td><td>全商品合算</td><td>「全体で広告投資縮小傾向」</td></tr>
+<tr style="background:#fef2f2;font-weight:700"><td>③</td><td>本レポート: パラドックス全社性検証</td><td>個別商品×5</td><td><strong class="highlight">「RLC1特有の絞り込み」</strong></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="warn">
+<strong>⚠️ 結論の修正:</strong>
+<br>①では「効率化パラドックスがRLC1で発生」と検証、②では「全社レベルでも縮小傾向」と観察したが、
+<br><strong>本③で個別商品を5つ比較した結果、「絞り込みパターンはRLC1のみ」と判明</strong>。
+<br>全社の広告費↓は<strong>単純平均のトリック</strong>だった可能性が高い（大型商品の増減で全体が動く）。
+</div>
+
+<!-- ============ 検証方法 ============ -->
+<h2 id="method">🔬 検証方法</h2>
+
+<h3>対象商品（稼働月数×売上規模でトップ5選定）</h3>
+<table>
+<thead><tr><th>商品</th><th>選定理由</th></tr></thead>
+<tbody>
+<tr><td><strong>RLC1</strong>（リクライニングチェアLow）</td><td>本仮説の起点商品</td></tr>
+<tr><td><strong>ULマット</strong>（97.UltralightAirMat）</td><td>13/14ヶ月稼働・通年商品</td></tr>
+<tr><td><strong>エアポンプ</strong>（85.エアポンプ）</td><td>12/14ヶ月稼働・売上上位</td></tr>
+<tr><td><strong>マット8cm</strong>（03/58）</td><td>10/14ヶ月・大型商品</td></tr>
+<tr><td><strong>リラクシングピロー</strong>（19）</td><td>10/14ヶ月・売上上位</td></tr>
+</tbody>
+</table>
+
+<h3>パターン判定基準</h3>
+<table>
+<thead><tr><th>パターン</th><th>判定条件</th><th>解釈</th></tr></thead>
+<tbody>
+<tr><td>🔴 <span class="pattern-shibori">絞り込み型</span></td><td>2026-04で広告費-30%以上減 & 7月時点で3月の80%以下</td><td>効率化パラドックス該当</td></tr>
+<tr><td>🟢 <span class="pattern-kakudai">拡大型</span></td><td>2026-04→07で広告費+30%以上増</td><td>健全成長</td></tr>
+<tr><td>🔵 <span class="pattern-keizoku">継続拡大型</span></td><td>2026-03→04で減らずに増</td><td>投資フェーズ継続</td></tr>
+<tr><td>🟡 <span class="pattern-ichiji">一時減型</span></td><td>4月減あるが軽微 or 早期回復</td><td>通常変動</td></tr>
+</tbody>
+</table>
+
+<!-- ============ サマリ ============ -->
+<h2 id="summary">📊 サマリ・結論</h2>
+
+<div class="cards">
+
+<div class="card" style="border-left-color:#059669">
+  <div class="label">🟢 ULマット</div>
+  <div class="value" style="font-size:16px;color:#059669">拡大型</div>
+  <div class="sub">3月¥164k → 4月¥126k → 7月¥190k</div>
+</div>
+
+<div class="card" style="border-left-color:#dc2626">
+  <div class="label">🔴 RLC1</div>
+  <div class="value" style="font-size:16px;color:#dc2626">絞り込み型</div>
+  <div class="sub">3月¥132k → 4月¥59k → 7月¥89k</div>
+</div>
+
+<div class="card" style="border-left-color:#3b82f6">
+  <div class="label">🔵 エアポンプ</div>
+  <div class="value" style="font-size:16px;color:#3b82f6">継続拡大型</div>
+  <div class="sub">3月¥195k → 4月¥234k → 7月¥248k</div>
+</div>
+
+<div class="card" style="border-left-color:#059669">
+  <div class="label">🟢 マット8cm</div>
+  <div class="value" style="font-size:16px;color:#059669">拡大型</div>
+  <div class="sub">3月¥262k → 4月¥185k → 7月¥314k</div>
+</div>
+
+<div class="card" style="border-left-color:#3b82f6">
+  <div class="label">🔵 リラクシングピロー</div>
+  <div class="value" style="font-size:16px;color:#3b82f6">継続拡大型</div>
+  <div class="sub">3月¥146k → 4月¥200k → 7月¥178k</div>
+</div>
+
+</div>
+
+<div class="conc">
+<h3>🎯 結論: <span class="highlight">パラドックスはRLC1特有</span></h3>
+<p>5商品中、<strong>「絞り込み型（4月大幅減→戻さず）」はRLC1のみ</strong>。他4商品は拡大・継続投資パターン。</p>
+<p style="margin-top:12px">当初の「全社効率化パラドックス」仮説は棄却。実際は<strong>RLC1に個別のリソース剥奪 or 戦略的撤退が発生</strong>している。</p>
+</div>
+
+<!-- ============ パターン分類 ============ -->
+<h2 id="pattern">🎨 パターン分類マトリクス</h2>
+
+<table>
+<thead><tr><th>商品</th><th>2026-03 Cost</th><th>2026-04 Cost</th><th>3→4月変化</th><th>2026-07 Cost</th><th>4→7月変化</th><th>パターン</th></tr></thead>
+<tbody>
+<tr><td><strong>ULマット</strong></td><td class="num">¥163,905</td><td class="num">¥125,977</td><td class="num down">-23%</td><td class="num">¥189,625</td><td class="num up">+51%</td><td style="color:#059669;font-weight:700">🟢 拡大型</td></tr><tr><td><strong>RLC1</strong></td><td class="num">¥131,755</td><td class="num">¥58,958</td><td class="num down">-55%</td><td class="num">¥88,902</td><td class="num up">+51%</td><td style="color:#dc2626;font-weight:700">🔴 絞り込み型</td></tr><tr><td><strong>エアポンプ</strong></td><td class="num">¥194,602</td><td class="num">¥233,593</td><td class="num up">+20%</td><td class="num">¥247,601</td><td class="num up">+6%</td><td style="color:#3b82f6;font-weight:700">🔵 継続拡大型</td></tr><tr><td><strong>マット8cm</strong></td><td class="num">¥262,303</td><td class="num">¥185,453</td><td class="num down">-29%</td><td class="num">¥313,974</td><td class="num up">+69%</td><td style="color:#059669;font-weight:700">🟢 拡大型</td></tr><tr><td><strong>リラクシングピロー</strong></td><td class="num">¥145,716</td><td class="num">¥200,274</td><td class="num up">+37%</td><td class="num">¥177,895</td><td class="num down">-11%</td><td style="color:#3b82f6;font-weight:700">🔵 継続拡大型</td></tr>
+</tbody>
+</table>
+
+<div class="insight">
+<strong>💡 マトリクスの読み方:</strong>
+<br>3→4月で <strong>「大幅減 & 戻さず」の唯一の商品がRLC1</strong>。
+<br>他4商品は 3→4月で減っても4→7月に戻している or そもそも減っていない。
+</div>
+
+<!-- ============ 5商品比較チャート ============ -->
+<h2 id="comparison">📈 5商品比較チャート</h2>
+
+<h3>広告費 月次推移（5商品重ね）</h3>
+<div class="chart-container"><canvas id="costChart"></canvas></div>
+
+<h3>Impression 月次推移（5商品重ね）</h3>
+<div class="chart-container"><canvas id="impChart"></canvas></div>
+
+<h3>ROAS 月次推移（5商品重ね）</h3>
+<div class="chart-container"><canvas id="roasChart"></canvas></div>
+
+<div class="insight">
+<strong>💡 グラフの読み方:</strong>
+<br><strong>赤（RLC1）</strong>だけが2026-04以降低位で推移。他は投資フェーズを維持。
+<br>ROASは全商品で上昇傾向だが、他商品は<strong>投資規模を維持しながらROAS上昇</strong>（＝真の効率化成功）。
+<br>RLC1は<strong>投資を絞ってROAS上昇</strong>（＝刈り取り局面）で本質的に別現象。
+</div>
+
+<!-- ============ 商品別詳細 ============ -->
+<h2 id="detail" class="green">📋 商品別詳細（14ヶ月月次）</h2>
+
+
+<h3>🟢 ULマット - <span style="color:#059669">拡大型</span></h3>
+<table>
+<thead><tr><th>月</th><th class="num">Imp</th><th class="num">Click</th><th class="num">Cost</th><th class="num">Sales</th><th class="num">ROAS</th></tr></thead>
+<tbody>
+<tr><td>2025-07</td><td class="num">10,905</td><td class="num">0</td><td class="num">¥2,755</td><td class="num">¥13,455</td><td class="num">4.9x</td></tr><tr><td>2025-08</td><td class="num">26,937</td><td class="num">0</td><td class="num">¥8,880</td><td class="num">¥35,074</td><td class="num">3.9x</td></tr><tr><td>2025-09</td><td class="num">22,607</td><td class="num">0</td><td class="num">¥6,734</td><td class="num">¥0</td><td class="num">0.0x</td></tr><tr><td>2025-10</td><td class="num">69,641</td><td class="num">0</td><td class="num">¥69,559</td><td class="num">¥596,257</td><td class="num">8.6x</td></tr><tr><td>2025-11</td><td class="num">297,327</td><td class="num">0</td><td class="num">¥250,247</td><td class="num">¥1,512,648</td><td class="num">6.0x</td></tr><tr><td>2025-12</td><td class="num">275,171</td><td class="num">0</td><td class="num">¥238,510</td><td class="num">¥1,549,034</td><td class="num">6.5x</td></tr><tr><td>2026-01</td><td class="num">333,671</td><td class="num">6,391</td><td class="num">¥285,776</td><td class="num">¥1,524,187</td><td class="num">5.3x</td></tr><tr><td>2026-02</td><td class="num">100,733</td><td class="num">3,106</td><td class="num">¥107,739</td><td class="num">¥599,969</td><td class="num">5.6x</td></tr><tr><td>2026-03</td><td class="num">242,163</td><td class="num">4,398</td><td class="num">¥163,905</td><td class="num">¥1,140,420</td><td class="num">7.0x</td></tr><tr><td>2026-04</td><td class="num">222,548</td><td class="num">4,446</td><td class="num">¥125,977</td><td class="num">¥1,214,774</td><td class="num">9.6x</td></tr><tr><td>2026-05</td><td class="num">341,542</td><td class="num">6,029</td><td class="num">¥167,280</td><td class="num">¥1,122,295</td><td class="num">6.7x</td></tr><tr><td>2026-06</td><td class="num">148,094</td><td class="num">3,387</td><td class="num">¥90,700</td><td class="num">¥485,012</td><td class="num">5.3x</td></tr><tr><td>2026-07</td><td class="num">335,311</td><td class="num">6,292</td><td class="num">¥189,625</td><td class="num">¥1,939,704</td><td class="num">10.2x</td></tr>
+</tbody>
+</table>
+
+<h3>🔴 RLC1 - <span style="color:#dc2626">絞り込み型</span></h3>
+<table>
+<thead><tr><th>月</th><th class="num">Imp</th><th class="num">Click</th><th class="num">Cost</th><th class="num">Sales</th><th class="num">ROAS</th></tr></thead>
+<tbody>
+<tr><td>2025-07</td><td class="num">334,299</td><td class="num">0</td><td class="num">¥119,921</td><td class="num">¥951,175</td><td class="num">7.9x</td></tr><tr><td>2025-08</td><td class="num">175,404</td><td class="num">0</td><td class="num">¥67,713</td><td class="num">¥381,921</td><td class="num">5.6x</td></tr><tr><td>2025-09</td><td class="num">141,537</td><td class="num">0</td><td class="num">¥60,709</td><td class="num">¥332,218</td><td class="num">5.5x</td></tr><tr><td>2025-10</td><td class="num">149,008</td><td class="num">0</td><td class="num">¥63,343</td><td class="num">¥573,056</td><td class="num">9.0x</td></tr><tr><td>2025-11</td><td class="num">569,574</td><td class="num">0</td><td class="num">¥347,355</td><td class="num">¥1,726,744</td><td class="num">5.0x</td></tr><tr><td>2025-12</td><td class="num">155,444</td><td class="num">0</td><td class="num">¥104,235</td><td class="num">¥545,404</td><td class="num">5.2x</td></tr><tr><td>2026-01</td><td class="num">140,466</td><td class="num">3,020</td><td class="num">¥91,842</td><td class="num">¥427,529</td><td class="num">4.7x</td></tr><tr><td>2026-02</td><td class="num">148,921</td><td class="num">3,281</td><td class="num">¥89,692</td><td class="num">¥393,408</td><td class="num">4.4x</td></tr><tr><td>2026-03</td><td class="num">237,531</td><td class="num">4,199</td><td class="num">¥131,755</td><td class="num">¥735,275</td><td class="num">5.6x</td></tr><tr><td>2026-04</td><td class="num">89,527</td><td class="num">3,036</td><td class="num">¥58,958</td><td class="num">¥877,454</td><td class="num">14.9x</td></tr><tr><td>2026-05</td><td class="num">298,946</td><td class="num">6,164</td><td class="num">¥138,746</td><td class="num">¥1,252,005</td><td class="num">9.0x</td></tr><tr><td>2026-06</td><td class="num">143,810</td><td class="num">4,055</td><td class="num">¥79,916</td><td class="num">¥750,417</td><td class="num">9.4x</td></tr><tr><td>2026-07</td><td class="num">174,053</td><td class="num">4,347</td><td class="num">¥88,902</td><td class="num">¥1,049,984</td><td class="num">11.8x</td></tr>
+</tbody>
+</table>
+
+<h3>🔵 エアポンプ - <span style="color:#3b82f6">継続拡大型</span></h3>
+<table>
+<thead><tr><th>月</th><th class="num">Imp</th><th class="num">Click</th><th class="num">Cost</th><th class="num">Sales</th><th class="num">ROAS</th></tr></thead>
+<tbody>
+<tr><td>2025-07</td><td class="num">220,224</td><td class="num">0</td><td class="num">¥51,680</td><td class="num">¥311,833</td><td class="num">6.0x</td></tr><tr><td>2025-08</td><td class="num">40,025</td><td class="num">0</td><td class="num">¥11,619</td><td class="num">¥62,241</td><td class="num">5.4x</td></tr><tr><td>2025-09</td><td class="num">1,002</td><td class="num">0</td><td class="num">¥493</td><td class="num">¥0</td><td class="num">0.0x</td></tr><tr><td>2025-10</td><td class="num">83,359</td><td class="num">0</td><td class="num">¥88,796</td><td class="num">¥991,473</td><td class="num">11.2x</td></tr><tr><td>2025-11</td><td class="num">312,438</td><td class="num">0</td><td class="num">¥217,725</td><td class="num">¥2,574,403</td><td class="num">11.8x</td></tr><tr><td>2025-12</td><td class="num">209,566</td><td class="num">0</td><td class="num">¥196,620</td><td class="num">¥1,554,744</td><td class="num">7.9x</td></tr><tr><td>2026-01</td><td class="num">224,150</td><td class="num">3,264</td><td class="num">¥198,750</td><td class="num">¥1,453,972</td><td class="num">7.3x</td></tr><tr><td>2026-02</td><td class="num">130,987</td><td class="num">1,854</td><td class="num">¥103,055</td><td class="num">¥783,035</td><td class="num">7.6x</td></tr><tr><td>2026-03</td><td class="num">291,159</td><td class="num">3,128</td><td class="num">¥194,602</td><td class="num">¥1,703,423</td><td class="num">8.8x</td></tr><tr><td>2026-04</td><td class="num">319,128</td><td class="num">3,648</td><td class="num">¥233,593</td><td class="num">¥2,207,066</td><td class="num">9.4x</td></tr><tr><td>2026-05</td><td class="num">747,322</td><td class="num">4,213</td><td class="num">¥271,193</td><td class="num">¥2,142,669</td><td class="num">7.9x</td></tr><tr><td>2026-06</td><td class="num">432,785</td><td class="num">2,896</td><td class="num">¥168,375</td><td class="num">¥1,118,783</td><td class="num">6.6x</td></tr><tr><td>2026-07</td><td class="num">474,277</td><td class="num">4,403</td><td class="num">¥247,601</td><td class="num">¥2,680,750</td><td class="num">10.8x</td></tr>
+</tbody>
+</table>
+
+<h3>🟢 マット8cm - <span style="color:#059669">拡大型</span></h3>
+<table>
+<thead><tr><th>月</th><th class="num">Imp</th><th class="num">Click</th><th class="num">Cost</th><th class="num">Sales</th><th class="num">ROAS</th></tr></thead>
+<tbody>
+<tr><td>2025-10</td><td class="num">184,080</td><td class="num">0</td><td class="num">¥317,380</td><td class="num">¥2,001,065</td><td class="num">6.3x</td></tr><tr><td>2025-11</td><td class="num">660,814</td><td class="num">0</td><td class="num">¥689,985</td><td class="num">¥4,853,059</td><td class="num">7.0x</td></tr><tr><td>2025-12</td><td class="num">236,291</td><td class="num">0</td><td class="num">¥227,463</td><td class="num">¥1,432,197</td><td class="num">6.3x</td></tr><tr><td>2026-01</td><td class="num">323,493</td><td class="num">6,686</td><td class="num">¥234,919</td><td class="num">¥1,339,436</td><td class="num">5.7x</td></tr><tr><td>2026-02</td><td class="num">305,996</td><td class="num">5,688</td><td class="num">¥175,426</td><td class="num">¥1,120,421</td><td class="num">6.4x</td></tr><tr><td>2026-03</td><td class="num">393,828</td><td class="num">7,731</td><td class="num">¥262,303</td><td class="num">¥1,584,686</td><td class="num">6.0x</td></tr><tr><td>2026-04</td><td class="num">252,068</td><td class="num">6,967</td><td class="num">¥185,453</td><td class="num">¥1,749,279</td><td class="num">9.4x</td></tr><tr><td>2026-05</td><td class="num">583,021</td><td class="num">11,740</td><td class="num">¥336,182</td><td class="num">¥2,921,888</td><td class="num">8.7x</td></tr><tr><td>2026-06</td><td class="num">405,575</td><td class="num">10,763</td><td class="num">¥328,443</td><td class="num">¥2,115,327</td><td class="num">6.4x</td></tr><tr><td>2026-07</td><td class="num">508,480</td><td class="num">10,450</td><td class="num">¥313,974</td><td class="num">¥3,269,182</td><td class="num">10.4x</td></tr>
+</tbody>
+</table>
+
+<h3>🔵 リラクシングピロー - <span style="color:#3b82f6">継続拡大型</span></h3>
+<table>
+<thead><tr><th>月</th><th class="num">Imp</th><th class="num">Click</th><th class="num">Cost</th><th class="num">Sales</th><th class="num">ROAS</th></tr></thead>
+<tbody>
+<tr><td>2025-10</td><td class="num">49,802</td><td class="num">0</td><td class="num">¥48,798</td><td class="num">¥429,834</td><td class="num">8.8x</td></tr><tr><td>2025-11</td><td class="num">342,751</td><td class="num">0</td><td class="num">¥264,984</td><td class="num">¥2,467,695</td><td class="num">9.3x</td></tr><tr><td>2025-12</td><td class="num">119,345</td><td class="num">0</td><td class="num">¥106,768</td><td class="num">¥944,758</td><td class="num">8.8x</td></tr><tr><td>2026-01</td><td class="num">314,935</td><td class="num">4,118</td><td class="num">¥277,046</td><td class="num">¥1,843,769</td><td class="num">6.7x</td></tr><tr><td>2026-02</td><td class="num">146,453</td><td class="num">2,227</td><td class="num">¥123,241</td><td class="num">¥654,226</td><td class="num">5.3x</td></tr><tr><td>2026-03</td><td class="num">231,019</td><td class="num">3,250</td><td class="num">¥145,716</td><td class="num">¥1,426,959</td><td class="num">9.8x</td></tr><tr><td>2026-04</td><td class="num">315,750</td><td class="num">4,428</td><td class="num">¥200,274</td><td class="num">¥2,348,014</td><td class="num">11.7x</td></tr><tr><td>2026-05</td><td class="num">423,271</td><td class="num">5,631</td><td class="num">¥277,693</td><td class="num">¥2,436,377</td><td class="num">8.8x</td></tr><tr><td>2026-06</td><td class="num">210,847</td><td class="num">3,864</td><td class="num">¥178,740</td><td class="num">¥1,335,500</td><td class="num">7.5x</td></tr><tr><td>2026-07</td><td class="num">360,552</td><td class="num">4,457</td><td class="num">¥177,895</td><td class="num">¥2,673,539</td><td class="num">15.0x</td></tr>
+</tbody>
+</table>
+
+
+<!-- ============ なぜRLC1？ ============ -->
+<h2 id="why" class="orange">❓ なぜRLC1だけ絞られたのか（仮説整理）</h2>
+
+<div class="hypo">
+<p><strong>他4商品は投資継続なのにRLC1だけ絞られている。考えられる要因を整理:</strong></p>
+</div>
+
+<table>
+<thead><tr><th>#</th><th>仮説</th><th>ありそうさ</th><th>根拠 or 反証</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><strong>売上-42.7%で予算配分を削減</strong>されたため、さらに落ちる悪循環</td><td>★★★</td><td>Amazon前年比-42.7%と広告費削減時期が近い</td></tr>
+<tr><td>2</td><td>マーケ担当がRLC1を<strong>諦めた/優先度下げた</strong></td><td>★★</td><td>他商品には積極投資してるため、リソース差配の判断か</td></tr>
+<tr><td>3</td><td>Amazon自動最適化が「RLC1は勝てない」と判定して<strong>自動的にImp配信を絞った</strong></td><td>★★</td><td>Hilanderが強すぎて入札で負ける可能性</td></tr>
+<tr><td>4</td><td>4月に<strong>他新商品ローンチ</strong>で予算がそちらにシフト</td><td>★</td><td>マット8cmや ULマットが4月以降拡大している</td></tr>
+<tr><td>5</td><td>キャンペーン整理・KW削除で<strong>意図せず絞りすぎ</strong>た</td><td>★★</td><td>4月に一気に消えたKWパターンから可能性あり</td></tr>
+</tbody>
+</table>
+
+<div class="warn">
+<strong>⚠️ 意思決定への含意:</strong>
+<br>「効率化パラドックス」が全社的なら全社レベルのKPI再設計が必要だが、<strong>RLC1個別問題なら「RLC1をどうするか」の商品戦略判断</strong>が必要。
+<br>対応策も大きく異なる。
+</div>
+
+<!-- ============ Claude提案 ============ -->
+<h2 id="suggestions" class="green">🤖 Claude提案：RLC1の意思決定フレーム</h2>
+
+<div class="hypo">
+<p><strong>RLC1について、以下3つの意思決定が必要:</strong></p>
+</div>
+
+<h3>選択肢A: リソース戻して復活狙う（投資フェーズ復帰）</h3>
+<table>
+<thead><tr><th>アクション</th><th>コスト</th><th>期待効果</th></tr></thead>
+<tbody>
+<tr><td>広告費を¥131K（3月水準）に戻す</td><td>月¥50-70K追加</td><td>Imp回復・オーガニック順位改善</td></tr>
+<tr><td>消えた主要KW（カテゴリ/競合）を段階的復活</td><td>時間</td><td>モール露出回復</td></tr>
+<tr><td>ROAS目標を6xに緩和（現11.8x→半減想定）</td><td>短期売上変動</td><td>投資枠拡大</td></tr>
+<tr><td>3ヶ月後に効果測定</td><td>-</td><td>復活可否判定</td></tr>
+</tbody>
+</table>
+
+<h3>選択肢B: 戦略的撤退・他商品にリソース集中</h3>
+<table>
+<thead><tr><th>アクション</th><th>コスト</th><th>期待効果</th></tr></thead>
+<tbody>
+<tr><td>RLC1広告を指名KWのみに最小化</td><td>-</td><td>リソース解放</td></tr>
+<tr><td>浮いた予算をエアポンプ・マット系に配分</td><td>-</td><td>成長商品の加速</td></tr>
+<tr><td>RLC1は自然オーガニックで維持（緩やかな衰退受容）</td><td>-</td><td>意思決定コスト削減</td></tr>
+<tr><td>次期モデル開発 or 販売終了検討</td><td>時間</td><td>ポートフォリオ最適化</td></tr>
+</tbody>
+</table>
+
+<h3>選択肢C: ハイブリッド（Aを2ヶ月試して判断）</h3>
+<table>
+<thead><tr><th>アクション</th><th>コスト</th><th>期待効果</th></tr></thead>
+<tbody>
+<tr><td>8-9月にAを試験実施</td><td>月¥50-70K×2ヶ月</td><td>低リスクな仮説検証</td></tr>
+<tr><td>10月頭に効果測定 → 継続 or Bへ切替</td><td>-</td><td>データドリブンな判断</td></tr>
+</tbody>
+</table>
+
+<div class="conc" style="background:#f5f3ff;border-left-color:#8b5cf6">
+<h3 style="color:#5b21b6">🥇 Claude推奨: 選択肢C（ハイブリッド）</h3>
+<ol style="margin-left:20px;margin-top:8px">
+<li><strong>まず「RLC1が絞られた理由」を確認</strong>（意図的か・自動化の副作用か）</li>
+<li>意図的でないなら <strong>8-9月に選択肢A（投資復帰）を試験</strong></li>
+<li>2ヶ月後に効果判定 → 復活可能ならA継続、無理ならB（撤退）</li>
+</ol>
+<p style="margin-top:12px"><strong>「なぜ絞られたか」の解明が先決</strong>。マーケ担当への確認 → データ検証 → 実行判断の順で。</p>
+</div>
+
+<!-- ============ 3レポの関係再掲 ============ -->
+<h2 class="blue">📚 関連レポート</h2>
+<table>
+<thead><tr><th>レポート</th><th>粒度</th><th>役割</th></tr></thead>
+<tbody>
+<tr><td><a href="./2026-08-19_WAQ-RLC1_広告効率化パラドックス検証.html" style="color:#3b82f6">① RLC1広告効率化パラドックス検証</a></td><td>単商品</td><td>詳細ドリルダウン</td></tr>
+<tr><td><a href="./2026-08-19_WAQ全体_SP広告14ヶ月推移.html" style="color:#3b82f6">② WAQ全体SP広告14ヶ月推移</a></td><td>全社</td><td>マクロトレンド</td></tr>
+<tr><td><strong>③ 本レポート（全社性検証）</strong></td><td>個別×5</td><td><strong>仮説の切り分け</strong></td></tr>
+</tbody>
+</table>
+
+<div class="footer">
+Generated 2026/8/19 12:54:20 / データ元: Amazon SP広告 検索用語レポート 14ヶ月 5商品<br>
+WAQ株式会社 マーケティング分析
+</div>
+
+</div>
+
+<script>
+Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif";
+
+// Cost 5商品
+new Chart(document.getElementById('costChart'), {
+  type:'line',
+  data:{ labels:["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07"], datasets:[
+    { label:'ULマット', data:[2755,8880,6734,69559,250247,238510,285776,107739,163905,125977,167280,90700,189625], borderColor:'#3b82f6', backgroundColor:'transparent', tension:0.3, borderWidth:2 },
+{ label:'RLC1', data:[119921,67713,60709,63343,347355,104235,91842,89692,131755,58958,138746,79916,88902], borderColor:'#dc2626', backgroundColor:'transparent', tension:0.3, borderWidth:3 },
+{ label:'エアポンプ', data:[51680,11619,493,88796,217725,196620,198750,103055,194602,233593,271193,168375,247601], borderColor:'#059669', backgroundColor:'transparent', tension:0.3, borderWidth:2 },
+{ label:'マット8cm', data:[0,0,0,317380,689985,227463,234919,175426,262303,185453,336182,328443,313974], borderColor:'#f59e0b', backgroundColor:'transparent', tension:0.3, borderWidth:2 },
+{ label:'リラクシングピロー', data:[0,0,0,48798,264984,106768,277046,123241,145716,200274,277693,178740,177895], borderColor:'#9b59b6', backgroundColor:'transparent', tension:0.3, borderWidth:2 }
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{title:{display:true,text:'月別 広告費（RLC1赤太線・4月以降低位）'}},
+    scales:{y:{title:{display:true,text:'広告費¥'},ticks:{callback:v=>'¥'+(v/1000).toFixed(0)+'k'}}}
+  }
+});
+
+// Imp
+new Chart(document.getElementById('impChart'), {
+  type:'line',
+  data:{ labels:["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07"], datasets:[
+    { label:'ULマット', data:[10905,26937,22607,69641,297327,275171,333671,100733,242163,222548,341542,148094,335311], borderColor:'#3b82f6', backgroundColor:'transparent', tension:0.3, borderWidth:2 },
+{ label:'RLC1', data:[334299,175404,141537,149008,569574,155444,140466,148921,237531,89527,298946,143810,174053], borderColor:'#dc2626', backgroundColor:'transparent', tension:0.3, borderWidth:3 },
+{ label:'エアポンプ', data:[220224,40025,1002,83359,312438,209566,224150,130987,291159,319128,747322,432785,474277], borderColor:'#059669', backgroundColor:'transparent', tension:0.3, borderWidth:2 },
+{ label:'マット8cm', data:[0,0,0,184080,660814,236291,323493,305996,393828,252068,583021,405575,508480], borderColor:'#f59e0b', backgroundColor:'transparent', tension:0.3, borderWidth:2 },
+{ label:'リラクシングピロー', data:[0,0,0,49802,342751,119345,314935,146453,231019,315750,423271,210847,360552], borderColor:'#9b59b6', backgroundColor:'transparent', tension:0.3, borderWidth:2 }
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{title:{display:true,text:'月別 Impression'}},
+    scales:{y:{title:{display:true,text:'Impression'}}}
+  }
+});
+
+// ROAS
+new Chart(document.getElementById('roasChart'), {
+  type:'line',
+  data:{ labels:["2025-07","2025-08","2025-09","2025-10","2025-11","2025-12","2026-01","2026-02","2026-03","2026-04","2026-05","2026-06","2026-07"], datasets:[
+    { label:'ULマット', data:[4.88,3.95,0.00,8.57,6.04,6.49,5.33,5.57,6.96,9.64,6.71,5.35,10.23], borderColor:'#3b82f6', backgroundColor:'transparent', tension:0.3, borderWidth:2, spanGaps:true },
+{ label:'RLC1', data:[7.93,5.64,5.47,9.05,4.97,5.23,4.66,4.39,5.58,14.88,9.02,9.39,11.81], borderColor:'#dc2626', backgroundColor:'transparent', tension:0.3, borderWidth:3, spanGaps:true },
+{ label:'エアポンプ', data:[6.03,5.36,0.00,11.17,11.82,7.91,7.32,7.60,8.75,9.45,7.90,6.64,10.83], borderColor:'#059669', backgroundColor:'transparent', tension:0.3, borderWidth:2, spanGaps:true },
+{ label:'マット8cm', data:[null,null,null,6.30,7.03,6.30,5.70,6.39,6.04,9.43,8.69,6.44,10.41], borderColor:'#f59e0b', backgroundColor:'transparent', tension:0.3, borderWidth:2, spanGaps:true },
+{ label:'リラクシングピロー', data:[null,null,null,8.81,9.31,8.85,6.66,5.31,9.79,11.72,8.77,7.47,15.03], borderColor:'#9b59b6', backgroundColor:'transparent', tension:0.3, borderWidth:2, spanGaps:true }
+  ]},
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{title:{display:true,text:'月別 ROAS（全商品上昇傾向・投資フェーズと局面フェーズは別物）'}},
+    scales:{y:{title:{display:true,text:'ROAS(倍)'}}}
+  }
+});
+</script>
+</body>
+</html>
